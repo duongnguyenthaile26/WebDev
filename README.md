@@ -8,4 +8,4 @@ Homescreen cũng oke rồi, nhưng mà chỉnh lại một xíu như sau:
 
 Thêm footer vào, rồi thêm mấy cái card vào để check sớm
 
-Okela
+Okela~
