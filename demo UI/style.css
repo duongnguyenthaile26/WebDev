@@ -5,12 +5,21 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
-    background-color: #a53b37;
+    margin: 0 auto;
 }
+
+header, footer {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    z-index: 0;
+}
+
 .top-header {
     padding: 15px 0;
-    background: #000000;
+    background: #040a18;
     color: #ffffff;
 }
 
@@ -34,7 +43,7 @@ body {
 
 .side-bar .menu {
     width: 100%;
-    margin-top: 122px;
+    margin-top: 125px;
 }
 
 .side-bar .menu .item {
@@ -183,7 +192,6 @@ body {
 footer {
     position: fixed;
     bottom: 0;
-    z-index: 0;
 }
 
 .footer {
