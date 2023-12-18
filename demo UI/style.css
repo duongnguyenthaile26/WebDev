@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #a53b37;
+}
+.top-header {
+    padding: 15px 0;
+    background: #000000;
+    color: #ffffff;
+}
+
+.side-bar {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    width: 300px;
+    height: fit-content;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    overflow-y: auto;
+    transition: 0.3s ease;
+    transition-property: left;
+}
+
+.side-bar.active {
+    left: 0;
+}
+
+.side-bar .menu {
+    width: 100%;
+    margin-top: 120px;
+}
+
+.side-bar .menu .item {
+    position: relative;
+    cursor: pointer;
+}
+
+.side-bar .menu .item a {
+    color: #ffffff;
+    background-color: gray;
+    font-size: 16px;
+    text-decoration: none;
+    display: block;
+    padding: 5px 30px;
+    line-height: 60px;
+}
+
+.side-bar .menu .item a:hover {
+    background: lightgray;
+    transition: 0.3s ease;
+}
+
+.side-bar .menu .item i {
+    margin-right: 15px;
+}
+
+.side-bar .menu .item a .dropdown {
+    position: absolute;
+    right: 0;
+    margin: 20px;
+    transition: 0.3s ease;
+}
+
+.side-bar .menu .item .sub-menu {
+    display: none;
+}
+
+.side-bar .menu .item .sub-menu a {
+    background: darkgray;
+    padding-left: 80px;
+}
+
+.side-bar .menu .item .sub-menu a:hover {
+    background: lightgray;
+}
+
+.rotate {
+    transform: rotate(90deg);
+}
+
+.close-btn {
+    display: inline-block;
+    position: absolute;
+    color: #ffffff;
+    font-size: 30px;
+    right: 0;
+    margin: 25px;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background-color: lightgray;
+}
+
+.menu-btn {
+    display: inline-block;
+    color: #ffffff;
+    font-size: 30px;
+    padding: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.menu-btn:hover {
+    background-color: #202020;
+
+}
+
+.top-header .search {
+    width: 100%;
+    font-size: 40px;
+    font-style: italic;
+    font-family: 'Dancing Script', cursive;
+}
+
+.top-header .search input[type=text] {
+    width: 100%;
+    height: 40px;
+    padding: 0 15px;
+    color: #666666;
+    border: 1px solid #a53b37;
+}
+
+.top-header .search button {
+    position: absolute;
+    width: 40px;
+    height: 38px;
+    top: 1px;
+    right: 16px;
+    padding: 0 15px;
+    border: none;
+    background: none;
+    color: #a53b37;
+}
+
+.top-header .search button:hover {
+    background: #a53b37;
+    color: #ffffff;
+}
+
+.top-header .user {
+    width: 100%;
+    padding: 0 30px;
+    text-align: right;
+}
+
+.top-header .user .dropdown {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.top-header .user .dropdown-menu {
+    border-radius: 0;
+}
+
+.top-header .user .cart {
+    display: inline-block;
+    padding: 20px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+.top-header .user .cart > span > i {
+    font-size: 30px;
+}
+
+.top-header .user .cart i {
+    color: #a53b37;
+    font-size: 18px;
+}
