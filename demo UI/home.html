@@ -1,147 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <title>Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
+  <body>
     <!-- ===================SIDEBAR=================== -->
     <div class="side-bar">
-        <div class="close-btn">
-            <i class="fas fa-times fa-beat"></i>
+      <div class="close-btn">
+        <i class="fas fa-times fa-beat"></i>
+      </div>
+      <div class="menu">
+        <div class="item">
+          <a href="#"><i class="fas fa-cart-shopping"></i>Cart</a>
         </div>
-        <div class="menu">
-            <div class="item"><a href="#"><i class="fas fa-desktop"></i>Dashboard</a></div>
-            <div class="item">
-                <a class="sub-btn"><i class="fas fa-table"></i>Table<i class="fas fa-angle-right dropdown"></i></a>
-                <div class="sub-menu">
-                    <a href="#" class="sub-item">Sub Item 01</a>
-                    <a href="#" class="sub-item">Sub Item 02</a>
-                    <a href="#" class="sub-item">Sub Item 03</a>
-                </div>
-            </div>
-            <div class="item"><a href="#"><i class="fas fa-th"></i>Forms</a></div>
-            <div class="item">
-                <a class="sub-btn"><i class="fas fa-cogs"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
-                <div class="sub-menu">
-                    <a href="#" class="sub-item">Sub Item 01</a>
-                    <a href="#" class="sub-item">Sub Item 02</a>
-                </div>
-            </div>
-            <div class="item"><a href="#"><i class="fas fa-info-circle"></i>About</a></div>
+        <div class="item">
+          <a>
+            <p style="margin-bottom: 0">Search for flags by name</p>
+            <form id="search-form">
+              <div class="input-group rounded">
+                <input
+                  type="search"
+                  class="form-control rounded"
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="search-addon"
+                />
+                <span
+                  class="input-group-text border-0 search-box"
+                  id="search-addon"
+                >
+                  <i class="fas fa-search"></i>
+                </span>
+              </div>
+            </form>
+          </a>
         </div>
+        <div class="item">
+          <a class="sub-btn"
+            ><i class="fas fa-flag"></i>Categories
+            <i class="fas fa-angle-right dropdown"></i
+          ></a>
+          <div class="sub-menu">
+            <a href="#" class="sub-item">National</a>
+            <a href="#" class="sub-item">Political</a>
+            <a href="#" class="sub-item">Sporting</a>
+            <a href="#" class="sub-item">Organizational</a>
+            <a href="#" class="sub-item">Others</a>
+          </div>
+        </div>
+        <div class="item">
+          <a href="#"><i class="fas fa-info-circle"></i>About</a>
+        </div>
+      </div>
     </div>
     <!-- ===================SIDEBAR=================== -->
 
     <!-- ===================HEADER=================== -->
     <header class="top-header">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-md-3">
-                <div class="menu-btn">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="search d-flex justify-content-center">
-                    <span class="fw-bolder m-3">FLAG BAY</span>
-                    <img src="./logo.png" alt="Logo" width="100" height="70"/>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="user">
-                    <div class="cart">
-                        <span><i class="far fa-user"></i></span>
-                    </div>
-                </div>
-            </div>
+      <div class="row justify-content-between align-items-center">
+        <div class="col-md-3">
+          <div class="menu-btn">
+            <i class="fas fa-bars"></i>
+          </div>
         </div>
+
+        <div class="col-md-6">
+          <div class="search d-flex justify-content-center">
+            <span class="fw-bolder m-3">FLAGBAY</span>
+            <img src="./logo.png" alt="Logo" width="100" height="70" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="user">
+            <div class="cart">
+              <span><i class="far fa-user"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
     <!-- ===================HEADER=================== -->
 
     <!-- ===================FOOTER=================== -->
     <footer class="footer">
-        <div class="footer-left">
-            <h3>Payment Method</h3>
-            <div class="credit-cards">
-                <img src="visa.png" alt="visa">
-                <img src="mastercard.png" alt="mastercard">
-                <img src="paypal.png" alt="paypal">
-            </div>
-            <p class="footer-copyright">©️2023 DucTin</p>
+      <div class="footer-left">
+        <h3>Payment Method</h3>
+        <div class="credit-cards">
+          <img src="visa.png" alt="visa" />
+          <img src="mastercard.png" alt="mastercard" />
+          <img src="paypal.png" alt="paypal" />
         </div>
+        <p class="footer-copyright">©️2023 DucTin</p>
+      </div>
 
-        <div class="footer-center">
-            <div>
-                <i class="fa fa-map-marker"></i>
-                <p><span>VietNam</span>227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh</p>
-            </div>
-            <div>
-                <i class="fa fa-phone"></i>
-                <p>0901276608</p>
-            </div>
-            <div>
-                <i class="fa fa-envelope"></i>
-                <p><a href="#">ndtin21@clc.fitus.edu.vn</a></p>
-            </div>
+      <div class="footer-center">
+        <div>
+          <i class="fa fa-map-marker"></i>
+          <p>
+            <span>VietNam</span>
+          </p>
         </div>
-
-        <div class="footer-right">
-            <p class="footer-about">
-                <span>About</span>
-                Di Channel ini kita akan berbagi barbagai Tutorial design, Pemograman dan lain-lain. Silahkan subscribe untuk kemajuan channel ini, jangan lupa, like dan comments. agar channel ini semakin berkembang
-            </p>
-
-            <div class="footer-media">
-                <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-            </div>
+        <div>
+          <i class="fa fa-phone"></i>
+          <p>0901276608</p>
         </div>
+        <div>
+          <i class="fa fa-envelope"></i>
+          <p><a href="#">ndtin21@clc.fitus.edu.vn</a></p>
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <p class="footer-about">
+          <span>About</span>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum
+          animi quidem molestiae, necessitatibus eveniet fugiat sit obcaecati
+          consequatur non officia accusamus quod saepe aperiam commodi explicabo
+          ab earum. Eos, asperiores.
+        </p>
+
+        <div class="footer-media">
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+      </div>
     </footer>
     <!-- ===================FOOTER=================== -->
 
     <script>
-        $(document).ready(function() {
-            $('.sub-btn').click(function() {
-                $(this).next('.sub-menu').slideToggle();
-                $(this).find('.dropdown').toggleClass('rotate');
-            });
-            
-            $('.menu-btn').click(function() {
-                $('.side-bar').addClass('active');
-                $('.menu-btn').css('visibility', 'hidden');
-            });
-
-            $('.close-btn').click(function() {
-                $('.side-bar').removeClass('active');
-                $('.menu-btn').css('visibility', 'visible');
-            });
-
-            $(document).on('click', function (event) {
-                if (
-                    !$(event.target).closest('.side-bar').length &&
-                    !$(event.target).is('.side-bar') &&
-                    !$(event.target).is('.menu-btn') &&
-                    !$(event.target).closest('.menu-btn').length
-                ) {
-                    $('.side-bar').removeClass('active');
-                    $('.menu-btn').css('visibility', 'visible');
-                }
-            });
+      $(document).ready(function () {
+        $(".sub-btn").click(function () {
+          $(this).next(".sub-menu").slideToggle();
+          $(this).find(".dropdown").toggleClass("rotate");
         });
-    </script>
-</body>
 
+        $(".menu-btn").click(function () {
+          $(".side-bar").addClass("active");
+          $(".menu-btn").css("visibility", "hidden");
+        });
+
+        $(".close-btn").click(function () {
+          $(".side-bar").removeClass("active");
+          $(".menu-btn").css("visibility", "visible");
+        });
+
+        $(document).on("click", function (event) {
+          if (
+            !$(event.target).closest(".side-bar").length &&
+            !$(event.target).is(".side-bar") &&
+            !$(event.target).is(".menu-btn") &&
+            !$(event.target).closest(".menu-btn").length
+          ) {
+            $(".side-bar").removeClass("active");
+            $(".menu-btn").css("visibility", "visible");
+          }
+        });
+      });
+      $(".search-box").click(function () {
+        $("#search-form").submit();
+      });
+    </script>
+  </body>
 </html>
