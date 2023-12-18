@@ -7,3 +7,5 @@ Homescreen cũng oke rồi, nhưng mà chỉnh lại một xíu như sau:
 - Thanh sidebar cho thêm khả năng trượt lên xuống
 
 Thêm footer vào, rồi thêm mấy cái card vào để check sớm
+
+Okela~
