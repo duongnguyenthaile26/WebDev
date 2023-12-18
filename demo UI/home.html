@@ -77,7 +77,7 @@
                 <img src="mastercard.png" alt="mastercard">
                 <img src="paypal.png" alt="paypal">
             </div>
-            <p class="footer-copyright">2023 DucTin</p>
+            <p class="footer-copyright">©️2023 DucTin</p>
         </div>
 
         <div class="footer-center">
@@ -127,6 +127,18 @@
             $('.close-btn').click(function() {
                 $('.side-bar').removeClass('active');
                 $('.menu-btn').css('visibility', 'visible');
+            });
+
+            $(document).on('click', function (event) {
+                if (
+                    !$(event.target).closest('.side-bar').length &&
+                    !$(event.target).is('.side-bar') &&
+                    !$(event.target).is('.menu-btn') &&
+                    !$(event.target).closest('.menu-btn').length
+                ) {
+                    $('.side-bar').removeClass('active');
+                    $('.menu-btn').css('visibility', 'visible');
+                }
             });
         });
     </script>
