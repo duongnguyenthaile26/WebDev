@@ -13,8 +13,6 @@ body {
 header,
 footer {
   width: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
   z-index: 0;
 }
 
@@ -27,7 +25,7 @@ footer {
 .side-bar {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
-  width: 600px;
+  width: fit-content;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -35,7 +33,7 @@ footer {
   overflow-y: auto;
   transition: 0.3s ease;
   transition-property: left;
-  z-index: 1;
+  z-index: 2;
 }
 
 .side-bar.active {
@@ -54,7 +52,7 @@ footer {
 
 .side-bar .menu .item a {
   color: #ffffff;
-  background-color: gray;
+  background-color: #204387;
   font-size: 16px;
   text-decoration: none;
   display: block;
@@ -63,7 +61,7 @@ footer {
 }
 
 .side-bar .menu .item a:hover {
-  background: lightgray;
+  background: rgb(92, 136, 194);
   transition: 0.3s ease;
 }
 
@@ -83,12 +81,12 @@ footer {
 }
 
 .side-bar .menu .item .sub-menu a {
-  background: darkgray;
+  background: #1a3765;
   padding-left: 80px;
 }
 
 .side-bar .menu .item .sub-menu a:hover {
-  background: lightgray;
+  background: rgb(92, 136, 194);
 }
 
 .rotate {
@@ -178,7 +176,7 @@ footer {
   background-color: #ffffff;
 }
 
-.top-header .user .cart > span > i {
+.top-header .user .cart>span>i {
   font-size: 30px;
 }
 
@@ -186,6 +184,8 @@ footer {
   color: #a53b37;
   font-size: 18px;
 }
+
+
 /* need edit */
 
 footer {
@@ -212,6 +212,7 @@ footer {
 .footer .footer-left {
   width: 30%;
 }
+
 .footer h3 {
   color: #f5f5f5;
   margin: 0;
@@ -318,4 +319,96 @@ footer {
 
 .footer .footer-media a:hover {
   background-color: rgb(0, 122, 82);
+}
+
+.bg-image {
+  width: 100%;
+  height: 25rem;
+  background-image: url("https://img.freepik.com/premium-photo/background-many-different-flags-concept-international-community_795422-7126.jpg?w=2000");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+.image-top>.text {
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 80%;
+  padding: 20px;
+  text-align: center;
+}
+
+.carousel-item>img,
+.carousel-item :active>img {
+  height: 250px;
+}
+
+.carousel-item,
+.carousel-item :active {
+  transition: transform 0.6s ease;
+}
+
+.top {
+  background-color: #162D5A;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  color: white;
+}
+
+.top>.btn {
+  height: fit-content;
+}
+
+.bot {
+  background-color: #204387;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+
+}
+
+.card {
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px 0 rgba(6, 233, 195, 0.2), 0 6px 20px 0 rgba(6, 233, 195, 0.2);
+  box-sizing: border-box;
+}
+
+.img-fluid {
+  height: 15rem;
+}
+
+.title-product {
+  background: url(https://kinhmatanna.com/wp-content/uploads/2022/08/Vector-3-1.svg);
+  background-repeat: no-repeat;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 15vw;
+  transition: transform 1.2s;
+}
+
+.card-img-top:hover {
+  transform: scale(1.1);
+}
+
+.btn-group {
+  width: 3rem;
+  height: 3rem;
+}
+
+.btn-link {
+  text-decoration: none;
 }

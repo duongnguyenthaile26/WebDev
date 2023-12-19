@@ -1,0 +1,54 @@
+.modal {
+    --bs-modal-width: 800px;
+}
+
+.modal-content {
+    background-color: #f0f2f5;
+}
+
+.content-right {
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgb(0 0 0 /10%), 0 8px 16px rgb(0 0 0 /10%);
+    box-sizing: border-box;
+}
+
+.content-right>.forgot-password {
+    text-decoration: none;
+    color: #03A9F4;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.content-right>.form-control::placeholder {
+    color: #212529;
+}
+
+.content-right>.brand {
+    text-transform: uppercase;
+    font-size: 20px;
+    color: #1877f2;
+    text-align: center;
+    font-weight: 600;
+}
+
+.content-left {
+    margin-top: 50px;
+
+}
+
+.content-left>.brand {
+    text-transform: uppercase;
+    font-size: 30px;
+    color: #1877f2;
+}
+
+.content-left>.detail {
+    font-size: 25px;
+}
+
+.content-left>.pic>img {
+    width: 300px
+}
