@@ -1,6 +1,6 @@
 ## Vào thư mục controller, đọc file home.js và chỉnh lại các file EJS theo comment trong đó nha
 
-Cái chỗ Footer, thay vì cái Payment Methods, làm cho hiển thị cái biểu đồ số lượt truy cập nha (tạm thời gán cứng số)
+### Cái chỗ Footer, thay vì cái Payment Methods, làm cho hiển thị cái biểu đồ số lượt truy cập nha (tạm thời gán cứng số)
 
 Giờ làm tiếp cái trang hiện ra khi tìm kiếm theo danh mục, và trang search (nhớ có các checkbox để lọc tìm kiếm, checkbox này là theo các danh mục thôi)
 
