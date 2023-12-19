@@ -122,6 +122,8 @@ footer {
 
 .menu-btn:hover {
   background-color: #202020;
+  transform: rotate(270deg);
+  transition: 0.5s;
 }
 
 /* need edit */

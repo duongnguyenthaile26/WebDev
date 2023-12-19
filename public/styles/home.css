@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nova+Slim&display=swap');
 
 * {
   margin: 0;
@@ -25,7 +25,7 @@ footer {
 .side-bar {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
-  width: fit-content;
+  width: 30vw;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -120,6 +120,8 @@ footer {
 
 .menu-btn:hover {
   background-color: #202020;
+  transform: rotate(270deg);
+  transition: 0.5s;
 }
 
 /* need edit */
@@ -211,6 +213,14 @@ footer {
 
 .footer .footer-left {
   width: 30%;
+}
+
+.footer .footer-left .user {
+  font-size: 40px;
+}
+
+.footer .footer-left .user .odometer {
+  margin-right: 2px;
 }
 
 .footer h3 {
