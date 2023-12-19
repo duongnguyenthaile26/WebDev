@@ -13,8 +13,6 @@ body {
 header,
 footer {
   width: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
   z-index: 0;
 }
 
@@ -27,7 +25,7 @@ footer {
 .side-bar {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
-  width: 600px;
+  width: fit-content;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -186,6 +184,7 @@ footer {
   color: #a53b37;
   font-size: 18px;
 }
+
 
 /* need edit */
 
@@ -403,4 +402,13 @@ footer {
 
 .card-img-top:hover {
   transform: scale(1.1);
+}
+
+.btn-group {
+  width: 3rem;
+  height: 3rem;
+}
+
+.btn-link {
+  text-decoration: none;
 }
