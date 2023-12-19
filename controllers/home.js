@@ -6,6 +6,14 @@ async function render(req, res, next) {
     /*
     -Trong mục gợi ý sản phẩm, nhét 12 cờ rẻ nhất vào
     -cheapestFlags là một mảng gồm 12 phần tử, mỗi phần tử là một object gồm _id, name, price, image, type
+    -ví dụ về một object trong mảng:
+    {
+      _id: new ObjectId('658131855b3f5194ddd346eb'),
+      name: 'Norway',
+      price: 106.01,
+      image: 'no.png',
+      type: 'national'
+    }
     -hiển thị trên mỗi card là name, type, price, và image
     -image của flag sẽ có đường dẫn như sau: "flags/<%= flag.type %>/<%= flag.image %>"
     -trên mỗi tag card thì cho bọc bởi một tag a (tạm thời để href="#") và cho thêm cái id của tag <a> là id="<%= flag._id %>", để sau này có thể click vào và đi đến trang thông tin cờ
