@@ -1,0 +1,13 @@
+{
+  // File nay dung de thiet lap VSCODE khi su dung extension Prettier
+  "editor.tabSize": 2,
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.wordWrap": "on"
+  // "editor.fontFamily": "Consolas, 'Courier New', monospace",
+  // "workbench.colorTheme": "Dracula"
+}
