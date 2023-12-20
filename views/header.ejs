@@ -1,6 +1,5 @@
 <%- include('login.ejs', { isModalVisible: true }) %>
     <%- include('register.ejs', { isModalVisible: true }) %>
-
         <header class="top-header">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="col-3">
@@ -12,8 +11,8 @@
                 <div class="col-6">
                     <div class="search d-flex justify-content-center">
                         <a href="/" style="color: inherit; text-decoration: none">
-                          <span class="fw-bolder m-3">FLAGBAY</span>
-                          <img src="images/flagicon.png" alt="Logo" width="100" height="70" />
+                            <span class="fw-bolder m-3">FLAGBAY</span>
+                            <img src="images/flagicon.png" alt="Logo" width="100" height="70" />
                         </a>
                     </div>
                 </div>
@@ -21,27 +20,60 @@
                     <div class="user">
                         <div class="d-flex justify-content-center  align-items-center">
                             <div class="btn-group rounded-circle">
-                                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <i class="fa-regular fa-user fs-5"></i>
-                                </button>
-                                <ul class="dropdown-menu"
-                                    style="border-radius: 10px; background-color: rgba(245, 240, 246, 0.8);">
-                                    <li class="d-flex justify-content-center"> <button type="button"
-                                            class="login-container btn btn-link" data-bs-toggle="modal"
-                                            data-bs-target="#LoginModal">
-                                            Login
-                                        </button></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
+                                <% if (user) { %>
+                                    <!-- Hiển thị dropdown cho người dùng đã đăng nhập -->
+                                    <button type="button"
+                                        class="btn btn-danger dropdown-toggle d-flex align-items-center"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-regular fa-user fs-5 mx-2"></i>
+                                        <div>Welcome, <%= user.username %>
+                                        </div>
+                                    </button>
+                                    <div class="user-dropdown">
+                                        <ul class="dropdown-menu"
+                                            style="border-radius: 10px; background-color: rgba(245, 240, 246, 0.8);">
+                                            <li class="d-flex justify-content-center"> <button type="button"
+                                                    class="login-container btn btn-link">
+                                                    Profile Page
+                                                </button></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
 
-                                    <li class="d-flex justify-content-center"><button type="button"
-                                            class="register-container btn btn-link" data-bs-toggle="modal"
-                                            data-bs-target="#RegisterModal">
-                                            Register
-                                        </button></li>
-                                </ul>
+                                            <li class="d-flex justify-content-center"><button type="button"
+                                                    class="register-container btn btn-link">
+                                                    Logout
+                                                </button></li>
+                                        </ul>
+                                    </div>
+                                    <% } else { %>
+                                        <!-- Hiển thị dropdown cho người dùng chưa đăng nhập -->
+                                        <button type="button" class="btn btn-danger dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-regular fa-user fs-5"></i>
+
+                                        </button>
+                                        <div class="login-dropdown">
+                                            <ul class="dropdown-menu"
+                                                style="border-radius: 10px; background-color: rgba(245, 240, 246, 0.8);">
+                                                <li class="d-flex justify-content-center"> <button type="button"
+                                                        class="login-container btn btn-link" data-bs-toggle="modal"
+                                                        data-bs-target="#LoginModal">
+                                                        Login
+                                                    </button></li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+
+                                                <li class="d-flex justify-content-center"><button type="button"
+                                                        class="register-container btn btn-link" data-bs-toggle="modal"
+                                                        data-bs-target="#RegisterModal">
+                                                        Register
+                                                    </button></li>
+                                            </ul>
+                                        </div>
+                                        <% } %>
+
                             </div>
                         </div>
                     </div>

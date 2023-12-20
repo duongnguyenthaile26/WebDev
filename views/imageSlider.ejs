@@ -16,173 +16,45 @@
             </div>
 
             <div class="p-3 bot">
-                <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselExampleIndicators2" class="carousel slide" data-bs-interval="false">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                            src="https://i.pinimg.com/564x/7a/46/3c/7a463c21fdd361c2048a90c022bca09a.jpg" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Title
-                                            </h4>
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor
-                                                incididunt
-                                                ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non.
-                                            </p>
-                                        </div>
+                        <% const itemsPerSlide=3; %>
+                            <% [cheapestFlags, nationalFlags, politicalFlags, orgFlags, sportingFlags,
+                                otherFlags].forEach((flagGroup, index)=> { %>
+                                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                    <div class="row">
+                                        <% for (let i=0; i < 3; i +=itemsPerSlide) { %>
+                                            <div class="carousel-inner">
+                                                <div class="row">
+                                                    <% for (let j=i; j < i + itemsPerSlide; j++) { %>
+                                                        <% if (j < flagGroup.length) { %>
+                                                            <div class="col-md-4 mb-3">
+                                                                <div class="card">
+                                                                    <img class="img-fluid" alt="100%x280"
+                                                                        src="flags/<%= flagGroup[j].type %>/<%= flagGroup[j].image %>" />
+                                                                    <div class="card-body">
+                                                                        <div class="card-title fs-5 fw-bold">
+                                                                            <%= flagGroup[j].name %>
+                                                                        </div>
+                                                                        <div class="card-text type text-uppercase ">
+                                                                            <div>
+                                                                                <%= flagGroup[j].type %>
+                                                                            </div>
+                                                                            <div class="price text-danger fw-bold ">
+                                                                                <%= flagGroup[j].price %>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <% } %>
+                                                                <% } %>
+                                                </div>
+                                            </div>
+                                            <% } %>
                                     </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                            src="https://i.pinimg.com/564x/10/3f/c5/103fc5b3eacdbe0219d4bea002640d82.jpg" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Title
-                                            </h4>
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor
-                                                incididunt
-                                                ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                            src="https://i.pinimg.com/564x/5e/70/a6/5e70a6b890822f39177e1c78c24bc0ed.jpg" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Title
-                                            </h4>
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor
-                                                incididunt
-                                                ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                            src="https://i.pinimg.com/564x/7a/46/3c/7a463c21fdd361c2048a90c022bca09a.jpg" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Title
-                                            </h4>
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor
-                                                incididunt
-                                                ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                            src="https://i.pinimg.com/564x/08/99/39/08993914c269bcfd8b76384eaeec3a2b.jpg" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Title
-                                            </h4>
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor
-                                                incididunt
-                                                ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                            src="https://i.pinimg.com/564x/46/52/d2/4652d2948c3b1df8ee28da939f6a1a49.jpg" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Title
-                                            </h4>
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor
-                                                incididunt
-                                                ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                            src="https://i.pinimg.com/564x/ae/2d/19/ae2d19a448fcf8aa5f001675ca80bec9.jpg" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Title
-                                            </h4>
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor
-                                                incididunt
-                                                ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                            src="https://i.pinimg.com/564x/fa/f6/82/faf6823be01222a6e74080ed26409992.jpg" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Title
-                                            </h4>
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor
-                                                incididunt
-                                                ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <img class="img-fluid" alt="100%x280"
-                                            src="https://i.pinimg.com/564x/2a/5b/bd/2a5bbd856b3df2c7b0fb45e7524df310.jpg" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                Title
-                                            </h4>
-                                            <p class="card-text">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor
-                                                incididunt
-                                                ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                <% }); %>
                     </div>
                 </div>
             </div>

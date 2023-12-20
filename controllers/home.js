@@ -59,8 +59,9 @@ async function render(req, res, next) {
     Vê phần user, nếu !user (tức là người dùng chưa đăng nhập), thì lúc nhấn vào icon user thì sẽ dropdown là đăng nhập và đăng ký
     ngược lại thì sẽ dropdown là "profile page" và "logout"
   */
+    // Kiểm tra xem người dùng đã đăng nhập hay chưa
     res.render("home", {
-      user: req.user, // cái này xử lý sau cũng được
+      user: (req.user = true), // cái này xử lý sau cũng được
       cheapestFlags,
       nationalFlags,
       politicalFlags,

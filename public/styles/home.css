@@ -335,6 +335,10 @@ footer {
   background-color: #ffffff;
 }
 
+.card-title {
+  height: 3rem;
+}
+
 .bg-image {
   width: 100%;
   height: 25rem;
@@ -382,6 +386,7 @@ footer {
 .top>.btn {
   height: fit-content;
 }
+
 
 .bot {
   background-color: #204387;
