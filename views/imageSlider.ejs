@@ -1,65 +1,56 @@
 <div class="image-slider p-5">
     <section class="pt-5 pb-5 mx-5">
-        <div class="">
-            <div class="top d-flex pt-3 px-3">
-                <div class="col-6">
-                    <h2 class="mb-3"> GỢI Ý SẢN PHẨM</h2>
-                </div>
-                <div class="col-6 text-right d-flex justify-content-end align-items-center">
-                    <a class="btn btn-primary mb-3 mr-1 mx-3" href="#carouselExampleIndicators2" role="button"
-                        data-bs-slide="prev">
-                        <i class="fa-solid fa-arrow-left"></i> </a>
-                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button"
-                        data-bs-slide="next">
-                        <i class="fa-solid fa-arrow-right"></i> </a>
-                </div>
-            </div>
-
-            <div class="p-3 bot">
-                <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <% const itemsPerSlide=3; %>
-                            <% [cheapestFlags, nationalFlags, politicalFlags, orgFlags, sportingFlags,
-                                otherFlags].forEach((flagGroup, index)=> { %>
-                                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                                    <div class="row">
-                                        <% for (let i=0; i < 3; i +=itemsPerSlide) { %>
-                                            <div class="carousel-inner">
-                                                <div class="row">
-                                                    <% for (let j=i; j < i + itemsPerSlide; j++) { %>
-                                                        <% if (j < flagGroup.length) { %>
-                                                            <div class="col-md-4 mb-3">
-                                                                <div class="card">
-                                                                    <a href="#" id="<%= flagGroup[j]._id %>">
-                                                                        <img class="img-fluid" alt="100%x280"
-                                                                            src="flags/<%= flagGroup[j].type %>/<%= flagGroup[j].image %>" />
-                                                                    </a>
-                                                                    <div class="card-body">
-                                                                        <div class="card-title fs-5 fw-bold">
-                                                                            <%= flagGroup[j].name %>
-                                                                        </div>
-                                                                        <div class="card-text text-uppercase ">
-                                                                            <div class="type">
-                                                                                <%= flagGroup[j].type %>
-                                                                            </div>
-                                                                            <div class="price text-danger fw-bold ">
-                                                                                <%= flagGroup[j].price %>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <% } %>
-                                                                <% } %>
-                                                </div>
-                                            </div>
-                                            <% } %>
-                                    </div>
-                                </div>
-                                <% }); %>
-                    </div>
-                </div>
-            </div>
+      <div class="">
+        <div class="top d-flex pt-3 px-3">
+          <div class="col-6">
+            <h2 class="mb-3"> GỢI Ý SẢN PHẨM</h2>
+          </div>
+          <div class="col-6 text-right d-flex justify-content-end align-items-center">
+            <a class="btn btn-primary mb-3 mr-1 mx-3" href="#carouselExampleIndicators2" role="button"
+              data-bs-slide="prev">
+              <i class="fa-solid fa-arrow-left"></i> </a>
+            <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button"
+              data-bs-slide="next">
+              <i class="fa-solid fa-arrow-right"></i> </a>
+          </div>
         </div>
+  
+        <div class="p-3 bot">
+          <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <% for (let i = 0; i < flagsToShow.length; i += 3) { %>
+              <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                <div class="row">
+                  <% for (let j = i; j < i + 3 && j < flagsToShow.length; j++) { %>
+                  <div class="col-md-4 mb-3">
+                    <div class="card">
+                      <a href="#" id="<%= flagsToShow[j]._id %>">
+                        <img class="img-fluid" alt="100%x280"
+                          src="flags/<%= flagsToShow[j].type %>/<%= flagsToShow[j].image %>" />
+                      </a>
+                      <div class="card-body">
+                        <div class="card-title fs-5 fw-bold">
+                          <%= flagsToShow[j].name %>
+                        </div>
+                        <div class="card-text text-uppercase ">
+                          <div class="type">
+                            <%= flagsToShow[j].type %>
+                          </div>
+                          <div class="price text-danger fw-bold ">
+                            <%= flagsToShow[j].price %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-</div>
+  </div>
+  

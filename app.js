@@ -14,7 +14,7 @@ const globalErrorHandler = require(path.join(
 const homeRouter = require(path.join(__dirname, "routes", "home"));
 const loginRouter = require(path.join(__dirname, "routes", "login"));
 const typeRouter = require(path.join(__dirname, "routes", "typeProduct"));
-
+const productRouter = require(path.join(__dirname, "routes", "productDetail"));
 // Initializes
 const app = express();
 
@@ -43,6 +43,7 @@ app.all("/denied", function (req, res) {
 app.use("/", homeRouter);
 app.use("/login", loginRouter);
 app.use("/typeProduct", typeRouter);
+app.use("/productDetail", productRouter);
 
 app.all("*", function (req, res, next) {
   next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));
