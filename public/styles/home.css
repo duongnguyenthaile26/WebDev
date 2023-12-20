@@ -339,6 +339,10 @@ footer {
   height: 3rem;
 }
 
+.card>a {
+  text-decoration: none;
+}
+
 .bg-image {
   width: 100%;
   height: 25rem;

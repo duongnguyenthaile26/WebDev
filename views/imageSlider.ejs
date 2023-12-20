@@ -16,7 +16,7 @@
             </div>
 
             <div class="p-3 bot">
-                <div id="carouselExampleIndicators2" class="carousel slide" data-bs-interval="false">
+                <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <% const itemsPerSlide=3; %>
                             <% [cheapestFlags, nationalFlags, politicalFlags, orgFlags, sportingFlags,
@@ -30,14 +30,16 @@
                                                         <% if (j < flagGroup.length) { %>
                                                             <div class="col-md-4 mb-3">
                                                                 <div class="card">
-                                                                    <img class="img-fluid" alt="100%x280"
-                                                                        src="flags/<%= flagGroup[j].type %>/<%= flagGroup[j].image %>" />
+                                                                    <a href="#" id="<%= flagGroup[j]._id %>">
+                                                                        <img class="img-fluid" alt="100%x280"
+                                                                            src="flags/<%= flagGroup[j].type %>/<%= flagGroup[j].image %>" />
+                                                                    </a>
                                                                     <div class="card-body">
                                                                         <div class="card-title fs-5 fw-bold">
                                                                             <%= flagGroup[j].name %>
                                                                         </div>
-                                                                        <div class="card-text type text-uppercase ">
-                                                                            <div>
+                                                                        <div class="card-text text-uppercase ">
+                                                                            <div class="type">
                                                                                 <%= flagGroup[j].type %>
                                                                             </div>
                                                                             <div class="price text-danger fw-bold ">

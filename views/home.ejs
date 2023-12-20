@@ -59,23 +59,16 @@
                 <div class="fs-1">NATIONAL</div>
               </div>
               <div class="row pb-5">
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="btn">
-                  <button type="button outline" class="btn btn-outline-primary">
-                    <a id="see-more-btn" href="/typeProduct">SEE MORE</a>
-                  </button>
-                </div>
+                <% nationalFlags.forEach((flag)=> { %>
+                  <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
+                    <%- include('card.ejs', { flag: flag }) %>
+                      <% }); %>
+                  </div>
+              </div>
+              <div class="btn d-flex justify-content-center">
+                <button type="button outline" class="btn btn-outline-primary">
+                  <a id="see-more-btn" href="/typeProduct">SEE MORE</a>
+                </button>
               </div>
             </div>
             <div id="political-section" class="product political p-5 pb-0">
@@ -84,23 +77,16 @@
                 <div class="fs-1">POLITICAL</div>
               </div>
               <div class="row pb-5">
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="btn">
-                  <button type="button outline" class="btn btn-outline-primary">
-                    <a id="see-more-btn" href="/typeProduct">SEE MORE</a>
-                  </button>
-                </div>
+                <% politicalFlags.forEach((flag)=> { %>
+                  <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
+                    <%- include('card.ejs', { flag: flag }) %>
+                      <% }); %>
+                  </div>
+              </div>
+              <div class="btn d-flex justify-content-center">
+                <button type="button outline" class="btn btn-outline-primary">
+                  <a id="see-more-btn" href="/typeProduct">SEE MORE</a>
+                </button>
               </div>
             </div>
             <div id="sporting-section" class="product sporting p-5 pb-0">
@@ -109,23 +95,16 @@
                 <div class="fs-1">SPORTING</div>
               </div>
               <div class="row pb-5">
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="btn">
-                  <button type="button outline" class="btn btn-outline-primary">
-                    <a id="see-more-btn" href="/typeProduct">SEE MORE</a>
-                  </button>
-                </div>
+                <% sportingFlags.forEach((flag)=> { %>
+                  <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
+                    <%- include('card.ejs', { flag: flag }) %>
+                      <% }); %>
+                  </div>
+              </div>
+              <div class="btn d-flex justify-content-center">
+                <button type="button outline" class="btn btn-outline-primary">
+                  <a id="see-more-btn" href="/typeProduct">SEE MORE</a>
+                </button>
               </div>
             </div>
             <div id="organizational-section" class="product organizational p-5 pb-0">
@@ -134,23 +113,16 @@
                 <div class="fs-1"> ORGANIZATIONAL </div>
               </div>
               <div class="row pb-5">
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="btn">
-                  <button type="button outline" class="btn btn-outline-primary">
-                    <a id="see-more-btn" href="/typeProduct">SEE MORE</a>
-                  </button>
-                </div>
+                <% orgFlags.forEach((flag)=> { %>
+                  <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
+                    <%- include('card.ejs', { flag: flag }) %>
+                      <% }); %>
+                  </div>
+              </div>
+              <div class="btn d-flex justify-content-center">
+                <button type="button outline" class="btn btn-outline-primary">
+                  <a id="see-more-btn" href="/typeProduct">SEE MORE</a>
+                </button>
               </div>
             </div>
             <div id="others-section" class="product others p-5 pb-0">
@@ -159,28 +131,20 @@
                 <div class="fs-1"> OTHERS </div>
               </div>
               <div class="row pb-5">
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                  <%- include('card.ejs') %>
-                </div>
-                <div class="btn">
-                  <button type="button outline" class="btn btn-outline-primary">
-                    <a id="see-more-btn" href="/typeProduct">SEE MORE</a>
-                  </button>
-                </div>
+                <% otherFlags.forEach((flag)=> { %>
+                  <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
+                    <%- include('card.ejs', { flag: flag }) %>
+                      <% }); %>
+                  </div>
+              </div>
+              <div class="btn d-flex justify-content-center">
+                <button type="button outline" class="btn btn-outline-primary">
+                  <a id="see-more-btn" href="/typeProduct">SEE MORE</a>
+                </button>
               </div>
             </div>
         </div>
       </div>
-
       <!-- ===================FOOTER=================== -->
       <%- include('footer.ejs') %>
         <!-- ===================FOOTER=================== -->

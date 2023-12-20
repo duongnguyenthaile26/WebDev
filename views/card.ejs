@@ -1,10 +1,19 @@
 <div class="card mb-3" style="width: 18rem">
-    <img src="flags/national/vn.png" class="card-img-top" alt="..." />
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-        </p>
-    </div>
+    <a href="#" id="<%= flag._id %>">
+        <img src="flags/<%= flag.type %>/<%= flag.image %>" class="card-img-top" alt="Flag Image" />
+        <div class="card-body">
+            <h5 class="card-title fs-5 fw-bold text-dark">
+                <%= flag.name %>
+            </h5>
+            <div class="card-text ">
+                <div class="type text-uppercase">
+                    <%= flag.type %>
+                </div>
+                <div class="price text-danger fw-bold "> Price: <%= flag.price %>
+                </div>
+            </div>
+
+        </div>
+</div>
+</a>
 </div>
