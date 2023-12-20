@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Vào thư mục controller, đọc file home.js và chỉnh lại các file EJS theo comment trong đó nha
 
 ### Cái chỗ Footer, thay vì cái Payment Methods, làm cho hiển thị cái biểu đồ số lượt truy cập nha (tạm thời gán cứng số)
@@ -9,3 +10,16 @@ Với lại nếu muốn đồng bộ code thì để tab size = 2, với lại 
 **Lưu ý:** nếu có chỉnh sửa các tag trong các file HTML/EJS thì cẩn thận khi chỉnh các class nha, vì có thể class đó được dùng cho mục đích viết JQuery
 
 - **Update 1:** đã thêm thư mục các cờ (flags) vào trong public, và đã thêm thông tin các cờ vào database MongoDB
+=======
+## Cái hiển thị lượt truy cập vào trang web phải là **biểu đồ** nha, theo yêu cầu trong cái bảng yêu cầu (giống như cái thống kê ở trên Moodle ấy)
+
+## Vào thư mục controller, đọc file home.js và chỉnh lại các file EJS theo comment trong đó nha
+
+Giờ làm tiếp cái trang hiện ra khi tìm kiếm theo danh mục, và trang search (nhớ có các checkbox để lọc tìm kiếm, checkbox này là theo các danh mục thôi)
+
+Với lại nếu muốn đồng bộ code thì để tab size = 2, với lại dùng cái formatter Prettier trên VSCODE nha (cho canh hàng code đẹp, nhớ để format on save), nếu có sử dụng thì copy nội dung file settings.json đã có đăng lên repo và copy vào settings.json trên VSCODE của laptop của mình
+
+**Lưu ý:** nếu có chỉnh sửa các tag trong các file HTML/EJS thì cẩn thận khi chỉnh các class nha, vì có thể class đó được dùng cho mục đích viết JQuery
+
+- **Update 1:** đã thêm thư mục các cờ (flags) vào trong public, và đã thêm thông tin các cờ vào database MongoDB
+>>>>>>> 2a65fa33340b014cdc7c066d7efa82366484b7b8
