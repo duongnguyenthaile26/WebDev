@@ -1,4 +1,4 @@
-## Cái hiển thị lượt truy cập vào trang web phải là **biểu đồ** nha, theo yêu cầu trong cái bảng yêu cầu
+## Cái hiển thị lượt truy cập vào trang web phải là **biểu đồ** nha, theo yêu cầu trong cái bảng yêu cầu (giống như cái thống kê ở trên Moodle ấy)
 
 ## Vào thư mục controller, đọc file home.js và chỉnh lại các file EJS theo comment trong đó nha
 
