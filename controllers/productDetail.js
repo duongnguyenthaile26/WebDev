@@ -13,11 +13,14 @@ async function render(req, res, next) {
 
     const flagId = req.params.flagId; // Lấy id của flag từ URL
     const flag = await Flag.findById(flagId).lean();
-    
+    const type = flag.type;
+    const flagsToShow = await Flag.find({ type }).lean();
     res.render("productDetail", {
       user: (req.user = true), // cái này xử lý sau
       flag,
-      options
+      options,
+      type,
+      flagsToShow
     });
   } catch (error) {
     next(error);

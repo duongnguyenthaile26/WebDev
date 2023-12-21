@@ -24,10 +24,9 @@
                   <% for (let j = i; j < i + 3 && j < flagsToShow.length; j++) { %>
                   <div class="col-md-4 mb-3">
                     <div class="card">
-                      <a href="#" id="<%= flagsToShow[j]._id %>">
+                      <a href="/productDetail/<%= flagsToShow[j]._id %>" class="flag-link">
                         <img class="img-fluid" alt="100%x280"
-                          src="flags/<%= flagsToShow[j].type %>/<%= flagsToShow[j].image %>" />
-                      </a>
+                          src="/flags/<%= flagsToShow[j].type %>/<%= flagsToShow[j].image %>" />
                       <div class="card-body">
                         <div class="card-title fs-5 fw-bold">
                           <%= flagsToShow[j].name %>
@@ -41,6 +40,8 @@
                           </div>
                         </div>
                       </div>
+                    </a>
+
                     </div>
                   </div>
                   <% } %>

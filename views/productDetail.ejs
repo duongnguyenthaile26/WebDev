@@ -37,7 +37,7 @@
         <%- include('header.ejs') %>
 
             <!-- ===================CONTENT=================== -->
-            <div class="content-body mb-5">
+            <div class="content-body pb-5">
                 <div class="container pt-3">
                     <div class="d-flex flex-column justify-content-center align-items-center">
                         <div class="justify-content-center intro p-3 mx-2">
@@ -90,6 +90,9 @@
                             </div>
                             <!-- ===================Content=================== -->
                         </div>
+                    </div>
+                    <div>
+                        <%- include('imageSlider.ejs', { flagsToShow: flagsToShow }) %>
                     </div>
                 </div>
             </div>

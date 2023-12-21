@@ -201,7 +201,6 @@ footer {
   text-align: left;
   font: bold 16px;
   padding: 50px 50px 60px 50px;
-  margin-top: 80px;
 }
 
 .footer .footer-left,
@@ -332,7 +331,7 @@ footer {
 }
 
 .content-body {
-  background-color: #ffffff;
+  background-color: #f0f2f5;
 }
 
 .card-title {
