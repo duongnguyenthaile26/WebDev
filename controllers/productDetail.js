@@ -1,9 +1,15 @@
 const path = require("path");
 const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const url = require("url");
+const Category = require(path.join(__dirname, "..", "models", "category"));
 
 async function render(req, res) {
   try {
+    const categories = Category.find({}).select("-__v");
+    const options = [];
+    for (let i = 0; i < categories.length; i++) {
+      options.push(categories[i].name);
+    }
     const query = url.parse(req.url, true).query;
     const type = query.type;
     const page = parseInt(query.page) || 1; // Trang hiện tại, mặc định là 1
@@ -27,6 +33,7 @@ async function render(req, res) {
       itemsPerPage: itemsPerPage,
       totalPages: totalPages,
       currentPageUrl: req.originalUrl.split("?")[0], // URL của trang hiện tại
+      options,
     });
   } catch (error) {
     next(error);
