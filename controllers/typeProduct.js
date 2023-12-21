@@ -3,7 +3,7 @@ const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const url = require("url");
 
-async function render(req, res) {
+async function render(req, res, next) {
   try {
     const categories = Category.find({}).select("-__v");
     const options = [];

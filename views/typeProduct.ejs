@@ -189,6 +189,12 @@
                     function changePage(page) {
                         window.location.href = `<%= currentPageUrl %>?type=<%= type.toLowerCase() %>&page=${page}`;
                     }
+                    $(document).ready(function () {
+                        $(".flag-link").click(function (event) {
+                            event.preventDefault();
+                            window.location.href = $(this).attr("href");
+                        });
+                    });
                 </script>
 </body>
 

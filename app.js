@@ -15,6 +15,7 @@ const homeRouter = require(path.join(__dirname, "routes", "home"));
 const loginRouter = require(path.join(__dirname, "routes", "login"));
 const typeRouter = require(path.join(__dirname, "routes", "typeProduct"));
 const productRouter = require(path.join(__dirname, "routes", "productDetail"));
+
 // Initializes
 const app = express();
 

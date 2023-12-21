@@ -198,21 +198,17 @@
               $("#RegisterModal").modal("show");
             });
           });
-          $(document).ready(function () {
-            $(".sub-item").click(function (event) {
-              event.preventDefault();
-
-              var targetId = $(this).attr("href");
-              var offset = $(targetId).offset().top;
-
-              $("html, body").animate({ scrollTop: offset }, 500); // Cuộn đến vị trí của sidebar trong 0.5 giây
-            });
-          });
           let value = 123456;
           setInterval(() => {
             odometer.innerHTML = value;
             value += 2;
           }, 2000);
+          $(document).ready(function () {
+            $(".flag-link").click(function (event) {
+              event.preventDefault();
+              window.location.href = $(this).attr("href");
+            });
+          });
         </script>
 </body>
 

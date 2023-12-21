@@ -9,6 +9,6 @@ const controller = require(path.join(
   "productDetail"
 ));
 
-router.route("/").get(controller.render);
+router.route("/:flagId").get(controller.render);
 
 module.exports = router;
