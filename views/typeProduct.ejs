@@ -86,51 +86,69 @@
                             <!-- ===================Content=================== -->
 
                             <div class="container row">
-                                <% flags.forEach((flag) => { %>
-                                    <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
+                                <% flags.forEach((flag)=> { %>
+                                    <div
+                                        class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
                                         <%- include('card.ejs', { flag: flag }) %>
                                     </div>
-                                <% }); %>
-                                <!-- Pagination -->
+                                    <% }); %>
+                                        <!-- Pagination -->
                                         <div class="d-flex justify-content-center align-items-center">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination">
-                                            <!-- Previous page button -->
-                                            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
-                                                <a class="page-link" href="#" aria-label="Previous" onclick="changePage(`<%= currentPage - 1 %>`)">
-                                                <span aria-hidden="true">&laquo;</span>
-                                                </a>
-                                            </li>
-                                            <!-- Render page items -->
-                                            <% const maxVisiblePages = 7; // Số lượng trang tối đa hiển thị %>
-                                            <% const halfVisiblePages = Math.floor(maxVisiblePages / 2); %>
-                                            <% const startPage = Math.max(1, currentPage - halfVisiblePages); // Trang đầu tiên hiển thị %>
-                                            <% const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1); // Trang cuối cùng hiển thị %>
-                                            <% const showEllipsisStart = startPage > 1; %>
-                                            <% const showEllipsisEnd = endPage < totalPages; %>
-                                            <% if (showEllipsisStart) { %>
-                                                <li class="page-item">
-                                                <a class="page-link" href="#">...</a>
-                                                </li>
-                                            <% } %>
-                                            <% for (let i = startPage; i <= endPage; i++) { %>
-                                                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-                                                <a class="page-link" href="#" onclick="changePage(`<%= i %>`)"><%= i %></a>
-                                                </li>
-                                            <% } %>
-                                            <% if (showEllipsisEnd) { %>
-                                                <li class="page-item">
-                                                <a class="page-link" href="#">...</a>
-                                                </li>
-                                            <% } %>
-                                            <!-- Next page button -->
-                                            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
-                                                <a class="page-link" href="#" aria-label="Next" onclick="changePage(`<%= currentPage + 1 %>`)">
-                                                <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                            </li>
-                                            </ul>
-                                        </nav>
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination">
+                                                    <!-- Previous page button -->
+                                                    <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                                                        <a class="page-link" href="#" aria-label="Previous"
+                                                            onclick="changePage(`<%= currentPage - 1 %>`)">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
+                                                    </li>
+                                                    <!-- Render page items -->
+                                                    <% const maxVisiblePages=7; // Số lượng trang tối đa hiển thị %>
+                                                        <% const halfVisiblePages=Math.floor(maxVisiblePages / 2); %>
+                                                            <% const startPage=Math.max(1, currentPage -
+                                                                halfVisiblePages); // Trang đầu tiên hiển thị %>
+                                                                <% const endPage=Math.min(totalPages, startPage +
+                                                                    maxVisiblePages - 1); // Trang cuối cùng hiển thị %>
+                                                                    <% const showEllipsisStart=startPage> 1; %>
+                                                                        <% const showEllipsisEnd=endPage < totalPages;
+                                                                            %>
+                                                                            <% if (showEllipsisStart) { %>
+                                                                                <li class="page-item">
+                                                                                    <a class="page-link"
+                                                                                        href="#">...</a>
+                                                                                </li>
+                                                                                <% } %>
+                                                                                    <% for (let i=startPage; i
+                                                                                        <=endPage; i++) { %>
+                                                                                        <li
+                                                                                            class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                                                            <a class="page-link"
+                                                                                                href="#"
+                                                                                                onclick="changePage(`<%= i %>`)">
+                                                                                                <%= i %>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <% } %>
+                                                                                            <% if (showEllipsisEnd) { %>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link"
+                                                                                                        href="#">...</a>
+                                                                                                </li>
+                                                                                                <% } %>
+                                                                                                    <!-- Next page button -->
+                                                                                                    <li
+                                                                                                        class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                                                                                        <a class="page-link"
+                                                                                                            href="#"
+                                                                                                            aria-label="Next"
+                                                                                                            onclick="changePage(`<%= currentPage + 1 %>`)">
+                                                                                                            <span
+                                                                                                                aria-hidden="true">&raquo;</span>
+                                                                                                        </a>
+                                                                                                    </li>
+                                                </ul>
+                                            </nav>
                                         </div>
                             </div>
                             <!-- ===================Content=================== -->
@@ -187,7 +205,18 @@
                         });
                     });
                     function changePage(page) {
-                        window.location.href = `<%= currentPageUrl %>?type=<%= type.toLowerCase() %>&page=${page}`;
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const nameParam = urlParams.get("type");
+                        const newUrl = `<%= currentPageUrl %>?type=<%= type.toLowerCase() %>&page=${page}`;
+                        fetch(newUrl)
+                            .then(response => response.text())
+                            .then(data => {
+                                // Cập nhật nội dung của trang với dữ liệu mới từ máy chủ
+                                document.querySelector("body").innerHTML = data;
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
                     }
                     $(document).ready(function () {
                         $(".flag-link").click(function (event) {

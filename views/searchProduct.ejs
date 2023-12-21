@@ -77,7 +77,7 @@
                                         <% }); %>
                                 </div>
                                 <div class="filter d-flex justify-content-center">
-                                    <button type="button" class="btn btn-outline-primary">Lọc</button>
+                                    <button type="button" class="btn-filter btn btn-outline-primary">Lọc</button>
                                 </div>
                             </div>
                             <!-- ===================Navbar=================== -->
@@ -187,13 +187,39 @@
                         });
                     });
                     function changePage(page) {
-                    }
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const nameParam = urlParams.get("name");
+                        const newUrl = `<%= currentPageUrl %>?name=${nameParam}&page=${page}`;
+                        
+                        fetch(newUrl)
+                          .then(response => response.text())
+                          .then(data => {
+                            // Cập nhật nội dung của trang với dữ liệu mới từ máy chủ
+                            document.querySelector("body").innerHTML = data;
+                          })
+                          .catch(error => {
+                            console.error('Error:', error);
+                          });
+                      }
                     $(document).ready(function () {
                         $(".flag-link").click(function (event) { 
                             event.preventDefault();
                             window.location.href = $(this).attr("href");
                         });
                     });
+                    $(document).ready(function () {
+                        $(".btn-filter").click(function () {
+                          let selectedCategories = [];
+                          $(".form-check-input:checked").each(function () {
+                            selectedCategories.push($(this).val().toLowerCase());
+                          });
+                          console.log(selectedCategories);
+                          if (selectedCategories.length > 0) {
+                            let type = selectedCategories.join("+");
+                            window.location.href = "/typeProduct?type=" + type;
+                          }
+                        });
+                      });
                 </script>
 </body>
 
