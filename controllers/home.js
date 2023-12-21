@@ -19,11 +19,8 @@ async function render(req, res, next) {
     -image của flag sẽ có đường dẫn như sau: "flags/<%= flag.type %>/<%= flag.image %>"
     -trên mỗi tag card thì cho bọc bởi một tag a (tạm thời để href="#") và cho thêm cái id của tag <a> là id="<%= flag._id %>", để sau này có thể click vào và đi đến trang thông tin cờ
   */
-    const categories = Category.find({}).select("-__v");
-    const options = [];
-    for (let i = 0; i < categories.length; i++) {
-      options.push(categories[i].name);
-    }
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map(category => category.name);
     const cheapestFlags = await Flag.find({})
       .sort({ price: 1 })
       .limit(12)

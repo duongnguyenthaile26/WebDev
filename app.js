@@ -15,6 +15,7 @@ const homeRouter = require(path.join(__dirname, "routes", "home"));
 const loginRouter = require(path.join(__dirname, "routes", "login"));
 const typeRouter = require(path.join(__dirname, "routes", "typeProduct"));
 const productRouter = require(path.join(__dirname, "routes", "productDetail"));
+const searchRouter = require(path.join(__dirname, "routes", "searchProduct"));
 
 // Initializes
 const app = express();
@@ -45,6 +46,7 @@ app.use("/", homeRouter);
 app.use("/login", loginRouter);
 app.use("/typeProduct", typeRouter);
 app.use("/productDetail", productRouter);
+app.use("/searchProduct", searchRouter);
 
 app.all("*", function (req, res, next) {
   next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));

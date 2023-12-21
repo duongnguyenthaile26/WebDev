@@ -43,26 +43,25 @@
                         <div class="justify-content-center intro p-3 mx-2">
                             <div style="color: #f0f2f5">Ignore text</div>
                             <div class="fs-1 text-center pe-3" style="width: 30rem">
-                                <%= type %>
+                                TÌM KIẾM SẢN PHẨM
                             </div>
                         </div>
-                        <!-- <div
-                            class="col-8 col-lg-6 d-flex justify-content-lg-start justify-content-center align-items-center">
-                            <form id="search-form" style="width: 25rem;">
+                        <div class="col-8 col-lg-6 d-flex justify-content-center align-items-center">
+                            <form id="search-form" action="/searchProduct" method="GET"  style="width: 25rem;">
                                 <div class="input-group">
                                     <input type="search" class="form-control" placeholder="Search" aria-label="Search"
-                                        aria-describedby="search-addon" />
-                                    <button type="button" class="btn btn-primary search-box">
+                                        aria-describedby="search-addon" name="name"/>
+                                    <button type="submit" class="btn btn-primary search-box">
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </form>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="container d-block p-5">
                         <div class="d-flex">
                             <!-- ===================Navbar=================== -->
-                            <!-- <div class="col-2">
+                            <div class="col-2">
                                 <div class="titleNav fs-3">Categories</div>
                                 <div>
                                     <% options.forEach((option)=> { %>
@@ -80,7 +79,7 @@
                                 <div class="filter d-flex justify-content-center">
                                     <button type="button" class="btn btn-outline-primary">Lọc</button>
                                 </div>
-                            </div> -->
+                            </div>
                             <!-- ===================Navbar=================== -->
 
                             <!-- ===================Content=================== -->
@@ -88,7 +87,8 @@
                             <div class="container row">
                                 <% flags.forEach((flag) => { %>
                                     <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                                        <%- include('card.ejs', { flag: flag }) %>
+                                        <%- include('card.ejs', { flag: flag }) %> 
+                                        <!-- ===================Thêm card được search theo tên vào đây vào đây=================== -->
                                     </div>
                                 <% }); %>
                                 <!-- Pagination -->
@@ -187,10 +187,9 @@
                         });
                     });
                     function changePage(page) {
-                        window.location.href = `<%= currentPageUrl %>?type=<%= type.toLowerCase() %>&page=${page}`;
                     }
                     $(document).ready(function () {
-                        $(".flag-link").click(function (event) {
+                        $(".flag-link").click(function (event) { 
                             event.preventDefault();
                             window.location.href = $(this).attr("href");
                         });

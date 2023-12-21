@@ -5,11 +5,10 @@ const url = require("url");
 
 async function render(req, res, next) {
   try {
-    const categories = Category.find({}).select("-__v");
-    const options = [];
-    for (let i = 0; i < categories.length; i++) {
-      options.push(categories[i].name);
-    }
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map(category => category.name);
+
+    
     const query = url.parse(req.url, true).query;
     const type = query.type;
     const page = parseInt(query.page) || 1; // Trang hiện tại, mặc định là 1

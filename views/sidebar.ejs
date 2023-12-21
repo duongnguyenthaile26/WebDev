@@ -10,11 +10,11 @@
         <div class="item">
             <a>
                 <p style="margin-bottom: 0">Search for flags by name</p>
-                <form id="search-form">
+                <form id="search-form" action="/searchProduct" method="GET">
                     <div class="input-group">
                         <input type="search" class="form-control" placeholder="Search" aria-label="Search"
-                            aria-describedby="search-addon" />
-                        <button type="button" class="btn btn-outline-light search-box">
+                            aria-describedby="search-addon" name="name" />
+                        <button type="submit" class="btn btn-outline-light search-box">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
