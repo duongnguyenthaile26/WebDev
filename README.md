@@ -1,8 +1,6 @@
 ## Cái hiển thị lượt truy cập vào trang web phải là **biểu đồ** nha, theo yêu cầu trong cái bảng yêu cầu (giống như cái thống kê ở trên Moodle ấy)
 
-## Vào thư mục controller, đọc file home.js và chỉnh lại các file EJS theo comment trong đó nha
-
-Giờ làm tiếp cái trang hiện ra khi tìm kiếm theo danh mục, và trang search (nhớ có các checkbox để lọc tìm kiếm, checkbox này là theo các danh mục thôi)
+## Bây giờ làm hoàn thiện trang tìm kiếm với trang chi tiết sản phẩm nữa (Nhớ là thêm vào các tag a cho các card sản phẩm để có thể click vào card của cờ rồi đến trang thông tin chi tiết)
 
 Với lại nếu muốn đồng bộ code thì để tab size = 2, với lại dùng cái formatter Prettier trên VSCODE nha (cho canh hàng code đẹp, nhớ để format on save), nếu có sử dụng thì copy nội dung file settings.json đã có đăng lên repo và copy vào settings.json trên VSCODE của laptop của mình
 
