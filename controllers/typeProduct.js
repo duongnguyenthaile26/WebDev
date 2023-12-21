@@ -5,7 +5,7 @@ const url = require("url");
 async function render(req, res) {
   try {
     const query = url.parse(req.url, true).query;
-    const type = query.type;
+    const type = query.type.toUpperCase();
     const page = parseInt(query.page) || 1; // Trang hiện tại, mặc định là 1
     const itemsPerPage = 8; // Số lượng sản phẩm trên mỗi trang
 

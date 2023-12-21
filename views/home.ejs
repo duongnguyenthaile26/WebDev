@@ -52,10 +52,10 @@
           <!-- ===================ImageSlider=================== -->
           <%- include('imageSlider.ejs', { flagsToShow: cheapestFlags }) %>
             <!-- ===================ImageSlider=================== -->
-
+            <a href="/typeProduct?type=national"></a>
             <div id="national-section" class="product national p-5 pb-0">
-              <div class="title-product  p-3">
-                <div class="fs-5">Categories</div>
+              <div class="title-product p-3">
+                <div class="fs-5">Category</div>
                 <div class="fs-1">NATIONAL</div>
               </div>
               <div class="row pb-5">
@@ -71,9 +71,10 @@
                 </button>
               </div>
             </div>
+
             <div id="political-section" class="product political p-5 pb-0">
               <div class="title-product p-3">
-                <div class="fs-5">Categories</div>
+                <div class="fs-5">Category</div>
                 <div class="fs-1">POLITICAL</div>
               </div>
               <div class="row pb-5">
@@ -90,9 +91,10 @@
                 </button>
               </div>
             </div>
+
             <div id="sporting-section" class="product sporting p-5 pb-0">
               <div class="title-product p-3">
-                <div class="fs-5">Categories</div>
+                <div class="fs-5">Category</div>
                 <div class="fs-1">SPORTING</div>
               </div>
               <div class="row pb-5">
@@ -109,9 +111,10 @@
                 </button>
               </div>
             </div>
+
             <div id="organizational-section" class="product organizational p-5 pb-0">
               <div class="title-product p-3">
-                <div class="fs-5">Categories</div>
+                <div class="fs-5">Category</div>
                 <div class="fs-1"> ORGANIZATIONAL </div>
               </div>
               <div class="row pb-5">
@@ -128,9 +131,10 @@
                 </button>
               </div>
             </div>
+
             <div id="others-section" class="product others p-5 pb-0">
               <div class="title-product p-3">
-                <div class="fs-5">Categories</div>
+                <div class="fs-5">Category</div>
                 <div class="fs-1"> OTHERS </div>
               </div>
               <div class="row pb-5">
@@ -143,7 +147,7 @@
               </div>
               <div class="btn d-flex justify-content-center">
                 <button type="button outline" class="btn btn-outline-primary">
-                  <a id="see-more-btn" href="/typeProduct?type=orthers">SEE MORE</a>
+                  <a id="see-more-btn" href="/typeProduct?type=others">SEE MORE</a>
                 </button>
               </div>
             </div>
@@ -202,13 +206,6 @@
               var offset = $(targetId).offset().top;
 
               $("html, body").animate({ scrollTop: offset }, 500); // Cuộn đến vị trí của sidebar trong 0.5 giây
-            });
-          });
-          $(document).ready(function () {
-            $("#see-more-btn").click(function (event) {
-              event.preventDefault();
-
-              window.location.href = "/typeProduct"; // Chuyển hướng đến trang typeProduct.ejs
             });
           });
           let value = 123456;
