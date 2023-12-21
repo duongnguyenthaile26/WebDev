@@ -5,7 +5,7 @@ const url = require("url");
 async function render(req, res) {
   try {
     const query = url.parse(req.url, true).query;
-    const type = query.type.toUpperCase();
+    const type = query.type;
     const page = parseInt(query.page) || 1; // Trang hiện tại, mặc định là 1
     const itemsPerPage = 8; // Số lượng sản phẩm trên mỗi trang
 
@@ -21,7 +21,7 @@ async function render(req, res) {
 
     res.render("typeProduct", {
       user: (req.user = true), // cái này xử lý sau
-      type,
+      type: type.toUpperCase(),
       flags: flagsOnPage, // Chỉ truyền danh sách sản phẩm trên trang hiện tại
       currentPage: page,
       itemsPerPage: itemsPerPage,

@@ -43,15 +43,7 @@
                         <div class="justify-content-center intro p-3 mx-2">
                             <div style="color: #ffffff">Ignore text</div>
                             <div class="fs-1 text-center pe-3" style="width: 30rem">
-                                <% if (type==='national' ) { %>
-                                    NATIONAL
-                                    <% } else if (type==='political' ) { %>
-                                        POLITICAL
-                                        <% } else if (type==='sporting' ) { %>
-                                            SPORTING <% } else if (type==='organizational' ) { %>
-                                                ORGANIZATIONAL
-                                                <% }else if (type==='others' ) { %>
-                                                    OTHERS <% } %>
+                                <%= type %>
                             </div>
                         </div>
                         <!-- <div
@@ -196,7 +188,7 @@
                         });
                     });
                     function changePage(page) {
-                        window.location.href = `<%= currentPageUrl %>?type=<%= type %>&page=${page}`;
+                        window.location.href = `<%= currentPageUrl %>?type=<%= type.toLowerCase() %>&page=${page}`;
                     }
                 </script>
 </body>
