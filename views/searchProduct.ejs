@@ -47,10 +47,10 @@
                             </div>
                         </div>
                         <div class="col-8 col-lg-6 d-flex justify-content-center align-items-center">
-                            <form id="search-form" action="/searchProduct" method="GET"  style="width: 25rem;">
+                            <form id="search-form" action="/searchProduct" method="GET" style="width: 25rem;">
                                 <div class="input-group">
                                     <input type="search" class="form-control" placeholder="Search" aria-label="Search"
-                                        aria-describedby="search-addon" name="name"/>
+                                        aria-describedby="search-addon" name="name" />
                                     <button type="submit" class="btn btn-primary search-box">
                                         <i class="fas fa-search"></i>
                                     </button>
@@ -67,7 +67,7 @@
                                     <% options.forEach((option)=> { %>
                                         <div class="checkbox py-1">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
+                                                <input class="form-check-input" type="checkbox" value="<%= option %>"
                                                     id="<%= option %>" />
                                                 <label class="form-check-label" for="<%= option %>">
                                                     <%= option %>
@@ -85,52 +85,70 @@
                             <!-- ===================Content=================== -->
 
                             <div class="container row">
-                                <% flags.forEach((flag) => { %>
-                                    <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                                        <%- include('card.ejs', { flag: flag }) %> 
-                                        <!-- ===================Thêm card được search theo tên vào đây vào đây=================== -->
+                                <% flags.forEach((flag)=> { %>
+                                    <div
+                                        class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
+                                        <%- include('card.ejs', { flag: flag }) %>
+                                            <!-- ===================Thêm card được search theo tên vào đây vào đây=================== -->
                                     </div>
-                                <% }); %>
-                                <!-- Pagination -->
+                                    <% }); %>
+                                        <!-- Pagination -->
                                         <div class="d-flex justify-content-center align-items-center">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination">
-                                            <!-- Previous page button -->
-                                            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
-                                                <a class="page-link" href="#" aria-label="Previous" onclick="changePage(`<%= currentPage - 1 %>`)">
-                                                <span aria-hidden="true">&laquo;</span>
-                                                </a>
-                                            </li>
-                                            <!-- Render page items -->
-                                            <% const maxVisiblePages = 7; // Số lượng trang tối đa hiển thị %>
-                                            <% const halfVisiblePages = Math.floor(maxVisiblePages / 2); %>
-                                            <% const startPage = Math.max(1, currentPage - halfVisiblePages); // Trang đầu tiên hiển thị %>
-                                            <% const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1); // Trang cuối cùng hiển thị %>
-                                            <% const showEllipsisStart = startPage > 1; %>
-                                            <% const showEllipsisEnd = endPage < totalPages; %>
-                                            <% if (showEllipsisStart) { %>
-                                                <li class="page-item">
-                                                <a class="page-link" href="#">...</a>
-                                                </li>
-                                            <% } %>
-                                            <% for (let i = startPage; i <= endPage; i++) { %>
-                                                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-                                                <a class="page-link" href="#" onclick="changePage(`<%= i %>`)"><%= i %></a>
-                                                </li>
-                                            <% } %>
-                                            <% if (showEllipsisEnd) { %>
-                                                <li class="page-item">
-                                                <a class="page-link" href="#">...</a>
-                                                </li>
-                                            <% } %>
-                                            <!-- Next page button -->
-                                            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
-                                                <a class="page-link" href="#" aria-label="Next" onclick="changePage(`<%= currentPage + 1 %>`)">
-                                                <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                            </li>
-                                            </ul>
-                                        </nav>
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination">
+                                                    <!-- Previous page button -->
+                                                    <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                                                        <a class="page-link" href="#" aria-label="Previous"
+                                                            onclick="changePage(`<%= currentPage - 1 %>`)">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
+                                                    </li>
+                                                    <!-- Render page items -->
+                                                    <% const maxVisiblePages=7; // Số lượng trang tối đa hiển thị %>
+                                                        <% const halfVisiblePages=Math.floor(maxVisiblePages / 2); %>
+                                                            <% const startPage=Math.max(1, currentPage -
+                                                                halfVisiblePages); // Trang đầu tiên hiển thị %>
+                                                                <% const endPage=Math.min(totalPages, startPage +
+                                                                    maxVisiblePages - 1); // Trang cuối cùng hiển thị %>
+                                                                    <% const showEllipsisStart=startPage> 1; %>
+                                                                        <% const showEllipsisEnd=endPage < totalPages;
+                                                                            %>
+                                                                            <% if (showEllipsisStart) { %>
+                                                                                <li class="page-item">
+                                                                                    <a class="page-link"
+                                                                                        href="#">...</a>
+                                                                                </li>
+                                                                                <% } %>
+                                                                                    <% for (let i=startPage; i
+                                                                                        <=endPage; i++) { %>
+                                                                                        <li
+                                                                                            class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                                                            <a class="page-link"
+                                                                                                href="#"
+                                                                                                onclick="changePage(`<%= i %>`)">
+                                                                                                <%= i %>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <% } %>
+                                                                                            <% if (showEllipsisEnd) { %>
+                                                                                                <li class="page-item">
+                                                                                                    <a class="page-link"
+                                                                                                        href="#">...</a>
+                                                                                                </li>
+                                                                                                <% } %>
+                                                                                                    <!-- Next page button -->
+                                                                                                    <li
+                                                                                                        class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                                                                                        <a class="page-link"
+                                                                                                            href="#"
+                                                                                                            aria-label="Next"
+                                                                                                            onclick="changePage(`<%= currentPage + 1 %>`)">
+                                                                                                            <span
+                                                                                                                aria-hidden="true">&raquo;</span>
+                                                                                                        </a>
+                                                                                                    </li>
+                                                </ul>
+                                            </nav>
                                         </div>
                             </div>
                             <!-- ===================Content=================== -->
@@ -190,36 +208,44 @@
                         const urlParams = new URLSearchParams(window.location.search);
                         const nameParam = urlParams.get("name");
                         const newUrl = `<%= currentPageUrl %>?name=${nameParam}&page=${page}`;
-                        
+
                         fetch(newUrl)
-                          .then(response => response.text())
-                          .then(data => {
-                            // Cập nhật nội dung của trang với dữ liệu mới từ máy chủ
-                            document.querySelector("body").innerHTML = data;
-                          })
-                          .catch(error => {
-                            console.error('Error:', error);
-                          });
-                      }
+                            .then(response => response.text())
+                            .then(data => {
+                                // Cập nhật nội dung của trang với dữ liệu mới từ máy chủ
+                                document.querySelector("body").innerHTML = data;
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                    }
                     $(document).ready(function () {
-                        $(".flag-link").click(function (event) { 
+                        $(".flag-link").click(function (event) {
                             event.preventDefault();
                             window.location.href = $(this).attr("href");
                         });
                     });
                     $(document).ready(function () {
-                        $(".btn-filter").click(function () {
-                          let selectedCategories = [];
-                          $(".form-check-input:checked").each(function () {
-                            selectedCategories.push($(this).val().toLowerCase());
-                          });
-                          console.log(selectedCategories);
-                          if (selectedCategories.length > 0) {
-                            let type = selectedCategories.join("+");
-                            window.location.href = "/typeProduct?type=" + type;
-                          }
+                        $('.form-check-input').on('change', function () {
+                            if ($(this).is(':checked')) {
+                                // Loại bỏ chọn tất cả các checkbox khác trong nhóm
+                                $('.form-check-input').not(this).prop('checked', false);
+                            }
                         });
-                      });
+                    });
+                    $(document).ready(function () {
+                        $(".btn-filter").click(function () {
+                            let selectedCategories = [];
+                            $(".form-check-input:checked").each(function () {
+                                selectedCategories.push($(this).val().toLowerCase());
+                            });
+                            console.log(selectedCategories);
+                            if (selectedCategories.length > 0) {
+                                let type = selectedCategories.join("+");
+                                window.location.href = "/typeProduct?type=" + type;
+                            }
+                        });
+                    });
                 </script>
 </body>
 
