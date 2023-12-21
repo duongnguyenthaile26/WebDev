@@ -449,3 +449,17 @@ footer {
   color: #81c8c2;
   font-size: 1.5rem;
 }
+
+.img-product {
+  overflow: hidden;
+  width: 85%;
+  object-fit: cover;
+  transition: transform 1.2s;
+  border-radius: 12px;
+}
+.img-product:hover {
+  transform: scale(1.2);
+}
+.count {
+  width: 10rem;
+}
