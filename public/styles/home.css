@@ -222,6 +222,12 @@ footer {
   margin-right: 2px;
 }
 
+.footer .footer-left .chart {
+  color: white;
+  width: fit-content;
+  height: fit-content;
+}
+
 .footer h3 {
   color: #f5f5f5;
   margin: 0;
