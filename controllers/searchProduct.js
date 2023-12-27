@@ -32,6 +32,7 @@ async function render(req, res, next) {
       itemsPerPage,
       totalPages,
       currentPageUrl: req.originalUrl.split("?")[0],
+      searchName
     });
   } catch (error) {
     next(error);
