@@ -53,105 +53,31 @@
           <!-- ===================ImageSlider=================== -->
           <%- include('imageSlider.ejs', { flagsToShow: cheapestFlags }) %>
             <!-- ===================ImageSlider=================== -->
-            <a href="/typeProduct?type=national"></a>
-            <div id="national-section" class="product national p-5 pb-0">
-              <div class="title-product p-3">
-                <div class="fs-5">Category</div>
-                <div class="fs-1">NATIONAL</div>
-              </div>
-              <div class="row pb-5">
-                <% nationalFlags.forEach((flag)=> { %>
-                  <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                    <%- include('card.ejs', { flag: flag }) %>
+
+            <!-- ===================Content=================== -->
+            <% flagsByCategory.forEach((category)=> { %>
+              <div id="<%= category.name.toLowerCase() %>-section"
+                class="product <%= category.name.toLowerCase() %> p-5 pb-0">
+                <div class="title-product p-3">
+                  <div class="fs-5">Category</div>
+                  <div class="fs-1">
+                    <%= category.name.toUpperCase() %>
                   </div>
-                  <% }); %>
+                </div>
+                <div class="row pb-5">
+                  <% category.flags.forEach((flag)=> { %>
+                    <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
+                      <%- include('card.ejs', { flag: flag }) %>
+                    </div>
+                    <% }); %>
+                </div>
+                <div class="btn d-flex justify-content-center">
+                  <button type="button outline" class="btn btn-outline-primary">
+                    <a id="see-more-btn" href="/typeProduct?type=<%= category.name.toLowerCase() %>">SEE MORE</a>
+                  </button>
+                </div>
               </div>
-              <div class="btn d-flex justify-content-center">
-                <button type="button outline" class="btn btn-outline-primary">
-                  <a id="see-more-btn" href="/typeProduct?type=national">SEE MORE</a>
-                </button>
-              </div>
-            </div>
-
-            <div id="political-section" class="product political p-5 pb-0">
-              <div class="title-product p-3">
-                <div class="fs-5">Category</div>
-                <div class="fs-1">POLITICAL</div>
-              </div>
-              <div class="row pb-5">
-                <% politicalFlags.forEach((flag)=> { %>
-                  <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                    <%- include('card.ejs', { flag: flag }) %>
-                  </div>
-
-                  <% }); %>
-              </div>
-              <div class="btn d-flex justify-content-center">
-                <button type="button outline" class="btn btn-outline-primary">
-                  <a id="see-more-btn" href="/typeProduct?type=political">SEE MORE</a>
-                </button>
-              </div>
-            </div>
-
-            <div id="sporting-section" class="product sporting p-5 pb-0">
-              <div class="title-product p-3">
-                <div class="fs-5">Category</div>
-                <div class="fs-1">SPORTING</div>
-              </div>
-              <div class="row pb-5">
-                <% sportingFlags.forEach((flag)=> { %>
-                  <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                    <%- include('card.ejs', { flag: flag }) %>
-                  </div>
-
-                  <% }); %>
-              </div>
-              <div class="btn d-flex justify-content-center">
-                <button type="button outline" class="btn btn-outline-primary">
-                  <a id="see-more-btn" href="/typeProduct?type=sporting">SEE MORE</a>
-                </button>
-              </div>
-            </div>
-
-            <div id="organizational-section" class="product organizational p-5 pb-0">
-              <div class="title-product p-3">
-                <div class="fs-5">Category</div>
-                <div class="fs-1"> ORGANIZATIONAL </div>
-              </div>
-              <div class="row pb-5">
-                <% orgFlags.forEach((flag)=> { %>
-                  <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                    <%- include('card.ejs', { flag: flag }) %>
-                  </div>
-
-                  <% }); %>
-              </div>
-              <div class="btn d-flex justify-content-center">
-                <button type="button outline" class="btn btn-outline-primary">
-                  <a id="see-more-btn" href="/typeProduct?type=organizational">SEE MORE</a>
-                </button>
-              </div>
-            </div>
-
-            <div id="others-section" class="product others p-5 pb-0">
-              <div class="title-product p-3">
-                <div class="fs-5">Category</div>
-                <div class="fs-1"> OTHERS </div>
-              </div>
-              <div class="row pb-5">
-                <% otherFlags.forEach((flag)=> { %>
-                  <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                    <%- include('card.ejs', { flag: flag }) %>
-                  </div>
-
-                  <% }); %>
-              </div>
-              <div class="btn d-flex justify-content-center">
-                <button type="button outline" class="btn btn-outline-primary">
-                  <a id="see-more-btn" href="/typeProduct?type=others">SEE MORE</a>
-                </button>
-              </div>
-            </div>
+              <% }); %>
         </div>
       </div>
       <!-- ===================FOOTER=================== -->
@@ -199,11 +125,6 @@
               $("#RegisterModal").modal("show");
             });
           });
-          let value = 123456;
-          setInterval(() => {
-            odometer.innerHTML = value;
-            value += 2;
-          }, 2000);
           $(document).ready(function () {
             $(".flag-link").click(function (event) {
               event.preventDefault();
@@ -213,7 +134,7 @@
         </script>
         <script>
           const ctx = document.getElementById('myChart');
-        
+
           new Chart(ctx, {
             type: 'bar',
             data: {
