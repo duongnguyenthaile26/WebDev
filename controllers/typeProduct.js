@@ -6,9 +6,8 @@ const url = require("url");
 async function render(req, res, next) {
   try {
     const categories = await Category.find({}).select("-__v");
-    const options = categories.map(category => category.name);
+    const options = categories.map((category) => category.name);
 
-    
     const query = url.parse(req.url, true).query;
     const type = query.type;
     const page = parseInt(query.page) || 1; // Trang hiện tại, mặc định là 1
@@ -25,7 +24,7 @@ async function render(req, res, next) {
     const flagsOnPage = flags.slice(startIndex, endIndex);
 
     res.render("typeProduct", {
-      user: (req.user = true), // cái này xử lý sau
+      user: req.user, // cái này xử lý sau
       type: type.toUpperCase(),
       flags: flagsOnPage, // Chỉ truyền danh sách sản phẩm trên trang hiện tại
       currentPage: page,

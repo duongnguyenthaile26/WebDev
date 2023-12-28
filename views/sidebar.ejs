@@ -1,39 +1,49 @@
 <!-- sidebar.ejs -->
 <div class="side-bar">
-    <div class="close-btn">
-        <i class="fas fa-times fa-beat"></i>
+  <div class="close-btn">
+    <i class="fas fa-times fa-beat"></i>
+  </div>
+  <div class="menu">
+    <div class="item">
+      <a href="#"><i class="fas fa-cart-shopping"></i>Cart</a>
     </div>
-    <div class="menu">
-        <div class="item">
-            <a href="#"><i class="fas fa-cart-shopping"></i>Cart</a>
-        </div>
-        <div class="item">
-            <a>
-                <p style="margin-bottom: 0">Search for flags by name</p>
-                <form id="search-form" action="/searchProduct" method="GET">
-                    <div class="input-group">
-                        <input type="search" class="form-control" placeholder="Search" aria-label="Search"
-                            aria-describedby="search-addon" name="name" />
-                        <button type="submit" class="btn btn-outline-light search-box">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
-            </a>
-        </div>
-        <div class="item">
-            <a class="sub-btn"><i class="fas fa-flag"></i>Categories
-                <i class="fas fa-angle-right dropdown"></i></a>
-            <div class="sub-menu">
-                <a href="/typeProduct?type=national" class="sub-item">National</a>
-                <a href="/typeProduct?type=political" class="sub-item">Political</a>
-                <a href="/typeProduct?type=sporting" class="sub-item">Sporting</a>
-                <a href="/typeProduct?type=organizational" class="sub-item">Organizational</a>
-                <a href="/typeProduct?type=others" class="sub-item">Others</a>
-            </div>
-        </div>
-        <div class="item">
-            <a href="#"><i class="fas fa-info-circle"></i>About</a>
-        </div>
+    <div class="item">
+      <a>
+        <p style="margin-bottom: 0">Search for flags by name</p>
+        <form id="search-form" action="/searchProduct" method="GET">
+          <div class="input-group">
+            <input
+              type="search"
+              class="form-control"
+              placeholder="Search"
+              aria-label="Search"
+              aria-describedby="search-addon"
+              name="name"
+            />
+            <button type="submit" class="btn btn-outline-light search-box">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+      </a>
     </div>
+    <div class="item">
+      <a class="sub-btn"
+        ><i class="fas fa-flag"></i>Categories
+        <i class="fas fa-angle-right dropdown"></i
+      ></a>
+      <div class="sub-menu">
+        <a href="/typeProduct?type=national" class="sub-item">National</a>
+        <a href="/typeProduct?type=political" class="sub-item">Political</a>
+        <a href="/typeProduct?type=sporting" class="sub-item">Sporting</a>
+        <a href="/typeProduct?type=organizational" class="sub-item"
+          >Organizational</a
+        >
+        <a href="/typeProduct?type=others" class="sub-item">Others</a>
+      </div>
+    </div>
+    <div class="item">
+      <a href="#"><i class="fas fa-info-circle"></i>About</a>
+    </div>
+  </div>
 </div>

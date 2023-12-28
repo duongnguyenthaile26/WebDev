@@ -1,44 +1,86 @@
-<div class="modal fade >" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="container justify-content-center">
-                    <div class="row px-3 px-sm-0" style=" width: 100%">
-                        <div class="content-left  col-12 d-none col-sm-5 d-sm-block" style=" padding-right: 2.5rem;
-                             margin-top: 0px">
-                            <div class="brand">Sign In</div>
-                            <div class="detail">Thanks for chosing us</div>
-                            <div class="pic d-flex justify-content-center">
-                                <img src="https://i.pinimg.com/564x/a9/dd/93/a9dd9332469ecad9d9770985d8e032f0.jpg"
-                                    alt="pic" class="rounded" />
-                            </div>
-                        </div>
-                        <div class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3">
-                            <div class="brand d-sm-none">Sign In</div>
-                            <label>Username or email:</label>
-                            <input type="username" class="form-control" placeholder="Email address or phone numbers" />
-                            <label>Password:</label>
-                            <input type="password" class="form-control" placeholder="Password" />
-                            <button class="btn btn-outline-primary">Login</button>
-                            <span class="text-center">
-                                <a class="forgot-password" href="/">
-                                    Forgot your password?
-                                </a>
-                            </span>
-                            <hr />
-                            <div class="text-center">
-                                <button class="btn btn-outline-success" data-bs-toggle="modal"
-                                    data-bs-target="#RegisterModal">
-                                    Create New Account
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div
+  class="modal fade >"
+  id="LoginModal"
+  tabindex="-1"
+  aria-labelledby="LoginModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex justify-content-end">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
+        <div class="container justify-content-center">
+          <div class="row px-3 px-sm-0" style="width: 100%">
+            <div
+              class="content-left col-12 d-none col-sm-5 d-sm-block"
+              style="padding-right: 2.5rem; margin-top: 0px"
+            >
+              <div class="brand">Sign In</div>
+              <div class="detail">Thanks for chosing us</div>
+              <div class="pic d-flex justify-content-center">
+                <img
+                  src="https://i.pinimg.com/564x/a9/dd/93/a9dd9332469ecad9d9770985d8e032f0.jpg"
+                  alt="pic"
+                  class="rounded"
+                />
+              </div>
+            </div>
+            <div
+              class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3"
+            >
+              <div class="brand d-sm-none">Sign In</div>
+              <label>Username</label>
+              <input
+                type="username"
+                class="form-control username-input"
+                placeholder="Username"
+              />
+              <label>Password:</label>
+              <input
+                type="password"
+                class="form-control password-input"
+                placeholder="Password"
+              />
+              <button class="btn btn-outline-primary" onclick="login()">
+                Login
+              </button>
+              <script>
+                function login() {
+                  const username = $(".username-input").val();
+                  const password = $(".password-input").val();
+                  $.post("/login", { username, password }, function (data) {
+                    if (data.status === "success") {
+                      window.location.href = "/";
+                    } else {
+                      alert("Login Unsuccessful!");
+                    }
+                  });
+                }
+              </script>
+              <!-- <span class="text-center">
+                <a class="forgot-password" href="/"> Forgot your password? </a>
+              </span> -->
+              <hr />
+              <div class="text-center">
+                <button
+                  class="btn btn-outline-success"
+                  data-bs-toggle="modal"
+                  data-bs-target="#RegisterModal"
+                >
+                  Create New Account
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

@@ -1,6 +1,7 @@
 // Requires
 const path = require("path");
 const express = require("express");
+const flash = require("connect-flash");
 
 const passport = require(path.join(__dirname, "utilities", "passport"));
 const AppError = require(path.join(__dirname, "utilities", "AppError"));
@@ -32,13 +33,14 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 // setters
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // Routes
-app.all("/denied", function (req, res) {
+app.get("/denied", function (req, res) {
   res.render("denied");
 });
 

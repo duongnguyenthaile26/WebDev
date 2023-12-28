@@ -1,17 +1,16 @@
-<div class="card mb-3" style="width: 18rem;">
-    <a href="/productDetail/<%= flag._id %>" class="flag-link">
-        <img src="flags/<%= flag.type %>/<%= flag.image %>" class="card-img-top" alt="Flag Image" />
-        <div class="card-body">
-            <h5 class="card-title fs-5 fw-bold text-dark">
-                <%= flag.name %>
-            </h5>
-            <div class="card-text ">
-                <div class="type text-uppercase">
-                    <%= flag.type %>
-                </div>
-                <div class="price text-danger fw-bold "> Price: <%= flag.price %>
-                </div>
-            </div>
-        </div>
-    </a>
+<div class="card mb-3" style="width: 18rem">
+  <a href="/productDetail/<%= flag._id %>" class="flag-link">
+    <img
+      src="flags/<%= flag.type %>/<%= flag.image %>"
+      class="card-img-top"
+      alt="Flag Image"
+    />
+    <div class="card-body">
+      <h5 class="card-title fs-5 fw-bold text-dark"><%= flag.name %></h5>
+      <div class="card-text">
+        <div class="type text-uppercase"><%= flag.type %></div>
+        <div class="price text-danger fw-bold">Price: <%= flag.price %></div>
+      </div>
+    </div>
+  </a>
 </div>

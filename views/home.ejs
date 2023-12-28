@@ -1,36 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"
+      integrity="sha512-51WDTV7haD9BBDc8RWH2r5TnuSiRyAqEnbGyuKHYn+qpYCrCckxFeqlr1I5UoOULijyLV2vnHO9LS4MrAzHxwQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/themes/odometer-theme-minimal.min.css"
+      integrity="sha512-Jeqp8CoPCvf9tf/uWokfCTsFcv5BIhfTYaTTJA0NKn6B88zDSWe5d/9HTmZX63FGpGGQdB8Chg2khB96+wn4Tw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles/home.css" />
+    <link rel="stylesheet" href="styles/login_register.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"
-    integrity="sha512-51WDTV7haD9BBDc8RWH2r5TnuSiRyAqEnbGyuKHYn+qpYCrCckxFeqlr1I5UoOULijyLV2vnHO9LS4MrAzHxwQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/themes/odometer-theme-minimal.min.css"
-    integrity="sha512-Jeqp8CoPCvf9tf/uWokfCTsFcv5BIhfTYaTTJA0NKn6B88zDSWe5d/9HTmZX63FGpGGQdB8Chg2khB96+wn4Tw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="styles/home.css" />
-  <link rel="stylesheet" href="styles/login_register.css" />
-
-</head>
-
-<body>
-  <!-- ===================SIDEBAR=================== -->
-  <%- include('sidebar.ejs'); %>
+  <body>
+    <!-- ===================SIDEBAR=================== -->
+    <%- include('sidebar.ejs'); %>
     <!-- ===================SIDEBAR=================== -->
 
     <!-- ===================HEADER=================== -->
@@ -38,122 +55,129 @@
     <!-- ===================HEADER=================== -->
     <%- include('header.ejs') %>
 
-      <!-- ===================CONTENT=================== -->
+    <!-- ===================CONTENT=================== -->
 
-      <div class="content-body pb-5">
-        <!-- ===================Background=================== -->
-        <div class="image-top">
-          <div class="bg-image"></div>
-          <div class="text">
-            <h1 style="font-size:2.5rem">Welcome to FLAGBAY</h1>
-          </div>
-        </div>
-        <!-- ===================Content=================== -->
-        <div class="container">
-          <!-- ===================ImageSlider=================== -->
-          <%- include('imageSlider.ejs', { flagsToShow: cheapestFlags }) %>
-            <!-- ===================ImageSlider=================== -->
-
-            <!-- ===================Content=================== -->
-            <% flagsByCategory.forEach((category)=> { %>
-              <div id="<%= category.name.toLowerCase() %>-section"
-                class="product <%= category.name.toLowerCase() %> p-5 pb-0">
-                <div class="title-product p-3">
-                  <div class="fs-5">Category</div>
-                  <div class="fs-1">
-                    <%= category.name.toUpperCase() %>
-                  </div>
-                </div>
-                <div class="row pb-5">
-                  <% category.flags.forEach((flag)=> { %>
-                    <div class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
-                      <%- include('card.ejs', { flag: flag }) %>
-                    </div>
-                    <% }); %>
-                </div>
-                <div class="btn d-flex justify-content-center">
-                  <button type="button outline" class="btn btn-outline-primary">
-                    <a id="see-more-btn" href="/typeProduct?type=<%= category.name.toLowerCase() %>">SEE MORE</a>
-                  </button>
-                </div>
-              </div>
-              <% }); %>
+    <div class="content-body pb-5">
+      <!-- ===================Background=================== -->
+      <div class="image-top">
+        <div class="bg-image"></div>
+        <div class="text">
+          <h1 style="font-size: 2.5rem">Welcome to FLAGBAY</h1>
         </div>
       </div>
-      <!-- ===================FOOTER=================== -->
-      <%- include('footer.ejs') %>
-        <!-- ===================FOOTER=================== -->
+      <!-- ===================Content=================== -->
+      <div class="container">
+        <!-- ===================ImageSlider=================== -->
+        <%- include('imageSlider.ejs', { flagsToShow: cheapestFlags }) %>
+        <!-- ===================ImageSlider=================== -->
 
-        <script>
-          $(document).ready(function () {
-            $(".sub-btn").click(function () {
-              $(this).next(".sub-menu").slideToggle();
-              $(this).find(".dropdown").toggleClass("rotate");
-            });
+        <!-- ===================Content=================== -->
+        <% flagsByCategory.forEach((category)=> { %>
+        <div
+          id="<%= category.name.toLowerCase() %>-section"
+          class="product <%= category.name.toLowerCase() %> p-5 pb-0"
+        >
+          <div class="title-product p-3">
+            <div class="fs-5">Category</div>
+            <div class="fs-1"><%= category.name.toUpperCase() %></div>
+          </div>
+          <div class="row pb-5">
+            <% category.flags.forEach((flag)=> { %>
+            <div
+              class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center"
+            >
+              <%- include('card.ejs', { flag: flag }) %>
+            </div>
+            <% }); %>
+          </div>
+          <div class="btn d-flex justify-content-center">
+            <button type="button outline" class="btn btn-outline-primary">
+              <a
+                id="see-more-btn"
+                href="/typeProduct?type=<%= category.name.toLowerCase() %>"
+                >SEE MORE</a
+              >
+            </button>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+    <!-- ===================FOOTER=================== -->
+    <%- include('footer.ejs') %>
+    <!-- ===================FOOTER=================== -->
 
-            $(".menu-btn").click(function () {
-              $(".side-bar").addClass("active");
-              $(".menu-btn").css("visibility", "hidden");
-            });
+    <script>
+      $(document).ready(function () {
+        $(".sub-btn").click(function () {
+          $(this).next(".sub-menu").slideToggle();
+          $(this).find(".dropdown").toggleClass("rotate");
+        });
 
-            $(".close-btn").click(function () {
-              $(".side-bar").removeClass("active");
-              $(".menu-btn").css("visibility", "visible");
-            });
+        $(".menu-btn").click(function () {
+          $(".side-bar").addClass("active");
+          $(".menu-btn").css("visibility", "hidden");
+        });
 
-            $(document).on("click", function (event) {
-              if (
-                !$(event.target).closest(".side-bar").length &&
-                !$(event.target).is(".side-bar") &&
-                !$(event.target).is(".menu-btn") &&
-                !$(event.target).closest(".menu-btn").length
-              ) {
-                $(".side-bar").removeClass("active");
-                $(".menu-btn").css("visibility", "visible");
-              }
-            });
-          });
-          $(".search-box").click(function () {
-            $("#search-form").submit();
-          });
-          $(document).ready(function () {
-            $(".login-container").click(function () {
-              $("#LoginModal").modal("show");
-            });
+        $(".close-btn").click(function () {
+          $(".side-bar").removeClass("active");
+          $(".menu-btn").css("visibility", "visible");
+        });
 
-            $(".register-container").click(function () {
-              $("#RegisterModal").modal("show");
-            });
-          });
-          $(document).ready(function () {
-            $(".flag-link").click(function (event) {
-              event.preventDefault();
-              window.location.href = $(this).attr("href");
-            });
-          });
-        </script>
-        <script>
-          const ctx = document.getElementById('myChart');
+        $(document).on("click", function (event) {
+          if (
+            !$(event.target).closest(".side-bar").length &&
+            !$(event.target).is(".side-bar") &&
+            !$(event.target).is(".menu-btn") &&
+            !$(event.target).closest(".menu-btn").length
+          ) {
+            $(".side-bar").removeClass("active");
+            $(".menu-btn").css("visibility", "visible");
+          }
+        });
+      });
+      $(".search-box").click(function () {
+        $("#search-form").submit();
+      });
+      $(document).ready(function () {
+        $(".login-container").click(function () {
+          $("#LoginModal").modal("show");
+        });
 
-          new Chart(ctx, {
-            type: 'bar',
-            data: {
-              labels: ['', '', '', '', '', '', ''],
-              datasets: [{
-                label: 'Visitors',
-                data: [12, 19, 3, 5, 2, 3, 15],
-                borderWidth: 1
-              }]
+        $(".register-container").click(function () {
+          $("#RegisterModal").modal("show");
+        });
+      });
+      $(document).ready(function () {
+        $(".flag-link").click(function (event) {
+          event.preventDefault();
+          window.location.href = $(this).attr("href");
+        });
+      });
+    </script>
+    <script>
+      const ctx = document.getElementById("myChart");
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["", "", "", "", "", "", ""],
+          datasets: [
+            {
+              label: "Visitors",
+              data: [12, 19, 3, 5, 2, 3, 15],
+              borderWidth: 1,
             },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true
-                }
-              }
-            }
-          });
-        </script>
-</body>
-
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
 </html>

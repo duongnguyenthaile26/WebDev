@@ -7,13 +7,13 @@ function login(req, res, next) {
       return next(err);
     }
     if (!user) {
-      return res.json({ message: "login failed" });
+      return res.json({ message: "login failed", status: "fail" });
     }
     req.logIn(user, function (err) {
       if (err) {
         return next(err);
       }
-      res.json({ message: "login success" });
+      res.json({ message: "login successful", status: "success" });
     });
   })(req, res, next);
 }
