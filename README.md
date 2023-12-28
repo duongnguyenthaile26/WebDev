@@ -1,8 +1,8 @@
 ## Trang search ổn r nha, chỉnh lại tí theo yêu cầu là oke
 
-## Để tui làm trang profile nhe guys!!!
+## Thêm chức năng đăng nhập rồi, hiện chỉ có một tài khoản có sẵn trong database: username: user1 - password: 123456
 
-## Vào router của home, đọc comment để chỉnh lại cái EJS của home view nha, tại t vào chỉnh rồi nên là hiện cái home view sẽ ko chạy được (nếu muốn chạy thì bỏ mấy phần code t comment đi là chạy được) --> Đã chỉnh 
+## Để tui làm trang profile nhe guys!!! 
 
 Với lại nếu muốn đồng bộ code thì để tab size = 2, với lại dùng cái formatter Prettier trên VSCODE nha (cho canh hàng code đẹp, nhớ để format on save), nếu có sử dụng thì copy nội dung file settings.json đã có đăng lên repo và copy vào settings.json trên VSCODE của laptop của mình
 
