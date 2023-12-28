@@ -7,9 +7,12 @@ const controller = require(path.join(
   __dirname,
   "..",
   "controllers",
-  "register"
+  "googleAuth"
 ));
 
-router.route("/").post(passport.verifyGuest, controller.register);
+router.route("/").get(passport.verifyGuest, controller.authenticate);
+router
+  .route("/callback")
+  .get(passport.verifyGuest, controller.callback, controller.successRedirect);
 
 module.exports = router;

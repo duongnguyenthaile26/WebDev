@@ -36,7 +36,7 @@
               class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3"
             >
               <div class="brand d-sm-none">Sign In</div>
-              <label>Username</label>
+              <label>Username:</label>
               <input
                 type="username"
                 class="form-control username-input"
@@ -51,6 +51,9 @@
               <button class="btn btn-outline-primary" onclick="login()">
                 Login
               </button>
+              <a href="/googleAuth" class="btn btn-outline-primary">
+                Sign in with Google
+              </a>
               <script>
                 function login() {
                   const username = $(".username-input").val();
