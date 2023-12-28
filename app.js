@@ -14,6 +14,7 @@ const globalErrorHandler = require(path.join(
 const homeRouter = require(path.join(__dirname, "routes", "home"));
 const loginRouter = require(path.join(__dirname, "routes", "login"));
 const logoutRouter = require(path.join(__dirname, "routes", "logout"));
+const registerRouter = require(path.join(__dirname, "routes", "register"));
 const typeRouter = require(path.join(__dirname, "routes", "typeProduct"));
 const productRouter = require(path.join(__dirname, "routes", "productDetail"));
 const searchRouter = require(path.join(__dirname, "routes", "searchProduct"));
@@ -49,6 +50,7 @@ app.use("/logout", logoutRouter);
 app.use("/typeProduct", typeRouter);
 app.use("/productDetail", productRouter);
 app.use("/searchProduct", searchRouter);
+app.use("/register", registerRouter);
 
 app.all("*", function (req, res, next) {
   next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));

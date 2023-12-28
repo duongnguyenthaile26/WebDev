@@ -7,13 +7,17 @@ function login(req, res, next) {
       return next(err);
     }
     if (!user) {
-      return res.json({ message: "login failed", status: "fail" });
+      return res.json({
+        message: "login failed",
+        status: "fail",
+        referer: req.get("Referer"),
+      });
     }
     req.logIn(user, function (err) {
       if (err) {
         return next(err);
       }
-      res.json({
+      return res.json({
         message: "login successful",
         status: "success",
         referer: req.get("Referer"),

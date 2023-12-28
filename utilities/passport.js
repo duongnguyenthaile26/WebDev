@@ -15,7 +15,7 @@ passport.use(
       if (!match) {
         return done(null, false);
       }
-      done(null, { username: user.username, role: user.role });
+      done(null, { username: user.username, role: user.role, name: user.name });
     } catch (error) {
       return done(error);
     }
@@ -23,11 +23,11 @@ passport.use(
 );
 
 passport.serializeUser(function (user, done) {
-  done(null, { username: user.username, role: user.role });
+  done(null, { username: user.username, name: user.name, role: user.role });
 });
 
 passport.deserializeUser(function (user, done) {
-  done(null, { username: user.username, role: user.role });
+  done(null, { username: user.username, name: user.name, role: user.role });
 });
 
 passport.isAdmin = function (req, res, next) {
