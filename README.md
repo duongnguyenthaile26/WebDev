@@ -2,7 +2,7 @@
 
 ## Thêm chức năng đăng nhập rồi, hiện chỉ có một tài khoản có sẵn trong database: username: user1 - password: 123456
 
-## Để tui làm trang profile nhe guys!!! 
+## Để tui làm trang profile nhe guys!!! (by Tín)
 
 Với lại nếu muốn đồng bộ code thì để tab size = 2, với lại dùng cái formatter Prettier trên VSCODE nha (cho canh hàng code đẹp, nhớ để format on save), nếu có sử dụng thì copy nội dung file settings.json đã có đăng lên repo và copy vào settings.json trên VSCODE của laptop của mình
 
