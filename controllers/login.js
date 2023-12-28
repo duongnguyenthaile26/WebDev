@@ -13,7 +13,11 @@ function login(req, res, next) {
       if (err) {
         return next(err);
       }
-      res.json({ message: "login successful", status: "success" });
+      res.json({
+        message: "login successful",
+        status: "success",
+        referer: req.get("Referer"),
+      });
     });
   })(req, res, next);
 }

@@ -154,13 +154,16 @@
                       </a>
                     </li>
                     <!-- Render page items -->
-                    <% const maxVisiblePages=7; // Số lượng trang tối đa hiển
-                    thị %> <% const halfVisiblePages=Math.floor(maxVisiblePages
-                    / 2); %> <% const startPage=Math.max(1, currentPage -
-                    halfVisiblePages); // Trang đầu tiên hiển thị %> <% const
-                    endPage=Math.min(totalPages, startPage + maxVisiblePages -
-                    1); // Trang cuối cùng hiển thị %> <% const
-                    showEllipsisStart=startPage> 1; %> <% const
+                    <% const maxVisiblePages=7; %>
+                    <!-- So luong trang toi da hien thi -->
+                    <% const halfVisiblePages=Math.floor(maxVisiblePages / 2);
+                    %> <% const startPage=Math.max(1, currentPage -
+                    halfVisiblePages); %>
+                    <!-- Trang dau hien thi-->
+                    <% const endPage=Math.min(totalPages, startPage +
+                    maxVisiblePages - 1); %>
+                    <!-- Trang cuoi cung hien thi -->
+                    <% const showEllipsisStart=startPage> 1; %> <% const
                     showEllipsisEnd=endPage < totalPages; %> <% if
                     (showEllipsisStart) { %>
                     <li class="page-item">

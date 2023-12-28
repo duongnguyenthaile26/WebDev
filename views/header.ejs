@@ -49,8 +49,21 @@ include('register.ejs', { isModalVisible: true }) %>
                 </li>
 
                 <li class="d-flex justify-content-center">
-                  <button type="button" class="btn btn-link">Logout</button>
+                  <button type="button" class="btn btn-link" onclick="logout()">
+                    Logout
+                  </button>
                 </li>
+                <script>
+                  function logout() {
+                    $.get("/logout", function (data) {
+                      if (data.err) {
+                        alert(data.err);
+                      } else {
+                        window.location.href = data.referer;
+                      }
+                    });
+                  }
+                </script>
               </ul>
             </div>
             <% } else { %>
