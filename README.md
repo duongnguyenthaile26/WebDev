@@ -11,3 +11,5 @@ Với lại nếu muốn đồng bộ code thì để tab size = 2, với lại 
 - **Update 1:** đã thêm thư mục các cờ (flags) vào trong public, và đã thêm thông tin các cờ vào database MongoDB
 
 - **Update 2:** đã thêm https (lúc vào trang web nhớ chỉnh lại từ http thành https, và trình duyệt sẽ báo là không an toàn, vì mình chỉ xài self-sign certificates)
+
+- **Update 3:** đã thêm chức năng đăng ký, đăng nhập, đăng xuất, có một tài khoản có sẵn trong database là user1 - 123456
