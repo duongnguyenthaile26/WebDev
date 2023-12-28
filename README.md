@@ -1,6 +1,6 @@
 ## Trang search ổn r nha, chỉnh lại tí theo yêu cầu là oke
 
-## Thêm chức năng đăng nhập rồi, hiện chỉ có một tài khoản có sẵn trong database: username: user1 - password: 123456
+## Chỉnh lại cái icon của user lúc đã đăng nhập nha, tên dài quá thì nó bị tràn
 
 ## Để tui làm trang profile nhe guys!!! (by Tín)
 
