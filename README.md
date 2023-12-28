@@ -8,7 +8,7 @@ Với lại nếu muốn đồng bộ code thì để tab size = 2, với lại 
 
 **Lưu ý 1:** nếu có chỉnh sửa các tag trong các file HTML/EJS thì cẩn thận khi chỉnh các class nha, vì có thể class đó được dùng cho mục đích viết JQuery
 
-**Lưu ý 1:** nếu có comment trong các file EJS thì đừng dùng comment // bên trong tag EJS nha, mà ra bên ngoài tag EJS rồi dùng <!-- -->
+**Lưu ý 2:** nếu có comment trong các file EJS thì đừng dùng comment // bên trong tag EJS nha, mà ra bên ngoài tag EJS rồi dùng <!-- -->
 
 - **Update 1:** đã thêm thư mục các cờ (flags) vào trong public, và đã thêm thông tin các cờ vào database MongoDB
 
