@@ -1,8 +1,6 @@
-## Trang search ổn r nha, chỉnh lại tí theo yêu cầu là oke
+## Trước năm mới, chỉnh lại trang search với làm thêm trang giỏ hàng với trang profile là oke, back-end thì làm thêm cái hệ thống phụ để chuẩn bị ráp với hệ thống chính
 
-## Chỉnh lại cho các trang ngoài trang home hiện cái biểu đồ nha, không biết tại sao mà mấy trang khác trang home ra thì tag của cái biểu đồ nó lại có cái style css khác --> T đã fix cái này luôn rồi nha
-
-## Với lại, cái folder view, nếu được thì cấu trúc lại thư mục nha, để mấy cái trang làm khung vào thư mục "templates", còn mấy component nhỏ thì bỏ hết sang folder "components" nha
+## Cái folder view, nếu được thì cấu trúc lại thư mục nha, để mấy cái trang làm khung vào thư mục "templates", còn mấy component nhỏ thì bỏ hết sang folder "components" nha
 
 ## Chỉnh lại cái icon của user lúc đã đăng nhập nha, tên dài quá thì nó bị tràn
 
