@@ -3,9 +3,10 @@ const passport = require(path.join(__dirname, "..", "utilities", "passport"));
 const User = require(path.join(__dirname, "..", "models", "user"));
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
+require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
-const saltRounds = 12;
-const randomPasswordLength = 15;
+const saltRounds = process.env.SALT_ROUNDS;
+const randomPasswordLength = process.env.PASSWORD_LENGTH_FOR_OAUTH;
 
 function authenticate(req, res, next) {
   passport.authenticate("google", {
