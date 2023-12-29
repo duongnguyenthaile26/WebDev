@@ -10,6 +10,13 @@ const verifyRole = require(path.join(
 
 const controller = require(path.join(__dirname, "..", "controllers", "logout"));
 
-router.route("/").get(verifyRole.verifyUser, controller.logout);
+router.route("/").post(
+  verifyRole.verifyUser,
+  function (req, res, next) {
+    req.tempVisited = req.session.visited;
+    next();
+  },
+  controller.logout
+);
 
 module.exports = router;

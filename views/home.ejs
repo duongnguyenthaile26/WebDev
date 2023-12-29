@@ -51,12 +51,10 @@
     <!-- ===================SIDEBAR=================== -->
 
     <!-- ===================HEADER=================== -->
-
-    <!-- ===================HEADER=================== -->
     <%- include('header.ejs') %>
+    <!-- ===================HEADER=================== -->
 
     <!-- ===================CONTENT=================== -->
-
     <div class="content-body pb-5">
       <!-- ===================Background=================== -->
       <div class="image-top">
@@ -153,30 +151,6 @@
           event.preventDefault();
           window.location.href = $(this).attr("href");
         });
-      });
-    </script>
-    <script>
-      const ctx = document.getElementById("myChart");
-
-      new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: ["", "", "", "", "", "", ""],
-          datasets: [
-            {
-              label: "Visitors",
-              data: [12, 19, 3, 5, 2, 3, 15],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
       });
     </script>
   </body>

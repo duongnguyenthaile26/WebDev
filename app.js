@@ -2,10 +2,16 @@
 const path = require("path");
 const express = require("express");
 require("dotenv").config();
+const { v4: uuidv4 } = require("uuid");
 
 const passport = require(path.join(__dirname, "utilities", "passport"));
 const AppError = require(path.join(__dirname, "utilities", "AppError"));
 
+const countVisitor = require(path.join(
+  __dirname,
+  "middlewares",
+  "countVisitor"
+));
 const globalErrorHandler = require(path.join(
   __dirname,
   "controllers",
@@ -20,6 +26,11 @@ const typeRouter = require(path.join(__dirname, "routes", "typeProduct"));
 const productRouter = require(path.join(__dirname, "routes", "productDetail"));
 const searchRouter = require(path.join(__dirname, "routes", "searchProduct"));
 const googleAuthRouter = require(path.join(__dirname, "routes", "googleAuth"));
+const visitorCountRouter = require(path.join(
+  __dirname,
+  "routes",
+  "visitorCount"
+));
 
 // Initializes
 const app = express();
@@ -35,8 +46,15 @@ app.use(
     cookie: { secure: true },
   })
 );
+app.use(function (req, res, next) {
+  if (req.url === "/favicon.ico") {
+    return res.status(204).end();
+  }
+  next();
+});
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(countVisitor);
 
 // setters
 app.set("view engine", "ejs");
@@ -55,6 +73,7 @@ app.use("/typeProduct", typeRouter);
 app.use("/productDetail", productRouter);
 app.use("/searchProduct", searchRouter);
 app.use("/googleAuth", googleAuthRouter);
+app.use("/visitorCount", visitorCountRouter);
 
 app.all("*", function (req, res, next) {
   next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));

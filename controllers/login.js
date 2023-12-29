@@ -17,6 +17,7 @@ function login(req, res, next) {
       if (err) {
         return next(err);
       }
+      req.session.visited = req.tempVisited;
       return res.json({
         message: "login successful",
         status: "success",

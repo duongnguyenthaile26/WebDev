@@ -15,9 +15,25 @@ const controller = require(path.join(
   "googleAuth"
 ));
 
-router.route("/").get(verifyRole.verifyGuest, controller.authenticate);
-router
-  .route("/callback")
-  .get(verifyRole.verifyGuest, controller.callback, controller.successRedirect);
+let tempVisited;
+
+router.route("/").get(
+  verifyRole.verifyGuest,
+  function (req, res, next) {
+    tempVisited = req.session.visited;
+    next();
+  },
+  controller.authenticate
+);
+
+router.route("/callback").get(
+  verifyRole.verifyGuest,
+  function (req, res, next) {
+    req.tempVisited = tempVisited;
+    next();
+  },
+  controller.callback,
+  controller.successRedirect
+);
 
 module.exports = router;

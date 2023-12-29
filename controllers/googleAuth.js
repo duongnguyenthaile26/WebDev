@@ -35,6 +35,7 @@ async function successRedirect(req, res, next) {
         role: req.user.role,
       });
     }
+    req.session.visited = req.tempVisited;
     res.redirect("/");
   } catch (error) {
     next(error);
