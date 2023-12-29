@@ -23,6 +23,7 @@ passport.use(
     }
   })
 );
+
 passport.use(
   new GoogleStrategy(
     {
@@ -47,26 +48,5 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
   done(null, { username: user.username, name: user.name, role: user.role });
 });
-
-passport.verifyAdmin = function (req, res, next) {
-  if (req.isAuthenticated() && req.user.role === "admin") {
-    return next();
-  }
-  res.redirect("/denied");
-};
-
-passport.verifyUser = function (req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/denied");
-};
-
-passport.verifyGuest = function (req, res, next) {
-  if (!req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/denied");
-};
 
 module.exports = passport;

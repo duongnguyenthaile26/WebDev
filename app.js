@@ -1,6 +1,7 @@
 // Requires
 const path = require("path");
 const express = require("express");
+require("dotenv").config();
 
 const passport = require(path.join(__dirname, "utilities", "passport"));
 const AppError = require(path.join(__dirname, "utilities", "AppError"));
@@ -28,9 +29,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   require("express-session")({
-    secret: "secret",
-    resave: true,
-    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true },
   })
 );
 app.use(passport.initialize());
@@ -48,10 +50,10 @@ app.get("/denied", function (req, res) {
 app.use("/", homeRouter);
 app.use("/login", loginRouter);
 app.use("/logout", logoutRouter);
+app.use("/register", registerRouter);
 app.use("/typeProduct", typeRouter);
 app.use("/productDetail", productRouter);
 app.use("/searchProduct", searchRouter);
-app.use("/register", registerRouter);
 app.use("/googleAuth", googleAuthRouter);
 
 app.all("*", function (req, res, next) {

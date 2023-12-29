@@ -4,8 +4,8 @@ const User = require(path.join(__dirname, "..", "models", "user"));
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
-const randomPasswordLength = 15;
 const saltRounds = 12;
+const randomPasswordLength = 15;
 
 function authenticate(req, res, next) {
   passport.authenticate("google", {

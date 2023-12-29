@@ -54,19 +54,7 @@
               <a href="/googleAuth" class="btn btn-outline-primary">
                 Sign in with Google
               </a>
-              <script>
-                function login() {
-                  const username = $(".username-input").val();
-                  const password = $(".password-input").val();
-                  $.post("/login", { username, password }, function (data) {
-                    if (data.status === "success") {
-                      window.location.href = data.referer;
-                    } else {
-                      alert("Login Unsuccessful!");
-                    }
-                  });
-                }
-              </script>
+              <script src="scripts/login.js"></script>
               <!-- <span class="text-center">
                 <a class="forgot-password" href="/"> Forgot your password? </a>
               </span> -->

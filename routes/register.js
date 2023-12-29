@@ -1,7 +1,12 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
-const passport = require(path.join(__dirname, "..", "utilities", "passport"));
+const verifyRole = require(path.join(
+  __dirname,
+  "..",
+  "middlewares",
+  "verifyRole"
+));
 
 const controller = require(path.join(
   __dirname,
@@ -10,6 +15,6 @@ const controller = require(path.join(
   "register"
 ));
 
-router.route("/").post(passport.verifyGuest, controller.register);
+router.route("/").post(verifyRole.verifyGuest, controller.register);
 
 module.exports = router;
