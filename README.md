@@ -1,9 +1,5 @@
 ## Trước năm mới, chỉnh lại trang search với làm thêm trang giỏ hàng với trang profile là oke, back-end thì làm thêm cái hệ thống phụ để chuẩn bị ráp với hệ thống chính
 
-## Cái folder view, nếu được thì cấu trúc lại thư mục nha, để mấy cái trang làm khung vào thư mục "templates", còn mấy component nhỏ thì bỏ hết sang folder "components" nha
-
-## Chỉnh lại cái icon của user lúc đã đăng nhập nha, tên dài quá thì nó bị tràn
-
 ## Để tui làm trang profile nhe guys!!! (by Tín) (Nếu làm trang profile thì chỉ cần là hiện name, username, và cho cái nút để đi đến trang giỏ hàng nha, với cho nút để đi đến màn hình đổi mật khẩu nữa, and có thể cho thêm chức năng đổi tên)
 
 Với lại nếu muốn đồng bộ code thì để tab size = 2, với lại dùng cái formatter Prettier trên VSCODE nha (cho canh hàng code đẹp, nhớ để format on save), nếu có sử dụng thì copy nội dung file settings.json đã có đăng lên repo và copy vào settings.json trên VSCODE của laptop của mình
