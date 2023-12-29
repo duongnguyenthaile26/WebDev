@@ -5,16 +5,19 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "concurrently \"nodemon server.js\" \"nodemon auxiliarySystem/paymentServer.js\""
   },
   "author": "21127576 - 21127689 - 21127733 - 21127736",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.3",
     "bcrypt": "^5.1.1",
+    "concurrently": "^8.2.2",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
