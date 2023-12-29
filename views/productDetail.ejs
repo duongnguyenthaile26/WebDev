@@ -46,13 +46,13 @@
 
   <body>
     <!-- ===================SIDEBAR=================== -->
-    <%- include('sidebar.ejs'); %>
+    <%- include('./partials/sidebar.ejs'); %>
     <!-- ===================SIDEBAR=================== -->
 
     <!-- ===================HEADER=================== -->
 
     <!-- ===================HEADER=================== -->
-    <%- include('header.ejs') %>
+    <%- include('./partials/header.ejs') %>
 
     <!-- ===================CONTENT=================== -->
     <div class="content-body pb-5">
@@ -63,7 +63,7 @@
           <div class="justify-content-center intro p-3 mx-2">
             <div style="color: #f0f2f5">Ignore text</div>
             <div class="fs-1 text-center pe-3" style="width: 30rem">
-              THÔNG TIN SẢN PHẨM
+              PRODUCT INFORMATION
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@
           </div>
         </div>
         <div>
-          <%- include('imageSlider.ejs', { flagsToShow: flagsToShow }) %>
+          <%- include('./partials/imageSlider.ejs', { flagsToShow: flagsToShow }) %>
         </div>
       </div>
     </div>
@@ -133,7 +133,7 @@
     <!-- ===================CONTENT=================== -->
 
     <!-- ===================FOOTER=================== -->
-    <%- include('footer.ejs') %>
+    <%- include('./partials/footer.ejs') %>
     <!-- ===================FOOTER=================== -->
 
     <script>

@@ -47,11 +47,11 @@
 
   <body>
     <!-- ===================SIDEBAR=================== -->
-    <%- include('sidebar.ejs'); %>
+    <%- include('./partials/sidebar.ejs'); %>
     <!-- ===================SIDEBAR=================== -->
 
     <!-- ===================HEADER=================== -->
-    <%- include('header.ejs') %>
+    <%- include('./partials/header.ejs') %>
     <!-- ===================HEADER=================== -->
 
     <!-- ===================CONTENT=================== -->
@@ -66,7 +66,7 @@
       <!-- ===================Content=================== -->
       <div class="container">
         <!-- ===================ImageSlider=================== -->
-        <%- include('imageSlider.ejs', { flagsToShow: cheapestFlags }) %>
+        <%- include('./partials/imageSlider.ejs', { flagsToShow: cheapestFlags }) %>
         <!-- ===================ImageSlider=================== -->
 
         <!-- ===================Content=================== -->
@@ -84,7 +84,7 @@
             <div
               class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center"
             >
-              <%- include('card.ejs', { flag: flag }) %>
+              <%- include('./components/card.ejs', { flag: flag }) %>
             </div>
             <% }); %>
           </div>
@@ -102,7 +102,7 @@
       </div>
     </div>
     <!-- ===================FOOTER=================== -->
-    <%- include('footer.ejs') %>
+    <%- include('./partials/footer.ejs') %>
     <!-- ===================FOOTER=================== -->
 
     <script>
