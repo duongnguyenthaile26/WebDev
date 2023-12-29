@@ -2,7 +2,6 @@
 const path = require("path");
 const express = require("express");
 require("dotenv").config();
-const { v4: uuidv4 } = require("uuid");
 
 const passport = require(path.join(__dirname, "utilities", "passport"));
 const AppError = require(path.join(__dirname, "utilities", "AppError"));
