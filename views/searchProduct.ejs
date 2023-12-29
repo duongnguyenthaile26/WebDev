@@ -103,10 +103,11 @@
                 <div class="checkbox py-1">
                   <div class="form-check">
                     <input
-                      class="form-check-input"
+                      class="form-check-input category-checkbox"
                       type="checkbox"
                       value="<%= option %>"
                       id="<%= option %>"
+                      name="categories"
                     />
                     <label class="form-check-label" for="<%= option %>">
                       <%= option %>
@@ -114,14 +115,6 @@
                   </div>
                 </div>
                 <% }); %>
-              </div>
-              <div class="filter d-flex justify-content-center">
-                <button
-                  type="button"
-                  class="btn-filter btn btn-outline-primary"
-                >
-                  Lọc
-                </button>
               </div>
             </div>
             <!-- ===================Navbar=================== -->
@@ -133,8 +126,7 @@
               <div
                 class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center"
               >
-                <%- include('./components/card.ejs', { flag: flag }) %>
-                <!-- ===================Thêm card được search theo tên vào đây vào đây=================== -->
+                <%- include('./components/card.ejs', { flag: flag }); %>
               </div>
               <% }); %>
               <!-- Pagination -->
@@ -245,9 +237,6 @@
           }
         });
       });
-      $(".search-box").click(function () {
-        $("#search-form").submit();
-      });
       $(document).ready(function () {
         $(".login-container").click(function () {
           $("#LoginModal").modal("show");
@@ -278,26 +267,22 @@
           window.location.href = $(this).attr("href");
         });
       });
-      $(document).ready(function () {
-        $(".form-check-input").on("change", function () {
-          if ($(this).is(":checked")) {
-            // Loại bỏ chọn tất cả các checkbox khác trong nhóm
-            $(".form-check-input").not(this).prop("checked", false);
-          }
+      $("#search-form").submit(function (event) {
+        event.preventDefault(); 
+        const selectedCategories = $(".category-checkbox:checked").map(function () {
+          return $(this).val(); 
+        }).get();
+        const searchName = $("#search-input").val(); 
+        const queryParams = new URLSearchParams({
+          name: nameParam,
+          categories: selectedCategories.join(',')
         });
+        window.location.href = `/searchProduct?${queryParams.toString()}`;
       });
-      $(document).ready(function () {
-        $(".btn-filter").click(function () {
-          let selectedCategories = [];
-          $(".form-check-input:checked").each(function () {
-            selectedCategories.push($(this).val().toLowerCase());
-          });
-          console.log(selectedCategories);
-          if (selectedCategories.length > 0) {
-            let type = selectedCategories.join("+");
-            window.location.href = "/typeProduct?type=" + type;
-          }
-        });
+    
+      // Xử lý khi chọn checkbox
+      $(".category-checkbox").change(function () {
+        $("#search-form").submit(); // Gửi form khi có thay đổi trong checkbox
       });
     </script>
   </body>
