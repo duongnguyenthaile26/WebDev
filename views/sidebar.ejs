@@ -4,9 +4,11 @@
     <i class="fas fa-times fa-beat"></i>
   </div>
   <div class="menu">
+    <% if (user !== null && user !== undefined && user.role === "user") { %>
     <div class="item">
       <a href="#"><i class="fas fa-cart-shopping"></i>Cart</a>
     </div>
+    <% } %>
     <div class="item">
       <a>
         <p style="margin-bottom: 0">Search for flags by name</p>
