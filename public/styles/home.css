@@ -437,10 +437,6 @@ footer {
   transform: scale(1.1);
 }
 
-.btn-group {
-  width: 3rem;
-  height: 3rem;
-}
 
 .btn-link {
   text-decoration: none;

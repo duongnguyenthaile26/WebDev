@@ -47,13 +47,13 @@
 
   <body>
     <!-- ===================SIDEBAR=================== -->
-    <%- include('sidebar.ejs'); %>
+    <%- include('./partials/sidebar.ejs'); %>
     <!-- ===================SIDEBAR=================== -->
 
     <!-- ===================HEADER=================== -->
 
     <!-- ===================HEADER=================== -->
-    <%- include('header.ejs') %>
+    <%- include('./partials/header.ejs') %>
 
     <!-- ===================CONTENT=================== -->
     <div class="content-body pb-5">
@@ -64,7 +64,7 @@
           <div class="justify-content-center intro p-3 mx-2">
             <div style="color: #f0f2f5">Ignore text</div>
             <div class="fs-1 text-center pe-3" style="width: 30rem">
-              TÌM KIẾM SẢN PHẨM
+              PRODUCT SEARCHING
             </div>
           </div>
           <div
@@ -133,7 +133,7 @@
               <div
                 class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center"
               >
-                <%- include('card.ejs', { flag: flag }) %>
+                <%- include('./components/card.ejs', { flag: flag }) %>
                 <!-- ===================Thêm card được search theo tên vào đây vào đây=================== -->
               </div>
               <% }); %>
@@ -213,7 +213,7 @@
     <!-- ===================CONTENT=================== -->
 
     <!-- ===================FOOTER=================== -->
-    <%- include('footer.ejs') %>
+    <%- include('./partials/footer.ejs') %>
     <!-- ===================FOOTER=================== -->
 
     <script>

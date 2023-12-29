@@ -47,13 +47,13 @@
 
   <body>
     <!-- ===================SIDEBAR=================== -->
-    <%- include('sidebar.ejs'); %>
+    <%- include('./partials/sidebar.ejs'); %>
     <!-- ===================SIDEBAR=================== -->
 
     <!-- ===================HEADER=================== -->
 
     <!-- ===================HEADER=================== -->
-    <%- include('header.ejs') %>
+    <%- include('./partials/header.ejs') %>
 
     <!-- ===================CONTENT=================== -->
     <div class="content-body pb-5">
@@ -111,7 +111,7 @@
               <div
                 class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center"
               >
-                <%- include('card.ejs', { flag: flag }) %>
+                <%- include('./components/card.ejs', { flag: flag }) %>
               </div>
               <% }); %>
               <!-- Pagination -->
@@ -190,7 +190,7 @@
     <!-- ===================CONTENT=================== -->
 
     <!-- ===================FOOTER=================== -->
-    <%- include('footer.ejs') %>
+    <%- include('./partials/footer.ejs') %>
     <!-- ===================FOOTER=================== -->
 
     <script>
