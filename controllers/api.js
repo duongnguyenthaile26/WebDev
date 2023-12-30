@@ -19,4 +19,3 @@ async function visitorData(req, res, next) {
 }
 
 exports.visitorData = visitorData;
-exports.search = search;
