@@ -27,25 +27,26 @@ async function render(req, res, next) {
       flags.push(flag);
     }
 
-    /*
-      Flags là một mảng gồm nhiều object, mỗi object là một sản phẩm trong giỏ hàng của người dùng, mỗi object có cấu trúc như sau:
-      {
-        name: 'Communist Party of China',
-        price: 203.89,
-        quantity: 16,
-        image: 'ccp.png',
-        type: 'political',
-        totalPrice: 3262.24
-      }
-    */
+    const itemsPerPage = 5; // Số lượng sản phẩm trên mỗi trang
+    const page = req.query.page || 1; 
+
+    const totalItems = flags.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    // Lấy phần của danh sách sản phẩm tương ứng với trang hiện tại
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = page * itemsPerPage;
+    const flagsOnPage = flags.slice(startIndex, endIndex);
 
     /* Nhớ làm thêm nút để xóa item ra khỏi giỏ hàng nha */
 
     res.render("cart", {
       user: req.user, // cái này để đi đến trang người dùng (khi nào có thì cài đặt sau)
       options, // cho sidebar
-      flags,
+      flags: flagsOnPage,
       total, // tổng giá tiền của cả giỏ hàng
+      totalPages: totalPages,
+      currentPage: page,
     });
   } catch (error) {
     next(error);

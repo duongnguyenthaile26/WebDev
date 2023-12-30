@@ -75,7 +75,7 @@
                     <div class="card mb-3" >
                         <div class="card-body">
                           <div class="d-flex flex-column flex-xl-row justify-content-between align-items-center">
-                                <div class="product-info d-flex align-items-center fw-bold text-dark">
+                                <div class="col-xl-5 product-info d-flex align-items-center fw-bold text-dark">
                                    <div style="width: 15rem;">
                                         You have <%= flags.length %> items in your cart
                                    </div>
@@ -99,11 +99,11 @@
                       </div>
                 </div>      
                 <% flags.forEach((flag) => { %>
-                    <div class="cart-title" style="width: fit-content;">
+                    <div class="cart-title" style="width: 60vw;">
                         <div class="card mb-3" >
                             <div class="card-body">
                               <div class="d-flex flex-column flex-xl-row justify-content-between align-items-center">
-                                    <div class="product-info d-flex align-items-center">
+                                    <div class="col-xl-5 product-info d-flex align-items-center">
                                         <img
                                         src="flags/<%= flag.type %>/<%= flag.image %>"
                                         class="card-img-left" alt="item">
@@ -167,10 +167,51 @@
                     </div>
                 </div>
                 <button type="button" class="checkout btn btn-outline-danger mt-3 fs-4" style="width: 100%;">CHECK OUT</button>
-
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center align-items-center pt-5">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <!-- Previous page button -->
+                            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                                <a class="page-link" href="#" aria-label="Previous" onclick="changePage('<%= currentPage - 1 %>')">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <!-- Render page items -->
+                            <% const maxVisiblePages = 7; %>
+                            <% const halfVisiblePages = Math.floor(maxVisiblePages / 2); %>
+                            <% const startPage = Math.max(1, currentPage - halfVisiblePages); %>
+                            <% const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1); %>
+                            <% const showEllipsisStart = startPage > 1; %>
+                            <% const showEllipsisEnd = endPage < totalPages; %>
+                            <% if (showEllipsisStart) { %>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">...</a>
+                                </li>
+                            <% } %>
+                            <% for (let i = startPage; i <= endPage; i++) { %>
+                                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                    <a class="page-link" href="#" onclick="changePage('<%= i %>')"><%= i %></a>
+                                </li>
+                            <% } %>
+                            <% if (showEllipsisEnd) { %>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">...</a>
+                                </li>
+                            <% } %>
+                            <!-- Next page button -->
+                            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                <a class="page-link" href="#" aria-label="Next" onclick="changePage('<%= currentPage + 1 %>')">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
               </div>
               <!-- ===================Navbar=================== -->
-          </div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -221,6 +262,29 @@
           $("#RegisterModal").modal("show");
         });
       });
+      function changePage(page) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentPage = parseInt(urlParams.get("page")) || 1;
+        const totalPages = parseInt('<%= totalPages %>'); // Lấy tổng số trang từ EJS
+      
+        // Xử lý trường hợp page nhỏ hơn 1 hoặc lớn hơn totalPages
+        if (page < 1) {
+          page = 1;
+        } else if (page > totalPages) {
+          page = totalPages;
+        }
+      
+        const newUrl = `?page=${page}`;
+        fetch(newUrl)
+          .then((response) => response.text())
+          .then((data) => {
+            // Cập nhật nội dung của trang với dữ liệu mới từ máy chủ
+            document.querySelector("body").innerHTML = data;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
     </script>
   </body>
 </html>

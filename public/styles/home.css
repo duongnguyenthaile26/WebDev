@@ -443,7 +443,9 @@ footer {
   transition: transform 1.2s;
   border-radius: 1rem;
 }
-
+.card-img-left:hover {
+  transform: scale(1.1);
+}
 .btn-link {
   text-decoration: none;
 }
