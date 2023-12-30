@@ -120,7 +120,11 @@
               <div class="d-flex">
                 <% if (user !== null && user !== undefined && user.role ===
                 "user") { %>
-                <button type="button" class="btn btn-danger me-2">
+                <button
+                  type="button"
+                  class="btn btn-danger me-2"
+                  onclick="addToCart()"
+                >
                   ADD TO CART
                 </button>
                 <% } %> <% if (user !== null && user !== undefined && user.role
@@ -141,7 +145,7 @@
         </div>
       </div>
     </div>
-
+    <div class="flag-id" style="display: none"><%= flag._id %></div>
     <!-- ===================CONTENT=================== -->
 
     <!-- ===================FOOTER=================== -->
@@ -202,6 +206,14 @@
       function handlePlusClick() {
         ++quantity;
         quantityInput.value = quantity;
+      }
+      function addToCart() {
+        const flagID = $(".flag-id").html();
+        $.post("/api/addToCart", { flagID, quantity }, function (data) {
+          alert("Add to cart successful!");
+          quantity = 1;
+          quantityInput.value = quantity;
+        });
       }
     </script>
   </body>

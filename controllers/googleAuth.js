@@ -5,8 +5,8 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
-const saltRounds = process.env.SALT_ROUNDS;
-const randomPasswordLength = process.env.PASSWORD_LENGTH_FOR_OAUTH;
+const saltRounds = Number(process.env.SALT_ROUNDS);
+const randomPasswordLength = Number(process.env.PASSWORD_LENGTH_FOR_OAUTH);
 
 let referer;
 

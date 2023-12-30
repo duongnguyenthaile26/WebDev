@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const User = require(path.join(__dirname, "..", "models", "user"));
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
-const saltRounds = process.env.SALT_ROUNDS;
+const saltRounds = Number(process.env.SALT_ROUNDS);
 
 async function register(req, res, next) {
   try {
