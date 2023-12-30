@@ -436,7 +436,13 @@ footer {
 .card-img-top:hover {
   transform: scale(1.1);
 }
-
+.card-img-left {
+  object-fit: cover;
+  width: 15rem;
+  height: 15rem;
+  transition: transform 1.2s;
+  border-radius: 1rem;
+}
 
 .btn-link {
   text-decoration: none;
