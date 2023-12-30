@@ -8,17 +8,25 @@ const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
 });
 
+const iss = process.env.ISSUER;
+const aud = process.env.AUDIENCE;
+
+function generateToken() {
+  const payload = {
+    iss,
+    aud,
+    iat: Math.floor(Date.now() / 1000),
+    exp: Math.floor(Date.now() / 1000) + 60 * 60,
+  };
+  return jwt.sign(payload, process.env.JWT_SECRET);
+}
+
 async function test(req, res, next) {
   try {
-    const payload = { user: req.user };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: 60 * 60 * 24 * 365,
-    });
+    const token = generateToken();
     const response = await axios.post(
       "https://127.0.0.1:8000/api/test",
-      {
-        message: "Hello World",
-      },
+      { message: "Hello World" },
       {
         headers: { Authorization: `Bearer ${token}` },
         httpsAgent,
