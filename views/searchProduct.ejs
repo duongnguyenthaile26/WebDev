@@ -70,27 +70,22 @@
           <div
             class="col-8 col-lg-6 d-flex justify-content-center align-items-center"
           >
-            <form
-              id="search-form"
-              action="/searchProduct"
-              method="GET"
-              style="width: 25rem"
-            >
+            <div style="width: 25rem">
               <div class="input-group">
                 <input
                   type="search"
-                  class="form-control"
+                  class="form-control name-input"
                   placeholder="Search"
                   aria-label="Search"
                   aria-describedby="search-addon"
                   name="name"
                   value="<%= searchName %>"
                 />
-                <button type="submit" class="btn btn-primary search-box">
+                <button class="btn btn-primary search-box" onclick="search()">
                   <i class="fas fa-search"></i>
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
         <div class="container d-block p-5">
@@ -103,7 +98,7 @@
                 <div class="checkbox py-1">
                   <div class="form-check">
                     <input
-                      class="form-check-input category-checkbox"
+                      class="form-check-input category-checkbox checked-<%= checkboxes.indexOf(option) !== -1 ? 'true' : 'false' %>"
                       type="checkbox"
                       value="<%= option %>"
                       id="<%= option %>"
@@ -236,6 +231,7 @@
             $(".menu-btn").css("visibility", "visible");
           }
         });
+        $(".checked-true").prop("checked", true);
       });
       $(document).ready(function () {
         $(".login-container").click(function () {
@@ -267,22 +263,22 @@
           window.location.href = $(this).attr("href");
         });
       });
-      $("#search-form").submit(function (event) {
-        event.preventDefault(); 
-        const selectedCategories = $(".category-checkbox:checked").map(function () {
-          return $(this).val(); 
-        }).get();
-        const searchName = $("#search-input").val(); 
+      function search() {
+        const searchInput = $(".name-input").val();
+        const selectedCategories = [];
+        $(".category-checkbox").each(function () {
+          if ($(this).is(":checked")) {
+            selectedCategories.push($(this).attr("id"));
+          }
+        });
         const queryParams = new URLSearchParams({
-          name: nameParam,
-          categories: selectedCategories.join(',')
+          name: searchInput,
+          categories: selectedCategories.join(","),
         });
         window.location.href = `/searchProduct?${queryParams.toString()}`;
-      });
-    
-      // Xử lý khi chọn checkbox
+      }
       $(".category-checkbox").change(function () {
-        $("#search-form").submit(); // Gửi form khi có thay đổi trong checkbox
+        search();
       });
     </script>
   </body>

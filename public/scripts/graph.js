@@ -1,4 +1,4 @@
-$.post("/visitorCount", function (responseData) {
+$.post("/api/visitorData", function (responseData) {
   const ctx = $("#myChart");
   const visitorData = responseData.data.reverse();
   const labels = [];

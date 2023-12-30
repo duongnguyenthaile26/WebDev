@@ -25,15 +25,11 @@ const typeRouter = require(path.join(__dirname, "routes", "typeProduct"));
 const productRouter = require(path.join(__dirname, "routes", "productDetail"));
 const searchRouter = require(path.join(__dirname, "routes", "searchProduct"));
 const googleAuthRouter = require(path.join(__dirname, "routes", "googleAuth"));
+const apiRouter = require(path.join(__dirname, "routes", "api"));
 const paymentProcessRouter = require(path.join(
   __dirname,
   "routes",
   "paymentProcess"
-));
-const visitorCountRouter = require(path.join(
-  __dirname,
-  "routes",
-  "visitorCount"
 ));
 
 // Initializes
@@ -77,8 +73,8 @@ app.use("/typeProduct", typeRouter);
 app.use("/productDetail", productRouter);
 app.use("/searchProduct", searchRouter);
 app.use("/googleAuth", googleAuthRouter);
-app.use("/visitorCount", visitorCountRouter);
 app.use("/paymentProcess", paymentProcessRouter);
+app.use("/api", apiRouter);
 
 app.all("*", function (req, res, next) {
   next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));
