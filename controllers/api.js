@@ -6,13 +6,6 @@ const VisitorCount = require(path.join(
   "visitorCount.js"
 ));
 
-async function search(req, res, next) {
-  try {
-  } catch (error) {
-    next(error);
-  }
-}
-
 async function visitorData(req, res, next) {
   try {
     const data = await VisitorCount.find()
