@@ -189,7 +189,7 @@
           $("#RegisterModal").modal("show");
         });
       });
-      let quantity = 0;
+      let quantity = 1;
       const quantityInput = document.getElementById("quantityInput");
 
       function handleMinusClick() {
@@ -200,7 +200,7 @@
       }
 
       function handlePlusClick() {
-        quantity++;
+        ++quantity;
         quantityInput.value = quantity;
       }
     </script>
