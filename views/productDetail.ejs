@@ -86,7 +86,9 @@
               <div class="price text-danger fw-bold fs-3">
                 Price: <%= flag.price %>
               </div>
-              <div class="count pt-3 fs-4">
+              <div
+                class="count pt-3 fs-4 quantity-<%= user?.role === 'user' ? 'render' : 'hidden' %>"
+              >
                 Số lượng
                 <div class="input-group d-flex mb-3 pt-2">
                   <button
@@ -112,21 +114,30 @@
                   </button>
                 </div>
               </div>
+              <script>
+                $(".quantity-hidden").css("visibility", "hidden");
+              </script>
               <div class="d-flex">
+                <% if (user !== null && user !== undefined && user.role ===
+                "user") { %>
                 <button type="button" class="btn btn-danger me-2">
                   ADD TO CART
                 </button>
+                <% } %> <% if (user !== null && user !== undefined && user.role
+                === "admin") { %>
                 <button type="button" class="btn btn-warning mx-2">EDIT</button>
                 <button type="button" class="btn btn-danger ms-2">
                   DELETE
                 </button>
+                <% } %>
               </div>
             </div>
             <!-- ===================Content=================== -->
           </div>
         </div>
         <div>
-          <%- include('./partials/imageSlider.ejs', { flagsToShow: flagsToShow }) %>
+          <%- include('./partials/imageSlider.ejs', { flagsToShow: flagsToShow
+          }) %>
         </div>
       </div>
     </div>

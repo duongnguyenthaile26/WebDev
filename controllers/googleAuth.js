@@ -8,7 +8,10 @@ require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 const saltRounds = process.env.SALT_ROUNDS;
 const randomPasswordLength = process.env.PASSWORD_LENGTH_FOR_OAUTH;
 
+let referer;
+
 function authenticate(req, res, next) {
+  referer = req.get("Referer");
   passport.authenticate("google", {
     scope: ["profile", "email"],
     prompt: "select_account",
@@ -36,7 +39,7 @@ async function successRedirect(req, res, next) {
       });
     }
     req.session.visited = req.tempVisited;
-    res.redirect("/");
+    res.redirect(referer);
   } catch (error) {
     next(error);
   }
