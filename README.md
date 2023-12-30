@@ -1,3 +1,5 @@
+# Đã thêm folder goi_y_cac_view, là gợi ý template các view mình cần phải làm tiếp theo. Nếu bên front-end làm theo cái gợi ý mà có gì khó khăn thì cứ nói, để đổi hướng đi làm cho dễ hơn. Có gì thắc mắc hay không rõ thì cứ nói t
+
 ## Trước năm mới, làm thêm trang giỏ hàng với trang profile là oke, back-end thì làm thêm cái hệ thống phụ để chuẩn bị ráp với hệ thống chính
 
 ## Trước khi thi cuối kỳ môn SE, làm xong giao diện home của admin là oke (vì cái này nó có khá nhiều thứ liên quan cần làm)
