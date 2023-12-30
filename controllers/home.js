@@ -29,7 +29,7 @@ async function render(req, res, next) {
     */
 
     res.render("home", {
-      user: req.user, // cái này xử lý sau cũng được
+      user: "admin", // cái này xử lý sau cũng được
       cheapestFlags,
       flagsByCategory,
       options,
