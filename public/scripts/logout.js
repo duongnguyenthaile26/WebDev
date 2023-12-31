@@ -3,7 +3,7 @@ function logout() {
     if (data.err) {
       alert(data.err);
     } else {
-      window.location.href = data.referer;
+      window.location.href = "/";
     }
   });
 }
