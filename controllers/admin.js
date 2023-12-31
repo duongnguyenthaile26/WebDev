@@ -23,5 +23,22 @@ async function userManagement(req, res, next) {
     next(error);
   }
 }
+async function categoriesManagement(req, res, next) {
+  try {
+    // cho sidebar
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map((category) => category.name);
+
+
+    res.render("adminCategoriesManagement", {
+      user: req.user,
+      categories,
+      options,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 exports.userManagement = userManagement;
+exports.categoriesManagement = categoriesManagement;
