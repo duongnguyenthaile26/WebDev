@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
+const googleAuthRouter = express.Router();
 
 const verifyRole = require(path.join(
   __dirname,
@@ -37,7 +38,9 @@ router.route("/logout").post(
 
 router.route("/register").post(verifyRole.verifyGuest, controller.register);
 
-router.route("/googleAuth").get(
+router.use("/googleAuth", googleAuthRouter);
+
+googleAuthRouter.route("/").get(
   verifyRole.verifyGuest,
   function (req, res, next) {
     tempVisited = req.session.visited;
@@ -46,7 +49,7 @@ router.route("/googleAuth").get(
   controller.authenticate
 );
 
-router.route("/googleAuth/callback").get(
+googleAuthRouter.route("/callback").get(
   verifyRole.verifyGuest,
   function (req, res, next) {
     req.tempVisited = tempVisited;

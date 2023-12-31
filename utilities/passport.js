@@ -29,7 +29,7 @@ passport.use(
     {
       clientID: process.env.OAUTH_CLIENT_ID,
       clientSecret: process.env.OAUTH_CLIENT_SECRET,
-      callbackURL: "/googleAuth/callback",
+      callbackURL: "account/googleAuth/callback",
     },
     function (accessToken, refreshToken, profile, callback) {
       return callback(null, {
