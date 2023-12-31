@@ -1,4 +1,4 @@
-# AE tạm đừng pull về nữa nha, để t refactor lại code cái rồi anh em pull về
+# T đã refactor code xong rồi, anh em vào check thử xem có lỗi gì không (tạm thời đăng nhập bằng Google không hoạt động được, vì t đang thay đổi vài thứ về cái đó trên Google)
 
 # Đã thêm folder goi_y_cac_view, là gợi ý template các view mình cần phải làm tiếp theo. Nếu bên front-end làm theo cái gợi ý mà có gì khó khăn thì cứ nói, để đổi hướng đi làm cho dễ hơn. Có gì thắc mắc hay không rõ thì cứ nói t
 --> Có tài khoản admin nào chưa?
