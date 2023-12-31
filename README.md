@@ -1,3 +1,5 @@
+# Sắp tới năm mới với ôn thi rồi, nếu ae không có thời gian thì ko sao, mà ae front-end xem trước cái upload file của bootstrap nha (cái upload file mà có xem trước đồ ấy, tại ông thầy bắt buộc), bên backend sẽ xử lý việc lưu file vào database
+
 # T đã refactor code xong rồi, anh em vào check thử xem có lỗi gì không
 
 # T tạo lại mấy tài khoản rồi nha, có 2 tài khoản là user1 - 123 và admin1 - 123
@@ -6,13 +8,11 @@
 
 ## Trước năm mới, làm thêm trang giỏ hàng với trang profile là oke, back-end thì làm thêm cái hệ thống phụ để chuẩn bị ráp với hệ thống chính
 
---> Trang giỏ hàng cũng xong tí, có gì xem qua rồi thiếu gì kêu bổ sung nha, còn xóa items với update số lượng thì backend làm ha?
+--> Trang giỏ hàng cũng xong tí, có gì xem qua rồi thiếu gì kêu bổ sung nha, còn xóa items với update số lượng thì backend làm ha? --> yeh, m chỉnh lại theo t nói nha, còn thao tác CRUD thì t làm cho
 
 ## Trước khi thi cuối kỳ môn SE, làm xong giao diện home của admin là oke (vì cái này nó có khá nhiều thứ liên quan cần làm)
 
---> Được ad homepage với user management. Xem qua có được hay chưa, cái user management, nếu user nhiều thì sẽ scroll nhưng thead kh scroll theo.
-
-- Có gì chỉnh lại user = req.user giùm t nha.
+--> Được ad homepage với user management. Xem qua có được hay chưa, cái user management, nếu user nhiều thì sẽ scroll nhưng head kh scroll theo. --> oke được rồi, nếu cần pagination thì tính sau, giờ thì ổn 
 
 ## Để tui làm trang profile nhe guys!!! (by Tín) (Nếu làm trang profile thì chỉ cần là hiện name, username, và cho cái nút để đi đến trang giỏ hàng nha, với cho nút để đi đến màn hình đổi mật khẩu nữa, and có thể cho thêm chức năng đổi tên)
 
