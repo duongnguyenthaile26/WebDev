@@ -5,8 +5,15 @@ function verifyAdmin(req, res, next) {
   res.redirect("/denied");
 }
 
-function verifyUser(req, res, next) {
+function verifyLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/denied");
+}
+
+function verifyUser(req, res, next) {
+  if (req.isAuthenticated() && req.user.role === "user") {
     return next();
   }
   res.redirect("/denied");
@@ -20,5 +27,6 @@ function verifyGuest(req, res, next) {
 }
 
 exports.verifyAdmin = verifyAdmin;
+exports.verifyLoggedIn = verifyLoggedIn;
 exports.verifyUser = verifyUser;
 exports.verifyGuest = verifyGuest;

@@ -6,16 +6,18 @@ function register() {
   if (password !== confirmPassword) {
     alert("Password and confirm password do not match!");
   } else {
-    $.post("/register", { username, name, password }, function (data) {
+    $.post("/account/register", { username, name, password }, function (data) {
       if (data.status === "fail") {
         alert(data.message);
       } else {
         alert(data.message);
-        $.post("/login", { username, password }, function (data) {
+        $.post("/account/login", { username, password }, function (data) {
           if (data.status === "success") {
             window.location.href = data.referer;
           } else {
-            alert("Login Unsuccessful!");
+            alert(
+              "Login unsuccessful! Username may not exists, or wrong password"
+            );
           }
         });
       }

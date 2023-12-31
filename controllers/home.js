@@ -4,8 +4,18 @@ const Category = require(path.join(__dirname, "..", "models", "category"));
 
 async function render(req, res, next) {
   try {
+    // cho sidebar
     const categories = await Category.find({}).select("-__v");
     const options = categories.map((category) => category.name);
+
+    // nếu người dùng là admin
+    if (req.user && req.user.role === "admin") {
+      return res.render("home", {
+        user: req.user,
+        options,
+      });
+    }
+
     const cheapestFlags = await Flag.find({})
       .sort({ price: 1 })
       .limit(12)
@@ -23,13 +33,9 @@ async function render(req, res, next) {
       flagsByCategory.push(category);
     }
 
-    /*
-    -Vê phần user, nếu !user (tức là người dùng chưa đăng nhập), thì lúc nhấn vào icon user thì sẽ dropdown là đăng nhập và đăng ký
-    -ngược lại thì sẽ dropdown là "profile page" và "logout"
-    */
-
+    // nếu người dùng không phải admin (guest hoặc user)
     res.render("home", {
-      user: "admin", // cái này xử lý sau cũng được
+      user: req.user,
       cheapestFlags,
       flagsByCategory,
       options,
