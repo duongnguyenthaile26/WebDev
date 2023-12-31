@@ -246,16 +246,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const nameParam = urlParams.get("name");
         const newUrl = `<%= currentPageUrl %>?name=${nameParam}&page=${page}`;
-
-        fetch(newUrl)
-          .then((response) => response.text())
-          .then((data) => {
-            // Cập nhật nội dung của trang với dữ liệu mới từ máy chủ
-            document.querySelector("body").innerHTML = data;
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+        window.location.href = newUrl;
       }
       $(document).ready(function () {
         $(".flag-link").click(function (event) {

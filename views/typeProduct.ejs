@@ -56,18 +56,19 @@
     <%- include('./partials/header.ejs') %>
 
     <!-- ===================CONTENT=================== -->
-    <div class="content-body pb-5">
-      <div class="container pt-3">
-        <div
-          class="d-flex flex-column justify-content-center align-items-center"
-        >
-          <div class="justify-content-center intro p-3 mx-2">
-            <div style="color: #f0f2f5">Ignore text</div>
-            <div class="fs-1 text-center pe-3" style="width: 30rem">
-              <%= type %>
+    <span>
+      <div class="content-body pb-5">
+        <div class="container pt-3">
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <div class="justify-content-center intro p-3 mx-2">
+              <div style="color: #f0f2f5">Ignore text</div>
+              <div class="fs-1 text-center pe-3" style="width: 30rem">
+                <%= type %>
+              </div>
             </div>
-          </div>
-          <!-- <div
+            <!-- <div
                             class="col-8 col-lg-6 d-flex justify-content-lg-start justify-content-center align-items-center">
                             <form id="search-form" style="width: 25rem;">
                                 <div class="input-group">
@@ -79,11 +80,11 @@
                                 </div>
                             </form>
                         </div> -->
-        </div>
-        <div class="container d-block p-5">
-          <div class="d-flex">
-            <!-- ===================Navbar=================== -->
-            <!-- <div class="col-2">
+          </div>
+          <div class="container d-block p-5">
+            <div class="d-flex">
+              <!-- ===================Navbar=================== -->
+              <!-- <div class="col-2">
                                 <div class="titleNav fs-3">Categories</div>
                                 <div>
                                     <% options.forEach((option)=> { %>
@@ -102,91 +103,91 @@
                                     <button type="button" class="btn btn-outline-primary">Lọc</button>
                                 </div>
                             </div> -->
-            <!-- ===================Navbar=================== -->
+              <!-- ===================Navbar=================== -->
 
-            <!-- ===================Content=================== -->
+              <!-- ===================Content=================== -->
 
-            <div class="container row">
-              <% flags.forEach((flag)=> { %>
-              <div
-                class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center"
-              >
-                <%- include('./components/card.ejs', { flag: flag }) %>
+              <div class="container row">
+                <% flags.forEach((flag)=> { %>
+                <div
+                  class="col-xxl-3 col-xl-4 col-md-6 d-flex justify-content-center align-items-center"
+                >
+                  <%- include('./components/card.ejs', { flag: flag }) %>
+                </div>
+                <% }); %>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center align-items-center">
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <!-- Previous page button -->
+                      <li
+                        class="page-item <%= currentPage === 1 ? 'disabled' : '' %>"
+                      >
+                        <a
+                          class="page-link"
+                          href="#"
+                          aria-label="Previous"
+                          onclick="changePage(`<%= currentPage - 1 %>`)"
+                        >
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <!-- Render page items -->
+                      <% const maxVisiblePages=7; %>
+                      <!--So luong trang hien thi -->
+                      <% const halfVisiblePages=Math.floor(maxVisiblePages / 2);
+                      %> <% const startPage=Math.max(1, currentPage -
+                      halfVisiblePages); %>
+                      <!-- Trang dau tien hien thi -->
+                      <% const endPage=Math.min(totalPages, startPage +
+                      maxVisiblePages - 1); %>
+                      <!-- Trang cuoi cung hien thi -->
+                      <% const showEllipsisStart=startPage> 1; %> <% const
+                      showEllipsisEnd=endPage < totalPages; %> <% if
+                      (showEllipsisStart) { %>
+                      <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                      </li>
+                      <% } %> <% for (let i=startPage; i <=endPage; i++) { %>
+                      <li
+                        class="page-item <%= currentPage === i ? 'active' : '' %>"
+                      >
+                        <a
+                          class="page-link"
+                          href="#"
+                          onclick="changePage(`<%= i %>`)"
+                        >
+                          <%= i %>
+                        </a>
+                      </li>
+                      <% } %> <% if (showEllipsisEnd) { %>
+                      <li class="page-item">
+                        <a class="page-link" href="#">...</a>
+                      </li>
+                      <% } %>
+                      <!-- Next page button -->
+                      <li
+                        class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>"
+                      >
+                        <a
+                          class="page-link"
+                          href="#"
+                          aria-label="Next"
+                          onclick="changePage(`<%= currentPage + 1 %>`)"
+                        >
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
               </div>
-              <% }); %>
-              <!-- Pagination -->
-              <div class="d-flex justify-content-center align-items-center">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                    <!-- Previous page button -->
-                    <li
-                      class="page-item <%= currentPage === 1 ? 'disabled' : '' %>"
-                    >
-                      <a
-                        class="page-link"
-                        href="#"
-                        aria-label="Previous"
-                        onclick="changePage(`<%= currentPage - 1 %>`)"
-                      >
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <!-- Render page items -->
-                    <% const maxVisiblePages=7; %>
-                    <!--So luong trang hien thi -->
-                    <% const halfVisiblePages=Math.floor(maxVisiblePages / 2);
-                    %> <% const startPage=Math.max(1, currentPage -
-                    halfVisiblePages); %>
-                    <!-- Trang dau tien hien thi -->
-                    <% const endPage=Math.min(totalPages, startPage +
-                    maxVisiblePages - 1); %>
-                    <!-- Trang cuoi cung hien thi -->
-                    <% const showEllipsisStart=startPage> 1; %> <% const
-                    showEllipsisEnd=endPage < totalPages; %> <% if
-                    (showEllipsisStart) { %>
-                    <li class="page-item">
-                      <a class="page-link" href="#">...</a>
-                    </li>
-                    <% } %> <% for (let i=startPage; i <=endPage; i++) { %>
-                    <li
-                      class="page-item <%= currentPage === i ? 'active' : '' %>"
-                    >
-                      <a
-                        class="page-link"
-                        href="#"
-                        onclick="changePage(`<%= i %>`)"
-                      >
-                        <%= i %>
-                      </a>
-                    </li>
-                    <% } %> <% if (showEllipsisEnd) { %>
-                    <li class="page-item">
-                      <a class="page-link" href="#">...</a>
-                    </li>
-                    <% } %>
-                    <!-- Next page button -->
-                    <li
-                      class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>"
-                    >
-                      <a
-                        class="page-link"
-                        href="#"
-                        aria-label="Next"
-                        onclick="changePage(`<%= currentPage + 1 %>`)"
-                      >
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
+              <!-- ===================Content=================== -->
             </div>
-            <!-- ===================Content=================== -->
           </div>
         </div>
       </div>
-    </div>
-
+    </span>
     <!-- ===================CONTENT=================== -->
 
     <!-- ===================FOOTER=================== -->
@@ -238,15 +239,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const nameParam = urlParams.get("type");
         const newUrl = `<%= currentPageUrl %>?type=<%= type.toLowerCase() %>&page=${page}`;
-        fetch(newUrl)
-          .then((response) => response.text())
-          .then((data) => {
-            // Cập nhật nội dung của trang với dữ liệu mới từ máy chủ
-            document.querySelector("body").innerHTML = data;
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+        window.location.href = newUrl;
       }
       $(document).ready(function () {
         $(".flag-link").click(function (event) {
