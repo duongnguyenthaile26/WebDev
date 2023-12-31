@@ -16,24 +16,14 @@ const globalErrorHandler = require(path.join(
   "controllers",
   "error"
 ));
+const verifyRole = require(path.join(__dirname, "middlewares", "verifyRole"));
 
 const homeRouter = require(path.join(__dirname, "routes", "home"));
-const loginRouter = require(path.join(__dirname, "routes", "login"));
-const logoutRouter = require(path.join(__dirname, "routes", "logout"));
-const registerRouter = require(path.join(__dirname, "routes", "register"));
-const typeRouter = require(path.join(__dirname, "routes", "typeProduct"));
-const productRouter = require(path.join(__dirname, "routes", "productDetail"));
-const searchRouter = require(path.join(__dirname, "routes", "searchProduct"));
-const googleAuthRouter = require(path.join(__dirname, "routes", "googleAuth"));
+const accountRouter = require(path.join(__dirname, "routes", "account"));
+const productRouter = require(path.join(__dirname, "routes", "product"));
 const apiRouter = require(path.join(__dirname, "routes", "api"));
-const cartRouter = require(path.join(__dirname, "routes", "cart"));
-const admin_userMangementRouter = require(path.join(__dirname, "routes", "admin_userMangement"));
-
-const paymentProcessRouter = require(path.join(
-  __dirname,
-  "routes",
-  "paymentProcess"
-));
+const checkoutRouter = require(path.join(__dirname, "routes", "checkout"));
+const adminRouter = require(path.join(__dirname, "routes", "admin"));
 
 // Initializes
 const app = express();
@@ -67,20 +57,12 @@ app.set("views", path.join(__dirname, "views"));
 app.get("/denied", function (req, res) {
   res.render("denied");
 });
-
 app.use("/", homeRouter);
-app.use("/login", loginRouter);
-app.use("/logout", logoutRouter);
-app.use("/register", registerRouter);
-app.use("/typeProduct", typeRouter);
-app.use("/productDetail", productRouter);
-app.use("/searchProduct", searchRouter);
-app.use("/googleAuth", googleAuthRouter);
-app.use("/paymentProcess", paymentProcessRouter);
+app.use("/account", accountRouter);
+app.use("/product", productRouter);
 app.use("/api", apiRouter);
-app.use("/cart", cartRouter);
-app.use("/admin_user", admin_userMangementRouter);
-
+app.use("/checkout", verifyRole.verifyUser, checkoutRouter);
+app.use("/admin", verifyRole.verifyAdmin, adminRouter);
 
 app.all("*", function (req, res, next) {
   next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));

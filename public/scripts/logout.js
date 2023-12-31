@@ -1,5 +1,5 @@
 function logout() {
-  $.post("/logout", function (data) {
+  $.post("/account/logout", function (data) {
     if (data.err) {
       alert(data.err);
     } else {

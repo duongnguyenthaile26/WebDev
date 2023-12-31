@@ -6,13 +6,13 @@
   <div class="menu">
     <% if (user !== null && user !== undefined && user.role === "user") { %>
     <div class="item">
-      <a href="/cart"><i class="fas fa-cart-shopping"></i>Cart</a>
+      <a href="/checkout/cart"><i class="fas fa-cart-shopping"></i>Cart</a>
     </div>
     <% } %>
     <div class="item">
       <a>
         <p style="margin-bottom: 0">Search for flags by name</p>
-        <form id="search-form" action="/searchProduct" method="GET">
+        <form id="search-form" action="/product/search" method="GET">
           <div class="input-group">
             <input
               type="search"
@@ -36,7 +36,7 @@
       ></a>
       <div class="sub-menu">
         <% for (let i = 0; i < options.length; i++) { %>
-        <a href="/typeProduct?type=<%= options[i] %>" class="sub-item"
+        <a href="/product/type?type=<%= options[i] %>" class="sub-item"
           ><%= options[i] %></a
         >
         <% } %>

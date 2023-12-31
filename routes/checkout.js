@@ -6,9 +6,10 @@ const controller = require(path.join(
   __dirname,
   "..",
   "controllers",
-  "searchProduct"
+  "checkout"
 ));
 
-router.route("/").get(controller.render);
+router.route("/cart").get(controller.cart);
+router.route("/payment").get(controller.payment);
 
 module.exports = router;

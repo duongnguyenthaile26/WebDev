@@ -1,20 +1,16 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
-const verifyRole = require(path.join(
-  __dirname,
-  "..",
-  "middlewares",
-  "verifyRole"
-));
 
 const controller = require(path.join(
   __dirname,
   "..",
   "controllers",
-  "register"
+  "product"
 ));
 
-router.route("/").post(verifyRole.verifyGuest, controller.register);
+router.route("/detail/:flagId").get(controller.detail);
+router.route("/search").get(controller.search);
+router.route("/type").get(controller.type);
 
 module.exports = router;
