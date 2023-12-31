@@ -29,7 +29,6 @@ async function categoriesManagement(req, res, next) {
     const categories = await Category.find({}).select("-__v");
     const options = categories.map((category) => category.name);
 
-
     res.render("adminCategoriesManagement", {
       user: req.user,
       categories,
