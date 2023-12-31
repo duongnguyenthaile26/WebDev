@@ -1,3 +1,5 @@
+# Sắp tới năm mới với ôn thi rồi, nếu ae không có thời gian thì ko sao, mà ae front-end xem trước cái upload file của bootstrap nha (cái upload file mà có xem trước đồ ấy, tại ông thầy bắt buộc), bên backend sẽ xử lý việc lưu file vào database
+
 # T đã refactor code xong rồi, anh em vào check thử xem có lỗi gì không
 
 # T tạo lại mấy tài khoản rồi nha, có 2 tài khoản là user1 - 123 và admin1 - 123
