@@ -275,7 +275,7 @@
           name: searchInput,
           categories: selectedCategories.join(","),
         });
-        window.location.href = `product/search?${queryParams.toString()}`;
+        window.location.href = `/product/search?${queryParams.toString()}`;
       }
       $(".category-checkbox").change(function () {
         search();
