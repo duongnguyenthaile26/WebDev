@@ -143,17 +143,6 @@
               </div>
               <div class="modal-body fs-5">
                 <p id="deleteUserMessage"></p>
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="deleteCheckbox"
-                  />
-                  <label class="form-check-label" for="deleteCheckbox">
-                    Delete this category
-                  </label>
-                </div>
               </div>
               <div class="modal-footer">
                 <button
@@ -188,12 +177,6 @@
                     <div class="mb-3">
                       <label for="newNameInput" class="form-label">NEW NAME</label>
                       <input type="text" class="form-control" id="newNameInput">
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="changeForAllCheckbox">
-                      <label class="form-check-label" for="changeForAllCheckbox">
-                        Also change for all products with this category
-                      </label>
                     </div>
                   </form>
                 </div>
@@ -299,16 +282,6 @@
           $("#changeNameModalLabel").html("CHANGE - " + categoryName.toUpperCase());
     
           $("#changeNameModal").modal("show");
-    
-          $("#confirmChangeNameBtn").click(function () {
-            var newName = $("#newNameInput").val();
-            var changeForAll = $("#changeForAllCheckbox").is(":checked");
-    
-            // Xử lý đổi tên ở đây
-            // ...
-    
-            $("#changeNameModal").modal("hide");
-          });
         });
       });
     </script>

@@ -140,17 +140,6 @@
               </div>
               <div class="modal-body fs-5">
                 <p id="deleteUserMessage"></p>
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="deleteCheckbox"
-                  />
-                  <label class="form-check-label" for="deleteCheckbox">
-                    Delete this user
-                  </label>
-                </div>
               </div>
               <div class="modal-footer">
                 <button
@@ -238,27 +227,6 @@
           );
 
           $("#deleteUserModal").modal("show");
-
-          $("#confirmDeleteBtn").click(function () {
-            if ($("#deleteCheckbox").is(":checked")) {
-              // Xử lý xóa user ở đây
-              // $.ajax({
-              //   url: "/deleteUser/" + userId,
-              //   method: "DELETE",
-              //   success: function(response) {
-              //     // Handle success
-              //   },
-              //   error: function(error) {
-              //     // Handle error
-              //   }
-              // });
-              alert("User " + username + " has been deleted.");
-              // window.location.reload();
-            } else {
-              alert("Please confirm by checking the checkbox.");
-            }
-            $("#deleteUserModal").modal("hide");
-          });
         });
       });
     </script>
