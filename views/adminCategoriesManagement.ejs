@@ -165,28 +165,70 @@
         </div>
         <!-- ===================MODAL CHANGENAME=================== -->
 
-        <div class="modal fade" id="changeNameModal" tabindex="-1" aria-labelledby="changeNameModalLabel" aria-hidden="true">
-            <div class="modal-dialog" style="max-width: 40%">
-              <div class="modal-content" style="background-color: white">
-                <div class="modal-header">
-                  <h5 class="modal-title fs-4 text-warning" id="changeNameModalLabel"></h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body fs-5">
-                  <form>
-                    <div class="mb-3">
-                      <label for="newNameInput" class="form-label">NEW NAME</label>
-                      <input type="text" class="form-control" id="newNameInput">
+        <div
+          class="modal fade"
+          id="changeNameModal"
+          tabindex="-1"
+          aria-labelledby="changeNameModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" style="max-width: 40%">
+            <div class="modal-content" style="background-color: white">
+              <div class="modal-header">
+                <h5
+                  class="modal-title fs-4 text-warning"
+                  id="changeNameModalLabel"
+                ></h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body fs-5">
+                <form>
+                  <div class="mb-3">
+                    <label for="newNameInput" class="form-label"
+                      >NEW NAME</label
+                    >
+                    <input type="text" class="form-control" id="newNameInput" />
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="changeForAllCheckbox"
+                      />
+                      <label
+                        class="form-check-label"
+                        for="changeForAllCheckbox"
+                      >
+                        Also change for all products with this category
+                      </label>
                     </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-primary" id="confirmChangeNameBtn">COMFIRM</button>
-                </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="confirmChangeNameBtn"
+                >
+                  COMFIRM
+                </button>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
 
@@ -252,35 +294,19 @@
           );
 
           $("#deleteCateModal").modal("show");
-
-          $("#confirmDeleteBtn").click(function () {
-            if ($("#deleteCheckbox").is(":checked")) {
-              // $.ajax({
-              //   url: "/deleteUser/" + userId,
-              //   method: "DELETE",
-              //   success: function(response) {
-              //     // Handle success
-              //   },
-              //   error: function(error) {
-              //     // Handle error
-              //   }
-              // });
-              alert("Category '" + name + "'' has been deleted.");
-              // window.location.reload();
-            } else {
-              alert("Please confirm by checking the checkbox.");
-            }
-            $("#deleteCateModal").modal("hide");
-          });
         });
       });
       $(document).ready(function () {
         $(".btn-outline-warning").click(function () {
-          var categoryName = $(this).closest("tr").find("td:eq(0)").text().trim();
+          var categoryName = $(this)
+            .closest("tr")
+            .find("td:eq(0)")
+            .text()
+            .trim();
           var categoryId = $(this).closest("tr").find("td:eq(0)").text().trim();
-    
-          $("#changeNameModalLabel").html("CHANGE - " + categoryName.toUpperCase());
-    
+          $("#changeNameModalLabel").html(
+            "CHANGE - " + categoryName.toUpperCase()
+          );
           $("#changeNameModal").modal("show");
         });
       });
