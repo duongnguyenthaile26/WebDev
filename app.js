@@ -20,6 +20,7 @@ const verifyRole = require(path.join(__dirname, "middlewares", "verifyRole"));
 
 const homeRouter = require(path.join(__dirname, "routes", "home"));
 const accountRouter = require(path.join(__dirname, "routes", "account"));
+const profileRouter = require(path.join(__dirname, "routes", "profile"));
 const productRouter = require(path.join(__dirname, "routes", "product"));
 const apiRouter = require(path.join(__dirname, "routes", "api"));
 const checkoutRouter = require(path.join(__dirname, "routes", "checkout"));
@@ -59,6 +60,7 @@ app.get("/denied", function (req, res) {
 });
 app.use("/", homeRouter);
 app.use("/account", accountRouter);
+app.use("/profile", profileRouter);
 app.use("/product", productRouter);
 app.use("/api", apiRouter);
 app.use("/checkout", verifyRole.verifyUser, checkoutRouter);
