@@ -47,6 +47,7 @@
                 type="password"
                 class="form-control password-input"
                 placeholder="Password"
+                onkeyup="handleKeyPress(event)"
               />
               <button class="btn btn-outline-primary" onclick="login()">
                 Login
@@ -57,7 +58,13 @@
 
               <!-- CODE JAVASCRIPT ĐỂ XỬ LÝ REQUEST VÀ CHUYỂN MÀN HÌNH KHI ĐĂNG NHẬP (by Dương) -->
               <script src="/scripts/login.js"></script>
-
+              <script>
+                function handleKeyPress(event) {
+                  if (event.keyCode === 13) {
+                    login();
+                  }
+                }
+              </script>
               <hr />
               <div class="text-center">
                 <button

@@ -66,6 +66,8 @@
                   type="password"
                   class="form-control passwordConfirm-input-reg"
                   placeholder="Confirm password"
+                  onkeyup="handleKeyPress(event)"
+
                 />
               </div>
               <button class="btn btn-outline-primary" onclick="register()">
@@ -74,7 +76,13 @@
 
               <!-- CODE JAVASCRIPT ĐỂ XỬ LÝ GỬI REQUEST VÀ CHUYỂN MÀN HÌNH KHI ĐĂNG KÝ (by Dương) -->
               <script src="/scripts/register.js"></script>
-
+              <script>
+                function handleKeyPress(event) {
+                  if (event.keyCode === 13) {
+                    login();
+                  }
+                }
+              </script>
               <hr />
               <div class="text-center">
                 <button
