@@ -1,0 +1,60 @@
+<form id="login-form" novalidate>
+<div
+    class="modal fade >"
+    id="NameModal"
+    tabindex="-1"
+    aria-labelledby="LoginModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-end">
+                    <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    ></button>
+                </div>
+                <div class="container justify-content-center">
+                    <div class="row px-3 px-sm-0" style="width: 100%">
+                        <div  
+                            class="content-right col-12 d-flex flex-column gap-3 py-3"
+                        >
+                            <div>
+                            <div class="brand d-sm-none">Sign In</div>
+                            <label for="usernameInput" >New Name:</label>
+                            <input
+                                type="username"
+                                id="usernameInput"
+                                class="form-control username-input"
+                                placeholder="New Name"
+                                required
+                            />
+                            <div id="usernameFeedback" class="invalid-feedback">
+                                Name is required
+                            </div>
+                            </div>
+
+                            <div class="text-center">
+                            <!-- <button
+                            class="btn btn-outline-success"
+                            data-bs-toggle="modal"
+                            data-bs-target="#RegisterModal"
+                            >
+                            Confirm
+                            </button> -->
+                            <button class="btn btn-outline-success">Confirm</button>
+                            </div>
+                            <!-- CODE JAVASCRIPT ĐỂ XỬ LÝ REQUEST VÀ CHUYỂN MÀN HÌNH KHI ĐĂNG NHẬP (by Dương) -->
+                            <script src="/scripts/login.js"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+    
