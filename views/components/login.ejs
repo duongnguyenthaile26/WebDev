@@ -1,3 +1,4 @@
+<form id="login-form" novalidate>
 <div
   class="modal fade >"
   id="LoginModal"
@@ -24,7 +25,7 @@
             >
               <div class="brand">Sign In</div>
               <div class="detail">Thanks for chosing us</div>
-              <div class="pic d-flex justify-content-center">
+              <div class="pic d-flex justify-content-center"> 
                 <img
                   src="https://i.pinimg.com/564x/a9/dd/93/a9dd9332469ecad9d9770985d8e032f0.jpg"
                   alt="pic"
@@ -32,23 +33,37 @@
                 />
               </div>
             </div>
-            <div
+            <div  
               class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3"
             >
-              <div class="brand d-sm-none">Sign In</div>
-              <label>Username:</label>
-              <input
-                type="username"
-                class="form-control username-input"
-                placeholder="Username"
-              />
-              <label>Password:</label>
-              <input
-                type="password"
-                class="form-control password-input"
-                placeholder="Password"
-                onkeyup="handleKeyPress(event)"
-              />
+              <div>
+                <div class="brand d-sm-none">Sign In</div>
+                <label for="usernameInput" >Username:</label>
+                <input
+                  type="username"
+                  id="usernameInput"
+                  class="form-control username-input"
+                  placeholder="Username"
+                  required
+                />
+                <div id="usernameFeedback" class="invalid-feedback">
+                  Username is required
+                </div>
+              </div>   
+              <div>
+                <label for="passwordInput">Password:</label>
+                <input
+                  type="password"
+                  id="passwordInput"
+                  class="form-control password-input"
+                  placeholder="Password"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Password is required
+                </div>
+              </div>
+              
               <button class="btn btn-outline-primary" onclick="login()">
                 Login
               </button>
@@ -58,13 +73,6 @@
 
               <!-- CODE JAVASCRIPT ĐỂ XỬ LÝ REQUEST VÀ CHUYỂN MÀN HÌNH KHI ĐĂNG NHẬP (by Dương) -->
               <script src="/scripts/login.js"></script>
-              <script>
-                function handleKeyPress(event) {
-                  if (event.keyCode === 13) {
-                    login();
-                  }
-                }
-              </script>
               <hr />
               <div class="text-center">
                 <button
@@ -82,3 +90,4 @@
     </div>
   </div>
 </div>
+</form>
