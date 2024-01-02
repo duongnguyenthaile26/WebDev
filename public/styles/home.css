@@ -17,6 +17,7 @@ footer {
 }
 
 .top-header {
+  top: 0;
   padding: 15px 0;
   background: #040a18;
   color: #ffffff;
@@ -190,9 +191,10 @@ footer {
 
 /* need edit */
 
-footer {
+.fixed-bottom {
   position: fixed;
   bottom: 0;
+  width: 100%;
 }
 
 .footer {
@@ -200,7 +202,8 @@ footer {
   width: 100%;
   text-align: left;
   font: bold 16px;
-  padding: 50px 50px 60px 50px;
+  padding: 50px;
+  bottom: 0;
 }
 
 .footer .footer-left,
