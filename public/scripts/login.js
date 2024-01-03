@@ -1,12 +1,18 @@
 function login() {
   const username = $(".username-input").val();
   const password = $(".password-input").val();
+  if (username === "" || password === "") {
+    return;
+  }
   $.post("/account/login", { username, password }, function (data) {
     if (data.status === "success") {
       window.location.href = data.referer;
     } else {
+      if ($("#loginAlertTag").length > 0) {
+        return;
+      }
       //alert("Login unsuccessful! Username may not exists, or wrong password");
-      const alertHtml = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      const alertHtml = `<div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
       Login unsuccessful! Username may not exists, or wrong password.
                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>`;
@@ -37,5 +43,4 @@ $("#login-form").submit(function (event) {
   }
   // Đánh dấu các input đã được kiểm tra validation
   $("#login-form").addClass("was-validated");
-  
 });
