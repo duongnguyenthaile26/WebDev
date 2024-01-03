@@ -1,4 +1,4 @@
-# Có làm register được chưa ha? 
+# Có làm register được chưa ha? --> làm xong register rồi nha
 
 # Sắp tới năm mới với ôn thi rồi, nếu ae không có thời gian thì ko sao, mà ae front-end xem trước cái upload file của bootstrap nha (cái upload file mà có xem trước đồ ấy, tại ông thầy bắt buộc), bên backend sẽ xử lý việc lưu file vào database
 
