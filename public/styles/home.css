@@ -8,12 +8,15 @@
 
 body {
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 header,
 footer {
   width: 100%;
-  z-index: 0;
+  z-index: 1;
 }
 
 .top-header {
@@ -191,19 +194,13 @@ footer {
 
 /* need edit */
 
-.fixed-bottom {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  z-index: 0;
-}
-
 .footer {
   background-color: #040a18;
   width: 100%;
   text-align: left;
   font: bold 16px;
   padding: 50px;
+  margin-top: auto;
   bottom: 0;
 }
 
