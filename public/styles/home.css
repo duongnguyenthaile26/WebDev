@@ -192,12 +192,14 @@ footer {
 /* need edit */
 
 .fixed-bottom {
-  position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 0;
 }
-
+.form-control:valid {
+  background-image: initial !important;
+  border-color: initial !important;
+}
 .footer {
   background-color: #040a18;
   width: 100%;
