@@ -1,24 +1,4 @@
-# Có làm register được chưa ha? --> làm xong register rồi nha
-
-# Sắp tới năm mới với ôn thi rồi, nếu ae không có thời gian thì ko sao, mà ae front-end xem trước cái upload file của bootstrap nha (cái upload file mà có xem trước đồ ấy, tại ông thầy bắt buộc), bên backend sẽ xử lý việc lưu file vào database
-
-# T đã refactor code xong rồi, anh em vào check thử xem có lỗi gì không
-
-# T tạo lại mấy tài khoản rồi nha, có 2 tài khoản là user1 - 123 và admin1 - 123
-
-# Đã thêm folder goi_y_cac_view, là gợi ý template các view mình cần phải làm tiếp theo. Nếu bên front-end làm theo cái gợi ý mà có gì khó khăn thì cứ nói, để đổi hướng đi làm cho dễ hơn. Có gì thắc mắc hay không rõ thì cứ nói t
-
-## Trước năm mới, làm thêm trang giỏ hàng với trang profile là oke, back-end thì làm thêm cái hệ thống phụ để chuẩn bị ráp với hệ thống chính
-
---> Trang giỏ hàng cũng xong tí, có gì xem qua rồi thiếu gì kêu bổ sung nha, còn xóa items với update số lượng thì backend làm ha? --> yeh, m chỉnh lại theo t nói nha, còn thao tác CRUD thì t làm cho
-
-## Trước khi thi cuối kỳ môn SE, làm xong giao diện home của admin là oke (vì cái này nó có khá nhiều thứ liên quan cần làm)
-
---> Được ad homepage với user management. Xem qua có được hay chưa, cái user management, nếu user nhiều thì sẽ scroll nhưng head kh scroll theo. --> oke được rồi, nếu cần pagination thì tính sau, giờ thì ổn 
-
-## Để tui làm trang profile nhe guys!!! (by Tín) (Nếu làm trang profile thì chỉ cần là hiện name, username, và cho cái nút để đi đến trang giỏ hàng nha, với cho nút để đi đến màn hình đổi mật khẩu nữa, and có thể cho thêm chức năng đổi tên)
-
-Với lại nếu muốn đồng bộ code thì để tab size = 2, với lại dùng cái formatter Prettier trên VSCODE nha (cho canh hàng code đẹp, nhớ để format on save), nếu có sử dụng thì copy nội dung file settings.json đã có đăng lên repo và copy vào settings.json trên VSCODE của laptop của mình
+# Thi xong anh em nghỉ ngơi một ngày. 5/1 mình bắt đầu làm tiếp
 
 **Lưu ý 1:** nếu có chỉnh sửa các tag trong các file HTML/EJS thì cẩn thận khi chỉnh các class nha, vì có thể class đó được dùng cho mục đích viết JQuery
 
@@ -28,8 +8,8 @@ Với lại nếu muốn đồng bộ code thì để tab size = 2, với lại 
 
 - **Update 2:** đã thêm https (lúc vào trang web nhớ chỉnh lại từ http thành https, và trình duyệt sẽ báo là không an toàn, vì mình chỉ xài self-sign certificates)
 
-- **Update 3:** đã thêm chức năng đăng ký, đăng nhập, đăng xuất, có một tài khoản có sẵn trong database là user1 - 123456
+- **Update 3:** đã thêm chức năng đăng ký, đăng nhập, đăng xuất, có hai tài khoản có sẵn trong database là user1 - 123 và admin1 - 123
 
-- **Update 4:** đã thêm chức năng đăng nhập bằng Google, anh em vào test thử đi
+- **Update 4:** đã thêm chức năng đăng nhập bằng Google
 
 - **Update 5:** đã thêm hiển thị biểu đồ số lượt ghé thăm trang
