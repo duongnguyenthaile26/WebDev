@@ -1,9 +1,9 @@
-<form id="login-form" novalidate>
+<form id="name-input-form" novalidate>
 <div
     class="modal fade >"
     id="NameModal"
     tabindex="-1"
-    aria-labelledby="LoginModalLabel"
+    aria-labelledby="NameModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog modal-dialog-centered">
@@ -24,31 +24,24 @@
                         >
                             <div>
                             <div class="brand d-sm-none">Sign In</div>
-                            <label for="usernameInput" >New Name:</label>
+                            <label for="nameInput" >New Name:</label>
                             <input
-                                type="username"
-                                id="usernameInput"
-                                class="form-control username-input"
+                                type="text"
+                                id="nameInput"
+                                class="form-control name-input"
                                 placeholder="New Name"
                                 required
                             />
                             <div id="usernameFeedback" class="invalid-feedback">
-                                Name is required
+                                New name is required
                             </div>
                             </div>
 
                             <div class="text-center">
-                            <!-- <button
-                            class="btn btn-outline-success"
-                            data-bs-toggle="modal"
-                            data-bs-target="#RegisterModal"
-                            >
-                            Confirm
-                            </button> -->
-                            <button class="btn btn-outline-success">Confirm</button>
+                                <button type="button" class="btn btn-outline-success" id="confirmBtn">Confirm</button>
                             </div>
-                            <!-- CODE JAVASCRIPT ĐỂ XỬ LÝ REQUEST VÀ CHUYỂN MÀN HÌNH KHI ĐĂNG NHẬP (by Dương) -->
-                            <script src="/scripts/login.js"></script>
+                            <!-- CODE JAVASCRIPT ĐỂ XỬ LÝ REQUEST -->
+                            <script src="/scripts/profile.js"></script>
                         </div>
                     </div>
                 </div>
