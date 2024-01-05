@@ -115,8 +115,3 @@ $("#PassModal").on("show.bs.modal", function () {
   // Xóa các thông báo lỗi khi modal được hiển thị
   $(".alert").remove();
 });
-
-// -------------------------Handle Cart-------------------------
-function cartView() {
-  window.location.href = "/checkout/cart";
-}
