@@ -79,12 +79,13 @@
                         class="col-xl-6 product-info d-flex align-items-center fw-bold text-dark"
                       >
                         <div style="width: 15rem">
-                          You have <%= flags.length %> items in your cart
+                          You have <%= totalInCart %> items in your cart
                         </div>
                         <div class="ms-3 text-center"></div>
                       </div>
-                      <div class="col-xl-2 text-danger fw-bold text-dark fs-5">
-                      </div>
+                      <div
+                        class="col-xl-2 text-danger fw-bold text-dark fs-5"
+                      ></div>
                       <div class="remove-cart">
                         <button class="btn btn-danger">
                           <i class="fas fa-trash-alt"></i>
@@ -127,7 +128,7 @@
                       <div
                         class="col-xl-2 pt-3 p-xl-0 total-price text-danger fw-bold fs-5"
                       >
-                        <%= flag.totalPrice %>
+                        Total: <%= flag.totalPrice %>
                       </div>
                       <div class="remove-cart pt-3 p-xl-0">
                         <button class="btn btn-danger">

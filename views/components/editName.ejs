@@ -1,11 +1,11 @@
 <form id="name-input-form" novalidate>
-<div
+  <div
     class="modal fade >"
     id="NameModal"
     tabindex="-1"
     aria-labelledby="NameModalLabel"
     aria-hidden="true"
->
+  >
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
@@ -18,7 +18,7 @@
                     ></button>
                 </div>
                 <div class="container justify-content-center">
-                    <div class="row px-3 px-sm-0" style="width: 100%">
+                    <div class="row px-3 px-sm-0">
                         <div  
                             class="content-right col-12 d-flex flex-column gap-3 py-3"
                         >
@@ -31,13 +31,16 @@
                                     placeholder="New Name"
                                     required
                                 />
-                                <div id="usernameFeedback" class="invalid-feedback">
-                                    New name is required
-                                </div>
                             </div>
 
                             <div class="text-center">
-                                <button type="button" class="btn btn-outline-success" id="confirmNameBtn">Confirm</button>
+                                <button 
+                                    type="button" 
+                                    class="btn btn-outline-success" 
+                                    id="confirmNameBtn"
+                                >
+                                    Confirm
+                                </button>
                             </div>
                             <!-- CODE JAVASCRIPT ĐỂ XỬ LÝ REQUEST -->
                             <script src="/scripts/profile.js"></script>
@@ -47,5 +50,5 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
 </form>

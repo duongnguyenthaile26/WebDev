@@ -1,7 +1,3 @@
-function profile() {
-  window.location.href = "/profile";
-}
-
 // -------------------------Handle Name-------------------------
 $(document).ready(function() {
   function processNameInput() {
@@ -14,7 +10,7 @@ $(document).ready(function() {
       $(".alert").remove();
       $(".modal-body").prepend(alertHtml);
     } else {
-      window.location.href = "/profile?name=" + encodeURIComponent(name);
+      //window.location.href = "/profile?name=" + encodeURIComponent(name);
     }
   }
 
@@ -52,10 +48,10 @@ $(document).ready(function () {
     const newPass = $(".new-pass-input").val();
     const confirmNewPass = $(".confirm-new-pass-input").val();
     if (oldPass !== "" && newPass !== "" && confirmNewPass !== "") {
-      window.location.href = "/profile?" + 
-                              "oldPass=" + encodeURIComponent(oldPass) + 
-                              "&newPass=" + encodeURIComponent(newPass) + 
-                              "&confirmNewPass=" + encodeURIComponent(confirmNewPass);
+      // window.location.href = "/profile?" + 
+      //                         "oldPass=" + encodeURIComponent(oldPass) + 
+      //                         "&newPass=" + encodeURIComponent(newPass) + 
+      //                         "&confirmNewPass=" + encodeURIComponent(confirmNewPass);
     } else {
       const alertHtml = `
         <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
@@ -90,19 +86,19 @@ $(document).ready(function () {
   $("#confirmPassBtn").on("click", function() {
     processPassInput();
   });
+});
 
-  $(".toggle-password").on("click", function () {
-      const passwordField = $(this).closest('.input-group').find('input');
-      const icon = $(this).find('i');
+$(".toggle-password").on("click", function () {
+  const passwordField = $(this).closest('.input-group').find('input');
+  const icon = $(this).find('i');
 
-      if (passwordField.attr('type') === 'password') {
-          passwordField.attr('type', 'text');
-          icon.removeClass('far fa-eye').addClass('far fa-eye-slash');
-      } else {
-          passwordField.attr('type', 'password');
-          icon.removeClass('far fa-eye-slash').addClass('far fa-eye');
-      }
-  });
+  if (passwordField.attr('type') === 'password') {
+      passwordField.attr('type', 'text');
+      icon.removeClass('far fa-eye').addClass('far fa-eye-slash');
+  } else {
+      passwordField.attr('type', 'password');
+      icon.removeClass('far fa-eye-slash').addClass('far fa-eye');
+  }
 });
 
 $("#pass-input-form").on("reset", function () {

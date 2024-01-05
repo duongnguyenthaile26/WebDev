@@ -4,7 +4,7 @@ function login() {
   if (username === "" || password === "") {
     const alertHtml = `
     <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
-      Please fill out the form
+      Please fill out the fields
     </div>`;
     $(".alert").remove();
     $(".modal-body").prepend(alertHtml);
