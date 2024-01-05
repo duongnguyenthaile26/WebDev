@@ -13,7 +13,7 @@ async function detail(req, res, next) {
     const type = flag.type;
     const flagsToShow = await Flag.find({ type }).lean();
     res.render("productDetail", {
-      user: req.user, // cái này xử lý sau
+      user: req.user,
       flag,
       options,
       type,

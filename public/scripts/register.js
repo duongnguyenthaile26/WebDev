@@ -12,7 +12,7 @@ function register() {
   ) {
     const alertHtml = `
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      Please fill out the form
+      Please fill out the fields
     </div>`;
     $(".alert").remove();
     $(".modal-body").prepend(alertHtml);

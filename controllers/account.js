@@ -1,6 +1,7 @@
 const path = require("path");
 const passport = require(path.join(__dirname, "..", "utilities", "passport"));
 const User = require(path.join(__dirname, "..", "models", "user"));
+const Category = require(path.join(__dirname, "..", "models", "category"));
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
@@ -113,9 +114,24 @@ async function successRedirect(req, res, next) {
   }
 }
 
+async function profile(req, res, next) {
+  try {
+    const user = await User.findOne({ username: req.user.username });
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map((category) => category.name);
+    res.render("profile", {
+      user,
+      options,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.login = login;
 exports.logout = logout;
+exports.profile = profile;
 exports.register = register;
-exports.authenticate = authenticate;
 exports.callback = callback;
+exports.authenticate = authenticate;
 exports.successRedirect = successRedirect;

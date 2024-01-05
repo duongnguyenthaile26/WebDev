@@ -38,6 +38,7 @@ async function cart(req, res, next) {
       flags.push(flag);
     }
 
+    total = total.toFixed(2);
     const itemsPerPage = 5; // Số lượng sản phẩm trên mỗi trang
     const page = req.query.page || 1;
 
@@ -58,6 +59,7 @@ async function cart(req, res, next) {
       total, // tổng giá tiền của cả giỏ hàng
       totalPages: totalPages,
       currentPage: page,
+      totalInCart: user.cart.length,
     });
   } catch (error) {
     next(error);
