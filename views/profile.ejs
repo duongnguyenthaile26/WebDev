@@ -54,8 +54,9 @@
     <%- include('./partials/header.ejs') %>
     <!-- ===================HEADER=================== -->
     <%- include('./components/editName.ejs') %>
+    <%- include('./components/changePass.ejs') %>
     <!-- ===================CONTENT=================== -->
-    <div class="container rounded bg-white mt-5 mb-5">
+    <div class="container  bg-white pt-5 pb-5">
       <div class="row">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span></div>
@@ -69,7 +70,7 @@
               <div class="col-md-12">
                 <label class="labels" for="name">Name</label>
                 <div class="input-group">
-                  <input id="name" type="text" class="form-control non-editable-field" placeholder="Name" value="">
+                  <input id="name" type="text" class="form-control non-editable-field" placeholder="Name" value="**Add here**">
                   <div class="input-group-append">
                     <button
                       type="button"
@@ -96,9 +97,35 @@
         </div>
         <div class="col-md-4">
           <div class="p-3 py-5">
-            <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-            <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-            <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
+            <div class="d-flex justify-content-between align-items-center experience"><span>Options</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Extension</span></div><br>
+            <div class="col-md-12 p-1 d-flex flex-column justify-content-between">
+              <button
+                type="button"
+                class="btn btn-outline-primary changepass-container"
+                data-bs-toggle="modal"
+                data-bs-target="#PassModal"
+              >
+                Change password
+              </button>
+            </div>
+            <div class="col-md-12 p-1 d-flex flex-column justify-content-between">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                onclick="cartView()"
+              >
+                View cart
+              </button>
+            </div>
+            <div class="col-md-12 p-1 d-flex flex-column justify-content-between">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                onclick=""
+              >
+                Purchase history
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -144,6 +171,9 @@
       $(document).ready(function () {
         $(".editname-container").click(function () {
           $("#NameModal").modal("show");
+        });
+        $(".changepass-container").click(function () {
+          $("#PassModal").modal("show");
         });
       });
       let quantity = 1;
