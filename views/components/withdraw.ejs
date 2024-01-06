@@ -1,0 +1,79 @@
+<div
+class="modal fade >"
+id="AddMoneyModal"
+tabindex="-1"
+aria-labelledby="AddMoneyModalLabel"
+aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-end">
+                    <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    ></button>
+                </div>
+                <div class="container justify-content-center">
+                    <div class="row px-3 px-sm-0" style="width: 100%">
+                        <div
+                            class="content-left col-12 d-none col-sm-5 d-sm-block"
+                            style="padding-right: 2.5rem; margin-top: 0px"
+                        >
+                            <h1 class="brand mb-5">PAYMENT DETAILS</h1>
+                            <div class="detail mb-2">Payment method</div>
+                            <div class="payment-method">
+                                <input type="radio" name="payment-method" id="method-1">
+                                <label for="method-1" class="payment-method-item">
+                                    <img src="/images/visa.png" alt="">
+                                </label>
+                                <input type="radio" name="payment-method" id="method-2">
+                                <label for="method-2" class="payment-method-item">
+                                    <img src="/images/mastercard.png" alt="">
+                                </label>
+                                <input type="radio" name="payment-method" id="method-3">
+                                <label for="method-3" class="payment-method-item">
+                                    <img src="/images/paypal.png" alt="">
+                                </label>
+                            </div>
+                        </div>
+                        <div
+                            class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3"
+                        >
+                            <div class="mb-1">
+                                <label for="name-on-card" class="form-label">Name On Card:</label>
+                                <input type="text" id="name-on-card" class="form-control pay-name-input" name="name-on-card" placeholder="Name On Card" required>
+                            </div>
+                            <div class="mb-1">
+                                <label for="card-number" class="form-label">Card Number:</label>
+                                <input type="text" id="card-number" class="form-control pay-address-input" name="card-number" placeholder="Card Number" required>
+                            </div>
+                            <div class="mb-1 d-flex flex-row justify-content-between w-100">
+                                <div class="m-1">
+                                    <label for="expiry-date" class="form-label">Expiry Date</label>
+                                    <input type="date" class="form-control" id="expiry-date" name="expiry-date" placeholder="Expiry Date" required>
+                                </div>
+                                <div class="m-1">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV" required>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-5">
+                                <button 
+                                    type="button" 
+                                    class="btn btn-outline-primary w-100" 
+                                    id=""
+                                >
+                                    <i class="fa-solid fa-wallet p-2"></i>Pay
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
