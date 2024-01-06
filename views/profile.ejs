@@ -54,8 +54,9 @@
     <%- include('./partials/header.ejs') %>
     <!-- ===================HEADER=================== -->
     <%- include('./components/editName.ejs') %>
+    <%- include('./components/changePass.ejs') %>
     <!-- ===================CONTENT=================== -->
-    <div class="container rounded bg-white mt-5 mb-5">
+    <div class="container  bg-white pt-5 pb-5">
       <div class="row">
         <div class="col-md-3 border-right" style="user-select: none">
           <div
@@ -80,13 +81,12 @@
               <div class="col-md-12 mb-3">
                 <label class="labels" for="name">Name</label>
                 <div class="input-group">
-                  <input
-                    id="name"
-                    type="text"
-                    class="form-control non-editable-field"
-                    placeholder="Name"
-                    value="<%= user.name %>"
-                  />
+                  <input 
+                    id="name" 
+                    type="text" 
+                    class="form-control non-editable-field" 
+                    placeholder="Name" 
+                    value="<%= user.name %>">
                   <div class="input-group-append">
                     <button
                       type="button"
@@ -108,6 +108,39 @@
                   value="<%= user.username %>"
                 />
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 py-5">
+            <div class="d-flex justify-content-between align-items-center experience"><span>Options</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Extension</span></div><br>
+            <div class="col-md-12 p-1 d-flex flex-column justify-content-between">
+              <button
+                type="button"
+                class="btn btn-outline-primary changepass-container"
+                data-bs-toggle="modal"
+                data-bs-target="#PassModal"
+              >
+                Change password
+              </button>
+            </div>
+            <div class="col-md-12 p-1 d-flex flex-column justify-content-between">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                onclick="window.location.href ='/checkout/cart'"
+              >
+                View cart
+              </button>
+            </div>
+            <div class="col-md-12 p-1 d-flex flex-column justify-content-between">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                onclick=""
+              >
+                Purchase history
+              </button>
             </div>
           </div>
         </div>
@@ -154,6 +187,9 @@
       $(document).ready(function () {
         $(".editname-container").click(function () {
           $("#NameModal").modal("show");
+        });
+        $(".changepass-container").click(function () {
+          $("#PassModal").modal("show");
         });
       });
     </script>

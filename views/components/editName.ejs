@@ -7,47 +7,48 @@
     aria-hidden="true"
   >
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="d-flex justify-content-end">
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="container justify-content-center">
-            <div class="row px-3 px-sm-0" style="width: 100%">
-              <div class="content-right col-12 d-flex flex-column gap-3 py-3">
-                <div>
-                  <div class="brand d-sm-none">Sign In</div>
-                  <label for="nameInput">New Name:</label>
-                  <input
-                    type="text"
-                    id="nameInput"
-                    class="form-control name-input"
-                    placeholder="New Name"
-                    required
-                  />
-                </div>
-
-                <div class="text-center">
-                  <button
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex justify-content-end">
+                    <button
                     type="button"
-                    class="btn btn-outline-success"
-                    id="confirmBtn"
-                  >
-                    Confirm
-                  </button>
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    ></button>
                 </div>
-                <!-- CODE JAVASCRIPT ĐỂ XỬ LÝ REQUEST -->
-                <script src="/scripts/profile.js"></script>
-              </div>
+                <div class="container justify-content-center">
+                    <div class="row px-3 px-sm-0">
+                        <div  
+                            class="content-right col-12 d-flex flex-column gap-3 py-3"
+                        >
+                            <div>
+                                <label for="nameInput" >New Name:</label>
+                                <input
+                                    type="text"
+                                    id="nameInput"
+                                    class="form-control name-input"
+                                    placeholder="New Name"
+                                    required
+                                />
+                            </div>
+
+                            <div class="text-center">
+                                <button 
+                                    type="button" 
+                                    class="btn btn-outline-success" 
+                                    id="confirmNameBtn"
+                                >
+                                    Confirm
+                                </button>
+                            </div>
+                            <!-- CODE JAVASCRIPT ĐỂ XỬ LÝ REQUEST -->
+                            <script src="/scripts/profile.js"></script>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
   </div>
 </form>
