@@ -1,4 +1,4 @@
-# Thi xong anh em nghỉ ngơi một ngày. 5/1 mình bắt đầu làm tiếp
+## Tín chỉnh lại cái màn hình lúc nạp tiền vào ví, cái ô nhập Expiry date, cho nó thành hai ô nhập tháng và năm riêng, nằm ngang hàng với nhau nha, giữa hai ô có dấu "/". Còn lại thì ổn rồi.
 
 **Lưu ý 1:** nếu có chỉnh sửa các tag trong các file HTML/EJS thì cẩn thận khi chỉnh các class nha, vì có thể class đó được dùng cho mục đích viết JQuery
 
