@@ -48,6 +48,7 @@ $("#regiser-form").on("reset", function () {
   // Xóa các thông báo lỗi khi form được reset
   $(".alert").remove();
 });
+
 $("#RegisterModal").on("hidden.bs.modal", function () {
   // Xóa các thông báo lỗi khi modal được ẩn đi
   $(".alert").remove();
