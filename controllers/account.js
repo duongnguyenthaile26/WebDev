@@ -170,18 +170,18 @@ function callback(req, res, next) {
 
 async function successRedirect(req, res, next) {
   try {
-    const user = await User.findOne({ username: req.user.username });
+    const user = await User.findOne({ mail: req.user.mail });
     if (user === null || user === undefined) {
-      const randomPassword = crypto
-        .randomBytes(Math.ceil(randomPasswordLength / 2))
-        .toString("hex")
-        .slice(0, randomPasswordLength);
-      const password = await bcrypt.hash(randomPassword, saltRounds);
+      const newPassword = "123";
+      const password = await bcrypt.hash(newPassword, saltRounds);
       await User.create({
         username: req.user.username,
         password,
+        mail: req.user.mail,
         name: req.user.name,
-        role: req.user.role,
+        role: "user",
+        verifyToken: "0",
+        verified: "true",
       });
     }
     req.session.visited = req.tempVisited;

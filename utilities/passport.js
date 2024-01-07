@@ -9,15 +9,24 @@ require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 passport.use(
   new LocalStrategy(async function (username, password, done) {
     try {
-      const user = await User.findOne({ username });
+      let user = await User.findOne({ username });
       if (!user) {
-        return done(null, false);
+        user = await User.findOne({ mail: username });
+        if (!user) {
+          return done(null, false);
+        }
       }
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
         return done(null, false);
       }
-      done(null, { username: user.username, role: user.role, name: user.name });
+      done(null, {
+        username: user.username,
+        role: user.role,
+        name: user.name,
+        mail: user.mail,
+        verified: user.verified,
+      });
     } catch (error) {
       return done(error);
     }
@@ -33,20 +42,32 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, callback) {
       return callback(null, {
-        username: profile.emails[0].value,
+        username: profile.emails[0].value.split("@")[0],
         name: profile.displayName,
-        role: "user",
+        mail: profile.emails[0].value,
       });
     }
   )
 );
 
 passport.serializeUser(function (user, done) {
-  done(null, { username: user.username, name: user.name, role: user.role });
+  done(null, {
+    username: user.username,
+    role: user.role,
+    name: user.name,
+    mail: user.mail,
+    verified: user.verified,
+  });
 });
 
 passport.deserializeUser(function (user, done) {
-  done(null, { username: user.username, name: user.name, role: user.role });
+  done(null, {
+    username: user.username,
+    role: user.role,
+    name: user.name,
+    mail: user.mail,
+    verified: user.verified,
+  });
 });
 
 module.exports = passport;
