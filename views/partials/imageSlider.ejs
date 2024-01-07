@@ -5,34 +5,18 @@
         <div class="col-6">
           <h2 class="mb-3">PRODUCT SUGGESTIONS</h2>
         </div>
-        <div
-          class="col-6 text-right d-flex justify-content-end align-items-center"
-        >
-          <a
-            class="btn btn-primary mb-3 mr-1 mx-3"
-            href="#carouselExampleIndicators2"
-            role="button"
-            data-bs-slide="prev"
-          >
+        <div class="col-6 text-right d-flex justify-content-end align-items-center">
+          <a class="btn btn-primary mb-3 mr-1 mx-3" href="#carouselExampleIndicators2" role="button" data-bs-slide="prev">
             <i class="fa-solid fa-arrow-left"></i>
           </a>
-          <a
-            class="btn btn-primary mb-3"
-            href="#carouselExampleIndicators2"
-            role="button"
-            data-bs-slide="next"
-          >
+          <a class="btn btn-primary mb-3" href="#carouselExampleIndicators2" role="button" data-bs-slide="next">
             <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
       </div>
 
       <div class="p-3 bot">
-        <div
-          id="carouselExampleIndicators2"
-          class="carousel slide"
-          data-bs-ride="carousel"
-        >
+        <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <% for (let i = 0; i < flagsToShow.length; i += 3) { %>
             <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
@@ -41,15 +25,8 @@
                 %>
                 <div class="col-md-4 mb-3">
                   <div class="card">
-                    <a
-                      href="/product/detail/<%= flagsToShow[j]._id %>"
-                      class="flag-link"
-                    >
-                      <img
-                        class="img-fluid"
-                        alt="100%x280"
-                        src="/flags/<%= flagsToShow[j].type %>/<%= flagsToShow[j].image %>"
-                      />
+                    <a href="/product/detail/<%= flagsToShow[j]._id %>" class="flag-link">
+                      <img class="img-fluid" alt="100%x280" src="/flags/<%= flagsToShow[j].type %>/<%= flagsToShow[j].image %>" />
                       <div class="card-body">
                         <div class="card-title fs-5 fw-bold">
                           <%= flagsToShow[j].name %>

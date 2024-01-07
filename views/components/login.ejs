@@ -1,63 +1,31 @@
-<div
-  class="modal fade >"
-  id="LoginModal"
-  tabindex="-1"
-  aria-labelledby="LoginModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade >" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
         <div class="d-flex justify-content-end">
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="container justify-content-center">
           <div class="row px-3 px-sm-0" style="width: 100%">
-            <div
-              class="content-left col-12 d-none col-sm-5 d-sm-block"
-              style="padding-right: 2.5rem; margin-top: 0px"
-            >
+            <div class="content-left col-12 d-none col-sm-5 d-sm-block" style="padding-right: 2.5rem; margin-top: 0px">
               <div class="brand">Sign In</div>
               <div class="detail">Thanks for chosing us</div>
               <div class="pic d-flex justify-content-center">
-                <img
-                  src="https://i.pinimg.com/564x/a9/dd/93/a9dd9332469ecad9d9770985d8e032f0.jpg"
-                  alt="pic"
-                  class="rounded"
-                />
+                <img src="https://i.pinimg.com/564x/a9/dd/93/a9dd9332469ecad9d9770985d8e032f0.jpg" alt="pic" class="rounded" />
               </div>
             </div>
-            <div
-              class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3"
-            >
+            <div class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3">
               <div>
                 <div class="brand d-sm-none">Sign In</div>
                 <label for="usernameInput">Username:</label>
-                <input
-                  type="username"
-                  id="usernameInput"
-                  class="form-control username-input"
-                  placeholder="Username"
-                  required
-                />
+                <input type="username" id="usernameInput" class="form-control username-input" placeholder="Username" required />
                 <div id="usernameFeedback" class="invalid-feedback">
                   Username is required
                 </div>
               </div>
               <div>
                 <label for="passwordInput">Password:</label>
-                <input
-                  type="password"
-                  id="passwordInput"
-                  class="form-control password-input"
-                  placeholder="Password"
-                  required
-                />
+                <input type="password" id="passwordInput" class="form-control password-input" placeholder="Password" required />
                 <div class="invalid-feedback">Password is required</div>
               </div>
 
@@ -72,11 +40,7 @@
               <script src="/scripts/login.js"></script>
               <hr />
               <div class="text-center">
-                <button
-                  class="btn btn-outline-success"
-                  data-bs-toggle="modal"
-                  data-bs-target="#RegisterModal"
-                >
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#RegisterModal">
                   Create New Account
                 </button>
               </div>

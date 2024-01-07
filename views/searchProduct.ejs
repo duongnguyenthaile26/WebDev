@@ -1,276 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Type</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.js"
-      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"
-      integrity="sha512-51WDTV7haD9BBDc8RWH2r5TnuSiRyAqEnbGyuKHYn+qpYCrCckxFeqlr1I5UoOULijyLV2vnHO9LS4MrAzHxwQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/themes/odometer-theme-minimal.min.css"
-      integrity="sha512-Jeqp8CoPCvf9tf/uWokfCTsFcv5BIhfTYaTTJA0NKn6B88zDSWe5d/9HTmZX63FGpGGQdB8Chg2khB96+wn4Tw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/styles/home.css" />
-    <link rel="stylesheet" href="/styles/login_register.css" />
-  </head>
 
-  <body>
-    <!-- ===================SIDEBAR=================== -->
-    <%- include('./partials/sidebar.ejs'); %>
-    <!-- ===================SIDEBAR=================== -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Type</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js" integrity="sha512-51WDTV7haD9BBDc8RWH2r5TnuSiRyAqEnbGyuKHYn+qpYCrCckxFeqlr1I5UoOULijyLV2vnHO9LS4MrAzHxwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/themes/odometer-theme-minimal.min.css" integrity="sha512-Jeqp8CoPCvf9tf/uWokfCTsFcv5BIhfTYaTTJA0NKn6B88zDSWe5d/9HTmZX63FGpGGQdB8Chg2khB96+wn4Tw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/styles/home.css" />
+  <link rel="stylesheet" href="/styles/login_register.css" />
+</head>
 
-    <!-- ===================HEADER=================== -->
+<body>
+  <!-- ===================SIDEBAR=================== -->
+  <%- include('./partials/sidebar.ejs'); %>
+  <!-- ===================SIDEBAR=================== -->
 
-    <!-- ===================HEADER=================== -->
-    <%- include('./partials/header.ejs') %>
+  <!-- ===================HEADER=================== -->
 
-    <!-- ===================CONTENT=================== -->
-    <div class="content-body pb-5">
-      <div class="container pt-3">
-        <div
-          class="d-flex flex-column justify-content-center align-items-center"
-        >
-          <div class="justify-content-center intro p-3 mx-2">
-            <div style="color: #f0f2f5">Ignore text</div>
-            <div class="fs-1 text-center pe-3" style="width: 30rem">
-              PRODUCT SEARCHING
-            </div>
-          </div>
-          <div
-            class="col-8 col-lg-6 d-flex justify-content-center align-items-center"
-          >
-            <div style="width: 25rem">
-              <div class="input-group">
-                <input
-                  type="search"
-                  class="form-control name-input"
-                  placeholder="Search"
-                  aria-label="Search"
-                  aria-describedby="search-addon"
-                  name="name"
-                  value="<%= searchName %>"
-                />
-                <button class="btn btn-primary search-box" onclick="search()">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </div>
+  <!-- ===================HEADER=================== -->
+  <%- include('./partials/header.ejs') %>
+
+  <!-- ===================CONTENT=================== -->
+  <div class="content-body pb-5">
+    <div class="container pt-3">
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="justify-content-center intro p-3 mx-2">
+          <div style="color: #f0f2f5">Ignore text</div>
+          <div class="fs-1 text-center pe-3" style="width: 30rem">
+            PRODUCT SEARCHING
           </div>
         </div>
-        <div class="container d-block p-5">
-          <div class="d-flex">
-            <!-- ===================Navbar=================== -->
-            <div class="col-2">
-              <div class="titleNav fs-3">Categories</div>
-              <div>
-                <% options.forEach((option)=> { %>
-                <div class="checkbox py-1">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input category-checkbox checked-<%= checkboxes.indexOf(option) !== -1 ? 'true' : 'false' %>"
-                      type="checkbox"
-                      value="<%= option %>"
-                      id="<%= option %>"
-                      name="categories"
-                    />
-                    <label class="form-check-label" for="<%= option %>">
-                      <%= option %>
-                    </label>
-                  </div>
-                </div>
-                <% }); %>
-              </div>
+        <div class="col-8 col-lg-6 d-flex justify-content-center align-items-center">
+          <div style="width: 25rem">
+            <div class="input-group">
+              <input type="search" class="form-control name-input" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="name" value="<%= searchName %>" />
+              <button class="btn btn-primary search-box" onclick="search()">
+                <i class="fas fa-search"></i>
+              </button>
             </div>
-            <!-- ===================Navbar=================== -->
-
-            <!-- ===================Content=================== -->
-
-            <div class="container row">
-              <% flags.forEach((flag)=> { %>
-              <div
-                class="col-xl-4 col-md-6 d-flex justify-content-center align-items-center"
-              >
-                <%- include('./components/card.ejs', { flag: flag }); %>
-              </div>
-              <% }); %>
-              <!-- Pagination -->
-              <div class="d-flex justify-content-center align-items-center">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                    <!-- Previous page button -->
-                    <li
-                      class="page-item <%= currentPage === 1 ? 'disabled' : '' %>"
-                    >
-                      <a
-                        class="page-link"
-                        href="#"
-                        aria-label="Previous"
-                        onclick="changePage(`<%= currentPage - 1 %>`)"
-                      >
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <!-- Render page items -->
-                    <% const maxVisiblePages=7; %>
-                    <!-- So luong trang toi da hien thi -->
-                    <% const halfVisiblePages=Math.floor(maxVisiblePages / 2);
-                    %> <% const startPage=Math.max(1, currentPage -
-                    halfVisiblePages); %>
-                    <!-- Trang dau hien thi-->
-                    <% const endPage=Math.min(totalPages, startPage +
-                    maxVisiblePages - 1); %>
-                    <!-- Trang cuoi cung hien thi -->
-                    <% const showEllipsisStart=startPage> 1; %> <% const
-                    showEllipsisEnd=endPage < totalPages; %> <% if
-                    (showEllipsisStart) { %>
-                    <li class="page-item">
-                      <a class="page-link" href="#">...</a>
-                    </li>
-                    <% } %> <% for (let i=startPage; i <=endPage; i++) { %>
-                    <li
-                      class="page-item <%= currentPage === i ? 'active' : '' %>"
-                    >
-                      <a
-                        class="page-link"
-                        href="#"
-                        onclick="changePage(`<%= i %>`)"
-                      >
-                        <%= i %>
-                      </a>
-                    </li>
-                    <% } %> <% if (showEllipsisEnd) { %>
-                    <li class="page-item">
-                      <a class="page-link" href="#">...</a>
-                    </li>
-                    <% } %>
-                    <!-- Next page button -->
-                    <li
-                      class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>"
-                    >
-                      <a
-                        class="page-link"
-                        href="#"
-                        aria-label="Next"
-                        onclick="changePage(`<%= currentPage + 1 %>`)"
-                      >
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-            <!-- ===================Content=================== -->
           </div>
         </div>
       </div>
+      <div class="container d-block p-5">
+        <div class="d-flex">
+          <!-- ===================Navbar=================== -->
+          <div class="col-2">
+            <div class="titleNav fs-3">Categories</div>
+            <div>
+              <% options.forEach((option)=> { %>
+              <div class="checkbox py-1">
+                <div class="form-check">
+                  <input class="form-check-input category-checkbox checked-<%= checkboxes.indexOf(option) !== -1 ? 'true' : 'false' %>" type="checkbox" value="<%= option %>" id="<%= option %>" name="categories" />
+                  <label class="form-check-label" for="<%= option %>">
+                    <%= option %>
+                  </label>
+                </div>
+              </div>
+              <% }); %>
+            </div>
+          </div>
+          <!-- ===================Navbar=================== -->
+
+          <!-- ===================Content=================== -->
+
+          <div class="container row">
+            <% flags.forEach((flag)=> { %>
+            <div class="col-xl-4 col-md-6 d-flex justify-content-center align-items-center">
+              <%- include('./components/card.ejs', { flag: flag }); %>
+            </div>
+            <% }); %>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center align-items-center">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <!-- Previous page button -->
+                  <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="#" aria-label="Previous" onclick="changePage(`<%= currentPage - 1 %>`)">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <!-- Render page items -->
+                  <% const maxVisiblePages=7; %>
+                  <!-- So luong trang toi da hien thi -->
+                  <% const halfVisiblePages=Math.floor(maxVisiblePages / 2);
+                    %> <% const startPage=Math.max(1, currentPage -
+                    halfVisiblePages); %>
+                  <!-- Trang dau hien thi-->
+                  <% const endPage=Math.min(totalPages, startPage +
+                    maxVisiblePages - 1); %>
+                  <!-- Trang cuoi cung hien thi -->
+                  <% const showEllipsisStart=startPage> 1; %> <% const
+                    showEllipsisEnd=endPage < totalPages; %> <% if
+                    (showEllipsisStart) { %>
+                  <li class="page-item">
+                    <a class="page-link" href="#">...</a>
+                  </li>
+                  <% } %> <% for (let i=startPage; i <=endPage; i++) { %>
+                  <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                    <a class="page-link" href="#" onclick="changePage(`<%= i %>`)">
+                      <%= i %>
+                    </a>
+                  </li>
+                  <% } %> <% if (showEllipsisEnd) { %>
+                  <li class="page-item">
+                    <a class="page-link" href="#">...</a>
+                  </li>
+                  <% } %>
+                  <!-- Next page button -->
+                  <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                    <a class="page-link" href="#" aria-label="Next" onclick="changePage(`<%= currentPage + 1 %>`)">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <!-- ===================Content=================== -->
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- ===================CONTENT=================== -->
+  <!-- ===================CONTENT=================== -->
 
-    <!-- ===================FOOTER=================== -->
-    <%- include('./partials/footer.ejs') %>
-    <!-- ===================FOOTER=================== -->
+  <!-- ===================FOOTER=================== -->
+  <%- include('./partials/footer.ejs') %>
+  <!-- ===================FOOTER=================== -->
 
-    <script>
-      $(document).ready(function () {
-        $(".sub-btn").click(function () {
-          $(this).next(".sub-menu").slideToggle();
-          $(this).find(".dropdown").toggleClass("rotate");
-        });
+  <script>
+    $(document).ready(function() {
+      $(".sub-btn").click(function() {
+        $(this).next(".sub-menu").slideToggle();
+        $(this).find(".dropdown").toggleClass("rotate");
+      });
 
-        $(".menu-btn").click(function () {
-          $(".side-bar").addClass("active");
-          $(".menu-btn").css("visibility", "hidden");
-        });
+      $(".menu-btn").click(function() {
+        $(".side-bar").addClass("active");
+        $(".menu-btn").css("visibility", "hidden");
+      });
 
-        $(".close-btn").click(function () {
+      $(".close-btn").click(function() {
+        $(".side-bar").removeClass("active");
+        $(".menu-btn").css("visibility", "visible");
+      });
+
+      $(document).on("click", function(event) {
+        if (
+          !$(event.target).closest(".side-bar").length &&
+          !$(event.target).is(".side-bar") &&
+          !$(event.target).is(".menu-btn") &&
+          !$(event.target).closest(".menu-btn").length
+        ) {
           $(".side-bar").removeClass("active");
           $(".menu-btn").css("visibility", "visible");
-        });
+        }
+      });
+      $(".checked-true").prop("checked", true);
+    });
+    $(document).ready(function() {
+      $(".login-container").click(function() {
+        $("#LoginModal").modal("show");
+      });
 
-        $(document).on("click", function (event) {
-          if (
-            !$(event.target).closest(".side-bar").length &&
-            !$(event.target).is(".side-bar") &&
-            !$(event.target).is(".menu-btn") &&
-            !$(event.target).closest(".menu-btn").length
-          ) {
-            $(".side-bar").removeClass("active");
-            $(".menu-btn").css("visibility", "visible");
-          }
-        });
-        $(".checked-true").prop("checked", true);
+      $(".register-container").click(function() {
+        $("#RegisterModal").modal("show");
       });
-      $(document).ready(function () {
-        $(".login-container").click(function () {
-          $("#LoginModal").modal("show");
-        });
+    });
 
-        $(".register-container").click(function () {
-          $("#RegisterModal").modal("show");
-        });
+    function changePage(page) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const nameParam = urlParams.get("name");
+      const newUrl = `<%= currentPageUrl %>?name=${nameParam}&page=${page}`;
+      window.location.href = newUrl;
+    }
+    $(document).ready(function() {
+      $(".flag-link").click(function(event) {
+        event.preventDefault();
+        window.location.href = $(this).attr("href");
       });
-      function changePage(page) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const nameParam = urlParams.get("name");
-        const newUrl = `<%= currentPageUrl %>?name=${nameParam}&page=${page}`;
-        window.location.href = newUrl;
-      }
-      $(document).ready(function () {
-        $(".flag-link").click(function (event) {
-          event.preventDefault();
-          window.location.href = $(this).attr("href");
-        });
+    });
+
+    function search() {
+      const searchInput = $(".name-input").val();
+      const selectedCategories = [];
+      $(".category-checkbox").each(function() {
+        if ($(this).is(":checked")) {
+          selectedCategories.push($(this).attr("id"));
+        }
       });
-      function search() {
-        const searchInput = $(".name-input").val();
-        const selectedCategories = [];
-        $(".category-checkbox").each(function () {
-          if ($(this).is(":checked")) {
-            selectedCategories.push($(this).attr("id"));
-          }
-        });
-        const queryParams = new URLSearchParams({
-          name: searchInput,
-          categories: selectedCategories.join(","),
-        });
-        window.location.href = `/product/search?${queryParams.toString()}`;
-      }
-      $(".category-checkbox").change(function () {
-        search();
+      const queryParams = new URLSearchParams({
+        name: searchInput,
+        categories: selectedCategories.join(","),
       });
-    </script>
-  </body>
+      window.location.href = `/product/search?${queryParams.toString()}`;
+    }
+    $(".category-checkbox").change(function() {
+      search();
+    });
+  </script>
+</body>
+
 </html>

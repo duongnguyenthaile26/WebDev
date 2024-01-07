@@ -14,14 +14,7 @@
         <p style="margin-bottom: 0">Search for flags by name</p>
         <form id="search-form" action="/product/search" method="GET">
           <div class="input-group">
-            <input
-              type="search"
-              class="form-control"
-              placeholder="Search"
-              aria-label="Search"
-              aria-describedby="search-addon"
-              name="name"
-            />
+            <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="name" />
             <button type="submit" class="btn btn-outline-light search-box">
               <i class="fas fa-search"></i>
             </button>
@@ -30,15 +23,11 @@
       </a>
     </div>
     <div class="item">
-      <a class="sub-btn"
-        ><i class="fas fa-flag"></i>Categories
-        <i class="fas fa-angle-right dropdown"></i
-      ></a>
+      <a class="sub-btn"><i class="fas fa-flag"></i>Categories
+        <i class="fas fa-angle-right dropdown"></i></a>
       <div class="sub-menu">
         <% for (let i = 0; i < options.length; i++) { %>
-        <a href="/product/type?type=<%= options[i] %>" class="sub-item"
-          ><%= options[i] %></a
-        >
+        <a href="/product/type?type=<%= options[i] %>" class="sub-item"><%= options[i] %></a>
         <% } %>
       </div>
     </div>

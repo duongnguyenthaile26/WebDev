@@ -22,29 +22,17 @@ include('../components/register.ejs') %>
           <div class="btn-group rounded-circle">
             <% if (user !== null && user !== undefined) { %>
             <!-- Hiển thị dropdown cho người dùng đã đăng nhập -->
-            <button
-              type="button"
-              class="btn btn-danger dropdown-toggle d-flex align-items-center"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <button type="button" class="btn btn-danger dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa-regular fa-user fs-5 mx-2"></i>
               <div>Welcome, <%= user.name %></div>
             </button>
             <div class="user-dropdown">
-              <ul
-                class="dropdown-menu"
-                style="
+              <ul class="dropdown-menu" style="
                   border-radius: 10px;
                   background-color: rgba(245, 240, 246, 0.8);
-                "
-              >
+                ">
                 <li class="d-flex justify-content-center">
-                  <button
-                    type="button"
-                    class="btn btn-link"
-                    onclick="window.location.href='/account/profile'"
-                  >
+                  <button type="button" class="btn btn-link" onclick="window.location.href='/account/profile'">
                     Profile Page
                   </button>
                 </li>
@@ -64,29 +52,16 @@ include('../components/register.ejs') %>
             </div>
             <% } else { %>
             <!-- Hiển thị dropdown cho người dùng chưa đăng nhập -->
-            <button
-              type="button"
-              class="btn btn-danger dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa-regular fa-user fs-5"></i>
             </button>
             <div class="login-dropdown">
-              <ul
-                class="dropdown-menu"
-                style="
+              <ul class="dropdown-menu" style="
                   border-radius: 10px;
                   background-color: rgba(245, 240, 246, 0.8);
-                "
-              >
+                ">
                 <li class="d-flex justify-content-center">
-                  <button
-                    type="button"
-                    class="login-container btn btn-link"
-                    data-bs-toggle="modal"
-                    data-bs-target="#LoginModal"
-                  >
+                  <button type="button" class="login-container btn btn-link" data-bs-toggle="modal" data-bs-target="#LoginModal">
                     Login
                   </button>
                 </li>
@@ -95,12 +70,7 @@ include('../components/register.ejs') %>
                 </li>
 
                 <li class="d-flex justify-content-center">
-                  <button
-                    type="button"
-                    class="register-container btn btn-link"
-                    data-bs-toggle="modal"
-                    data-bs-target="#RegisterModal"
-                  >
+                  <button type="button" class="register-container btn btn-link" data-bs-toggle="modal" data-bs-target="#RegisterModal">
                     Register
                   </button>
                 </li>

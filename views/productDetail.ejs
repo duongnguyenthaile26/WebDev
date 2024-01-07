@@ -1,220 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product details</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.js"
-      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"
-      integrity="sha512-51WDTV7haD9BBDc8RWH2r5TnuSiRyAqEnbGyuKHYn+qpYCrCckxFeqlr1I5UoOULijyLV2vnHO9LS4MrAzHxwQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/themes/odometer-theme-minimal.min.css"
-      integrity="sha512-Jeqp8CoPCvf9tf/uWokfCTsFcv5BIhfTYaTTJA0NKn6B88zDSWe5d/9HTmZX63FGpGGQdB8Chg2khB96+wn4Tw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/styles/home.css" />
-    <link rel="stylesheet" href="/styles/login_register.css" />
-  </head>
 
-  <body>
-    <!-- ===================SIDEBAR=================== -->
-    <%- include('./partials/sidebar.ejs'); %>
-    <!-- ===================SIDEBAR=================== -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js" integrity="sha512-51WDTV7haD9BBDc8RWH2r5TnuSiRyAqEnbGyuKHYn+qpYCrCckxFeqlr1I5UoOULijyLV2vnHO9LS4MrAzHxwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/themes/odometer-theme-minimal.min.css" integrity="sha512-Jeqp8CoPCvf9tf/uWokfCTsFcv5BIhfTYaTTJA0NKn6B88zDSWe5d/9HTmZX63FGpGGQdB8Chg2khB96+wn4Tw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/styles/home.css" />
+  <link rel="stylesheet" href="/styles/login_register.css" />
+</head>
 
-    <!-- ===================HEADER=================== -->
+<body>
+  <!-- ===================SIDEBAR=================== -->
+  <%- include('./partials/sidebar.ejs'); %>
+  <!-- ===================SIDEBAR=================== -->
 
-    <!-- ===================HEADER=================== -->
-    <%- include('./partials/header.ejs') %>
+  <!-- ===================HEADER=================== -->
 
-    <!-- ===================CONTENT=================== -->
-    <div class="content-body pb-5">
-      <div class="container pt-3">
-        <div
-          class="d-flex flex-column justify-content-center align-items-center"
-        >
-          <div class="justify-content-center intro p-3 mx-2">
-            <div style="color: #f0f2f5">Ignore text</div>
-            <div class="fs-1 text-center pe-3" style="width: 30rem">
-              PRODUCT INFORMATION
-            </div>
+  <!-- ===================HEADER=================== -->
+  <%- include('./partials/header.ejs') %>
+
+  <!-- ===================CONTENT=================== -->
+  <div class="content-body pb-5">
+    <div class="container pt-3">
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="justify-content-center intro p-3 mx-2">
+          <div style="color: #f0f2f5">Ignore text</div>
+          <div class="fs-1 text-center pe-3" style="width: 30rem">
+            PRODUCT INFORMATION
           </div>
-        </div>
-        <div class="container d-block p-5">
-          <div class="container d-flex justify-content-center mx-5">
-            <!-- ===================Content=================== -->
-            <div class="col-6">
-              <img
-                src="/flags/<%= flag.type %>/<%= flag.image %>"
-                class="img-product"
-                alt="Flag Image"
-              />
-            </div>
-            <div class="col-6 d-flex flex-column">
-              <h5 class="name fs-5 fw-bold text-dark fs-1 pt-2">
-                <%= flag.name %>
-              </h5>
-              <div class="type text-uppercase fs-3"><%= flag.type %></div>
-              <div class="price text-danger fw-bold fs-3">
-                Price: <%= flag.price %>
-              </div>
-              <div
-                class="count pt-3 fs-4 quantity-<%= user?.role === 'user' ? 'render' : 'hidden' %>"
-              >
-                Amount
-                <div class="input-group d-flex mb-3 pt-2">
-                  <button
-                    class="btn btn-outline-secondary"
-                    type="button"
-                    onclick="handleMinusClick()"
-                  >
-                    <i class="fa-solid fa-minus"></i>
-                  </button>
-                  <input
-                    id="quantityInput"
-                    type="number"
-                    class="form-control text-center"
-                    value="1"
-                    readonly
-                  />
-                  <button
-                    class="btn btn-outline-secondary"
-                    type="button"
-                    onclick="handlePlusClick()"
-                  >
-                    <i class="fa-solid fa-plus"></i>
-                  </button>
-                </div>
-              </div>
-              <script>
-                $(".quantity-hidden").css("visibility", "hidden");
-              </script>
-              <div class="d-flex">
-                <% if (user !== null && user !== undefined && user.role ===
-                "user") { %>
-                <button
-                  type="button"
-                  class="btn btn-danger me-2"
-                  onclick="addToCart()"
-                >
-                  ADD TO CART
-                </button>
-                <% } %> <% if (user !== null && user !== undefined && user.role
-                === "admin") { %>
-                <button type="button" class="btn btn-warning mx-2">EDIT</button>
-                <button type="button" class="btn btn-danger ms-2">
-                  DELETE
-                </button>
-                <% } %>
-              </div>
-            </div>
-            <!-- ===================Content=================== -->
-          </div>
-        </div>
-        <div>
-          <%- include('./partials/imageSlider.ejs', { flagsToShow: flagsToShow
-          }) %>
         </div>
       </div>
+      <div class="container d-block p-5">
+        <div class="container d-flex justify-content-center mx-5">
+          <!-- ===================Content=================== -->
+          <div class="col-6">
+            <img src="/flags/<%= flag.type %>/<%= flag.image %>" class="img-product" alt="Flag Image" />
+          </div>
+          <div class="col-6 d-flex flex-column">
+            <h5 class="name fs-5 fw-bold text-dark fs-1 pt-2">
+              <%= flag.name %>
+            </h5>
+            <div class="type text-uppercase fs-3"><%= flag.type %></div>
+            <div class="price text-danger fw-bold fs-3">
+              Price: <%= flag.price %>
+            </div>
+            <div class="count pt-3 fs-4 quantity-<%= user?.role === 'user' ? 'render' : 'hidden' %>">
+              Amount
+              <div class="input-group d-flex mb-3 pt-2">
+                <button class="btn btn-outline-secondary" type="button" onclick="handleMinusClick()">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <input id="quantityInput" type="number" class="form-control text-center" value="1" readonly />
+                <button class="btn btn-outline-secondary" type="button" onclick="handlePlusClick()">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            <script>
+              $(".quantity-hidden").css("visibility", "hidden");
+            </script>
+            <div class="d-flex">
+              <% if (user !== null && user !== undefined && user.role ===
+                "user") { %>
+              <button type="button" class="btn btn-danger me-2" onclick="addToCart()">
+                ADD TO CART
+              </button>
+              <% } %> <% if (user !== null && user !== undefined && user.role
+                === "admin") { %>
+              <button type="button" class="btn btn-warning mx-2">EDIT</button>
+              <button type="button" class="btn btn-danger ms-2">
+                DELETE
+              </button>
+              <% } %>
+            </div>
+          </div>
+          <!-- ===================Content=================== -->
+        </div>
+      </div>
+      <div>
+        <%- include('./partials/imageSlider.ejs', { flagsToShow: flagsToShow
+          }) %>
+      </div>
     </div>
-    <div class="flag-id" style="display: none"><%= flag._id %></div>
-    <!-- ===================CONTENT=================== -->
+  </div>
+  <div class="flag-id" style="display: none"><%= flag._id %></div>
+  <!-- ===================CONTENT=================== -->
 
-    <!-- ===================FOOTER=================== -->
-    <%- include('./partials/footer.ejs') %>
-    <!-- ===================FOOTER=================== -->
+  <!-- ===================FOOTER=================== -->
+  <%- include('./partials/footer.ejs') %>
+  <!-- ===================FOOTER=================== -->
 
-    <script>
-      $(document).ready(function () {
-        $(".sub-btn").click(function () {
-          $(this).next(".sub-menu").slideToggle();
-          $(this).find(".dropdown").toggleClass("rotate");
-        });
+  <script>
+    $(document).ready(function() {
+      $(".sub-btn").click(function() {
+        $(this).next(".sub-menu").slideToggle();
+        $(this).find(".dropdown").toggleClass("rotate");
+      });
 
-        $(".menu-btn").click(function () {
-          $(".side-bar").addClass("active");
-          $(".menu-btn").css("visibility", "hidden");
-        });
+      $(".menu-btn").click(function() {
+        $(".side-bar").addClass("active");
+        $(".menu-btn").css("visibility", "hidden");
+      });
 
-        $(".close-btn").click(function () {
+      $(".close-btn").click(function() {
+        $(".side-bar").removeClass("active");
+        $(".menu-btn").css("visibility", "visible");
+      });
+
+      $(document).on("click", function(event) {
+        if (
+          !$(event.target).closest(".side-bar").length &&
+          !$(event.target).is(".side-bar") &&
+          !$(event.target).is(".menu-btn") &&
+          !$(event.target).closest(".menu-btn").length
+        ) {
           $(".side-bar").removeClass("active");
           $(".menu-btn").css("visibility", "visible");
-        });
-
-        $(document).on("click", function (event) {
-          if (
-            !$(event.target).closest(".side-bar").length &&
-            !$(event.target).is(".side-bar") &&
-            !$(event.target).is(".menu-btn") &&
-            !$(event.target).closest(".menu-btn").length
-          ) {
-            $(".side-bar").removeClass("active");
-            $(".menu-btn").css("visibility", "visible");
-          }
-        });
-      });
-      $(".search-box").click(function () {
-        $("#search-form").submit();
-      });
-      $(document).ready(function () {
-        $(".login-container").click(function () {
-          $("#LoginModal").modal("show");
-        });
-
-        $(".register-container").click(function () {
-          $("#RegisterModal").modal("show");
-        });
-      });
-      let quantity = 1;
-      const quantityInput = document.getElementById("quantityInput");
-
-      function handleMinusClick() {
-        if (quantity > 1) {
-          quantity--;
-          quantityInput.value = quantity;
         }
-      }
+      });
+    });
+    $(".search-box").click(function() {
+      $("#search-form").submit();
+    });
+    $(document).ready(function() {
+      $(".login-container").click(function() {
+        $("#LoginModal").modal("show");
+      });
 
-      function handlePlusClick() {
-        ++quantity;
+      $(".register-container").click(function() {
+        $("#RegisterModal").modal("show");
+      });
+    });
+    let quantity = 1;
+    const quantityInput = document.getElementById("quantityInput");
+
+    function handleMinusClick() {
+      if (quantity > 1) {
+        quantity--;
         quantityInput.value = quantity;
       }
-      function addToCart() {
-        const flagID = $(".flag-id").html();
-        $.post("/api/addToCart", { flagID, quantity }, function (data) {
-          alert("Add to cart successful!");
-          quantity = 1;
-          quantityInput.value = quantity;
-        });
-      }
-    </script>
-  </body>
+    }
+
+    function handlePlusClick() {
+      ++quantity;
+      quantityInput.value = quantity;
+    }
+
+    function addToCart() {
+      const flagID = $(".flag-id").html();
+      $.post("/api/addToCart", {
+        flagID,
+        quantity
+      }, function(data) {
+        alert("Add to cart successful!");
+        quantity = 1;
+        quantityInput.value = quantity;
+      });
+    }
+  </script>
+</body>
+
 </html>
