@@ -172,16 +172,19 @@ async function successRedirect(req, res, next) {
   try {
     const user = await User.findOne({ mail: req.user.mail });
     if (user === null || user === undefined) {
-      const newPassword = "123";
-      const password = await bcrypt.hash(newPassword, saltRounds);
+      const randomPassword = crypto
+        .randomBytes(Math.ceil(randomPasswordLength / 2))
+        .toString("hex")
+        .slice(0, randomPasswordLength);
+      const password = await bcrypt.hash(randomPassword, saltRounds);
       await User.create({
         username: req.user.username,
         password,
-        mail: req.user.mail,
         name: req.user.name,
+        mail: req.user.mail,
         role: "user",
+        verified: true,
         verifyToken: "0",
-        verified: "true",
       });
     }
     req.session.visited = req.tempVisited;

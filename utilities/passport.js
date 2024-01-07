@@ -28,7 +28,7 @@ passport.use(
         verified: user.verified,
       });
     } catch (error) {
-      return done(error);
+      done(error);
     }
   })
 );
@@ -42,7 +42,7 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, callback) {
       return callback(null, {
-        username: profile.emails[0].value.split("@")[0],
+        username: "GoogleUser_" + profile.emails[0].value.split("@")[0],
         name: profile.displayName,
         mail: profile.emails[0].value,
       });
@@ -60,14 +60,22 @@ passport.serializeUser(function (user, done) {
   });
 });
 
-passport.deserializeUser(function (user, done) {
-  done(null, {
-    username: user.username,
-    role: user.role,
-    name: user.name,
-    mail: user.mail,
-    verified: user.verified,
-  });
+passport.deserializeUser(async function (user, done) {
+  try {
+    const dbUser = await User.findOne({ username: user.username });
+    if (!dbUser) {
+      return done(null, false);
+    }
+    done(null, {
+      username: dbUser.username,
+      role: dbUser.role,
+      name: dbUser.name,
+      mail: dbUser.mail,
+      verified: dbUser.verified,
+    });
+  } catch (error) {
+    done(error);
+  }
 });
 
 module.exports = passport;
