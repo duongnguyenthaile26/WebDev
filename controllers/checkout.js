@@ -93,5 +93,25 @@ async function payment(req, res, next) {
   }
 }
 
+async function removeItem(req, res, next) {
+  try {
+    const user = await User.findOne({ username: req.user.username });
+    const { mode } = req.body;
+    if (mode === "item") {
+      const { flagID } = req.body;
+      user.cart = user.cart.filter((item) => item.flagID !== flagID);
+    } else if (mode === "cart") {
+      user.cart = [];
+    }
+    user.markModified("cart");
+    user.save().then(function () {
+      res.json({ status: "success" });
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.payment = payment;
 exports.cart = cart;
+exports.removeItem = removeItem;

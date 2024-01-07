@@ -9,7 +9,7 @@ const controller = require(path.join(
   "checkout"
 ));
 
-router.route("/cart").get(controller.cart);
+router.route("/cart").get(controller.cart).delete(controller.removeItem);
 router.route("/payment").get(controller.payment);
 
 module.exports = router;

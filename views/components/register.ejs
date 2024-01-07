@@ -1,76 +1,40 @@
-<div
-  class="modal fade"
-  id="RegisterModal"
-  tabIndex="-1"
-  aria-labelledby="RegisterModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="RegisterModal" tabIndex="-1" aria-labelledby="RegisterModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
         <div class="d-flex justify-content-end">
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="container justify-content-center">
           <div class="row px-3 px-sm-0" style="width: 100%">
-            <div
-              class="content-left col-12 d-none col-sm-5 d-sm-block"
-              style="padding-right: 2.5rem; margin-top: 0px"
-            >
+            <div class="content-left col-12 d-none col-sm-5 d-sm-block" style="padding-right: 2.5rem; margin-top: 0px">
               <div class="brand">Sign Up</div>
-              <div class="detail">Thanks for chosing us</div>
+              <div class="detail">Thanks for choosing us</div>
               <div class="pic d-flex justify-content-center">
-                <img
-                  src="https://i.pinimg.com/564x/d8/8f/a4/d88fa43aa79db7dfd147f459b4c71d00.jpg"
-                  alt="pic"
-                  class="rounded"
-                />
+                <img src="https://i.pinimg.com/564x/d8/8f/a4/d88fa43aa79db7dfd147f459b4c71d00.jpg" alt="pic" class="rounded" />
               </div>
             </div>
-            <div
-              class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3"
-            >
+            <div class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3">
               <div class="brand d-sm-none">Sign Up</div>
               <div class="form-group">
                 <label>Username:</label>
-                <input
-                  type="username"
-                  class="form-control username-input-reg"
-                  placeholder="Username"
-                />
-                <div class="invalid-feedback">Username is required</div>
+                <input type="username" class="form-control username-input-reg" placeholder="Username" />
               </div>
               <div class="form-group">
                 <label>Name:</label>
-                <input
-                  type="text"
-                  class="form-control name-input-reg"
-                  placeholder="Name"
-                />
-                <div class="invalid-feedback">Name is required</div>
+                <input type="text" class="form-control name-input-reg" placeholder="Name" />
+              </div>
+              <div class="form-group">
+                <label>Email:</label>
+                <input type="text" class="form-control mail-input-reg" placeholder="Mail" />
               </div>
               <div class="form-group">
                 <label>Password: </label>
-                <input
-                  type="password"
-                  class="form-control name-input-reg password-input-reg"
-                  placeholder="Password"
-                />
-                <div class="invalid-feedback">Password is required</div>
+                <input type="password" class="form-control name-input-reg password-input-reg" placeholder="Password" />
               </div>
               <div class="form-group">
                 <label>Confirm password: </label>
-                <input
-                  type="password"
-                  class="form-control passwordConfirm-input-reg"
-                  placeholder="Confirm password"
-                />
-                <div class="invalid-feedback">Confirm password is required</div>
+                <input type="password" class="form-control passwordConfirm-input-reg" placeholder="Confirm password" />
               </div>
               <button class="btn btn-outline-primary" onclick="register()">
                 Register
@@ -80,11 +44,7 @@
               <script src="/scripts/register.js"></script>
               <hr />
               <div class="text-center">
-                <button
-                  class="btn btn-outline-success"
-                  data-bs-toggle="modal"
-                  data-bs-target="#LoginModal"
-                >
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#LoginModal">
                   Already've have an account? Login
                 </button>
               </div>

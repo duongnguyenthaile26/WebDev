@@ -38,9 +38,16 @@ router.route("/logout").post(
 
 router.route("/register").post(verifyRole.verifyGuest, controller.register);
 
+router.route("/verifyAccount").get(controller.verifyAccount);
+
 router.route("/profile").get(verifyRole.verifyLoggedIn, controller.profile);
 
+router.route("/modify").patch(verifyRole.verifyLoggedIn, controller.modify);
+
 router.use("/googleAuth", googleAuthRouter);
+
+router.route("/verifyPage").get(controller.verifyPage);
+
 
 googleAuthRouter.route("/").get(
   verifyRole.verifyGuest,

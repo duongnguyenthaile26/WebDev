@@ -1,4 +1,8 @@
-# Thi xong anh em nghỉ ngơi một ngày. 5/1 mình bắt đầu làm tiếp
+# Đã thêm xác thực sử dụng email khi đăng ký, anh em vào test thử nha (t xóa hết tài khoản cũ rồi, chỉ còn user1 - 123 với admin1 - 123)
+
+## Tín chỉnh lại cái màn hình lúc nạp tiền vào ví, cái ô nhập Expiry date, cho nó thành hai ô nhập tháng và năm riêng, nằm ngang hàng với nhau nha, giữa hai ô có dấu "/". Còn lại thì ổn rồi.
+
+### Minor note: t có mới sử dụng extension format mới là EJS Beautify để format các file EJS, ae có thể sử dụng setting của t trong file settings.json
 
 **Lưu ý 1:** nếu có chỉnh sửa các tag trong các file HTML/EJS thì cẩn thận khi chỉnh các class nha, vì có thể class đó được dùng cho mục đích viết JQuery
 
