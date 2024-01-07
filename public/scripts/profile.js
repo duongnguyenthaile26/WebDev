@@ -4,14 +4,32 @@ $(document).ready(function () {
     const name = $(".name-input").val();
     if (name === "") {
       const alertHtml = `
-      <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
         Please enter your new name
       </div>`;
       $(".alert").remove();
       $(".modal-body").prepend(alertHtml);
     } else {
-      // gửi một POST request về cho server
-      // hiện thông báo là đã đổi tên thành công
+      $.ajax({
+        url: "/account/modify",
+        type: "PATCH",
+        contentType: "application/json",
+        data: JSON.stringify({
+          mode: "name",
+          name,
+        }),
+        success: function (data) {
+          const alertHtml = `
+          <div class="alert alert-${
+            data.status === "fail" ? "danger" : "success"
+          } alert-dismissible fade show" role="alert">
+            ${data.message}
+          </div>`;
+          $(".alert").remove();
+          $(".modal-body").prepend(alertHtml);
+          setTimeout(() => (window.location.href = "/account/profile"), 2000);
+        },
+      });
     }
   }
 
@@ -53,14 +71,41 @@ $(document).ready(function () {
       newPassword !== "" &&
       confirmNewPassword !== ""
     ) {
-      // Xử lý trường hợp hai password mới không khớp nhau
-      // Gửi một POST request về cho server
-      // hiện thông báo đổi pass thành công
+      if (newPassword !== confirmNewPassword) {
+        const alertHtml = `
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          New password and confirm new password do not match
+        </div>`;
+        $(".alert").remove();
+        $(".modal-body").prepend(alertHtml);
+        return;
+      }
+      $.ajax({
+        url: "/account/modify",
+        type: "PATCH",
+        contentType: "application/json",
+        data: JSON.stringify({
+          mode: "password",
+          currentPassword,
+          newPassword,
+        }),
+        success: function (data) {
+          const alertHtml = `
+          <div class="alert alert-${
+            data.status === "fail" ? "danger" : "success"
+          } alert-dismissible fade show" role="alert">
+            ${data.message}
+          </div>`;
+          $(".alert").remove();
+          $(".modal-body").prepend(alertHtml);
+          setTimeout(() => (window.location.href = "/account/profile"), 2000);
+        },
+      });
     } else {
       const alertHtml = `
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
-          Please fill out the fields
-        </div>`;
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Please fill out the fields
+      </div>`;
       $(".alert").remove();
       $(".modal-body").prepend(alertHtml);
     }

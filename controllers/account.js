@@ -208,6 +208,36 @@ async function profile(req, res, next) {
   }
 }
 
+async function modify(req, res, next) {
+  try {
+    const user = await User.findOne({ username: req.user.username });
+    if (req.body.mode === "name") {
+      const newName = req.body.name;
+      user.name = newName;
+      user.markModified("name");
+      await user.save();
+      res.json({ status: "success", message: "Change name successfully" });
+    } else if (req.body.mode === "password") {
+      const { currentPassword, newPassword } = req.body;
+      const match = await bcrypt.compare(currentPassword, user.password);
+      if (match) {
+        const encryptedNewPassword = await bcrypt.hash(newPassword, saltRounds);
+        user.password = encryptedNewPassword;
+        user.markModified("password");
+        await user.save();
+        res.json({
+          status: "success",
+          message: "Change password successfully",
+        });
+      } else {
+        res.json({ status: "fail", message: "Current password is incorrect" });
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.login = login;
 exports.logout = logout;
 exports.profile = profile;
@@ -216,3 +246,4 @@ exports.callback = callback;
 exports.authenticate = authenticate;
 exports.successRedirect = successRedirect;
 exports.verifyAccount = verifyAccount;
+exports.modify = modify;

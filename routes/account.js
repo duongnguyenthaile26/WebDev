@@ -42,6 +42,8 @@ router.route("/verifyAccount").get(controller.verifyAccount);
 
 router.route("/profile").get(verifyRole.verifyLoggedIn, controller.profile);
 
+router.route("/modify").patch(verifyRole.verifyLoggedIn, controller.modify);
+
 router.use("/googleAuth", googleAuthRouter);
 
 googleAuthRouter.route("/").get(
