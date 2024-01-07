@@ -62,9 +62,12 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(async function (user, done) {
   try {
-    const dbUser = await User.findOne({ username: user.username });
+    let dbUser = await User.findOne({ username: user.username });
     if (!dbUser) {
-      return done(null, false);
+      dbUser = await User.findOne({ mail: user.mail });
+      if (!dbUser) {
+        return done(null, false);
+      }
     }
     done(null, {
       username: dbUser.username,
