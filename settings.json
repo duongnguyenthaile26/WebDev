@@ -1,5 +1,5 @@
 {
-  // File nay dung de thiet lap VSCODE khi su dung extension Prettier
+  // File nay dung de thiet lap VSCODE khi su dung extension Prettier, cung voi EJS Beautify
   "editor.tabSize": 2,
   "files.autoSave": "onFocusChange",
   "editor.formatOnSave": true,
@@ -7,7 +7,13 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.wordWrap": "on"
-  // "editor.fontFamily": "Consolas, 'Courier New', monospace",
-  // "workbench.colorTheme": "Dracula"
+  "editor.wordWrap": "on",
+  // "editor.fontFamily": "Jetbrains Mono, Consolas, 'Courier New', monospace",
+  // "workbench.colorTheme": "Dracula",
+  "emmet.includeLanguages": {
+    "ejs": "html"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "j69.ejs-beautify"
+  }
 }
