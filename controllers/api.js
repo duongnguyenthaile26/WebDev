@@ -31,11 +31,11 @@ async function addToCart(req, res, next) {
 
     if (itemIndex > -1) {
       user.cart[itemIndex].quantity += quantity;
-      user.markModified("cart");
     } else {
       user.cart.push({ flagID, quantity: quantity });
     }
 
+    user.markModified("cart");
     await user.save();
 
     res.json({ status: "success" });

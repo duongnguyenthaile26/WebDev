@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-xl-2 text-danger fw-bold text-dark fs-5"></div>
                     <div class="remove-cart">
-                      <button class="btn btn-danger">
+                      <button class="btn btn-danger" onclick="removeCart()">
                         <i class="fas fa-trash-alt"></i>
                       </button>
                     </div>
@@ -84,8 +84,8 @@
                     <div class="col-xl-2 pt-3 p-xl-0 total-price text-danger fw-bold fs-5">
                       Total: <%= flag.totalPrice %>
                     </div>
-                    <div class="remove-cart pt-3 p-xl-0">
-                      <button class="btn btn-danger">
+                    <div class="remove-item pt-3 p-xl-0">
+                      <button class="btn btn-danger" id="<%= flag._id %>" onclick="removeItem(event)">
                         <i class="fas fa-trash-alt"></i>
                       </button>
                     </div>
@@ -230,6 +230,39 @@
 
       const newUrl = `?page=${page}`;
       window.location.href = newUrl;
+    }
+
+    function removeCart() {
+      $.ajax({
+        url: '/checkout/cart',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          mode: "cart",
+        }),
+        success: function(data) {
+          window.location.href = "/checkout/cart";
+        }
+      });
+    }
+
+    function removeItem(event) {
+      let target = event.target || event.srcElement;
+      while (target && !target.id) {
+        target = target.parentNode;
+      }
+      $.ajax({
+        url: '/checkout/cart',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          mode: "item",
+          flagID: target.id,
+        }),
+        success: function(data) {
+          window.location.href = "/checkout/cart";
+        },
+      });
     }
   </script>
 </body>
