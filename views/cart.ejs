@@ -45,7 +45,7 @@
                   <div class="d-flex flex-column flex-xl-row justify-content-between align-items-center">
                     <div class="col-xl-6 product-info d-flex align-items-center fw-bold text-dark">
                       <div style="width: 15rem">
-                        You have <%= totalInCart %> items in your cart
+                        You have <%= totalInCart %> item<%= totalInCart > 1 ? "s" : "" %> in your cart
                       </div>
                       <div class="ms-3 text-center"></div>
                     </div>
@@ -105,9 +105,11 @@
                 <div class="text-danger total-cart-price"><%= total %></div>
               </div>
             </div>
+            <% if (totalInCart !== 0) { %>
             <button type="button" class="checkout btn btn-outline-danger mt-3 fs-4 payment-container" style="width: 100%" data-bs-toggle="modal" data-bs-target="#PayModal">
               CHECKOUT
             </button>
+            <% } %>
             <!-- Pagination -->
             <div class="d-flex justify-content-center align-items-center pt-5">
               <nav aria-label="Page navigation example">
