@@ -84,6 +84,7 @@
             </button>
             <% } %>
           </div>
+          <% if (user.role !== "admin") { %>
           <div class="col-md-12 p-1 d-flex flex-column justify-content-between">
             <button type="button" class="btn btn-outline-primary" onclick="window.location.href ='/checkout/cart'">
               View cart
@@ -94,6 +95,7 @@
               Purchase history
             </button>
           </div>
+          <% } %>
         </div>
       </div>
     </div>
