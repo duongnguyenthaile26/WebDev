@@ -38,6 +38,8 @@ router.route("/logout").post(
 
 router.route("/register").post(verifyRole.verifyGuest, controller.register);
 
+router.route("/verifyAccount").get(controller.verifyAccount);
+
 router.route("/profile").get(verifyRole.verifyLoggedIn, controller.profile);
 
 router.use("/googleAuth", googleAuthRouter);

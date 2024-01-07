@@ -1,6 +1,7 @@
 function register() {
   const username = $(".username-input-reg").val();
   const name = $(".name-input-reg").val();
+  const mail = $(".mail-input-reg").val();
   const password = $(".password-input-reg").val();
   const confirmPassword = $(".passwordConfirm-input-reg").val();
 
@@ -8,7 +9,8 @@ function register() {
     username === "" ||
     name === "" ||
     password === "" ||
-    confirmPassword === ""
+    confirmPassword === "" ||
+    mail === ""
   ) {
     const alertHtml = `
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -27,20 +29,21 @@ function register() {
     $(".alert").remove();
     $(".modal-body").prepend(alertHtml);
   } else {
-    $.post("/account/register", { username, name, password }, function (data) {
-      if (data.status === "fail") {
+    $.post(
+      "/account/register",
+      { username, name, password, mail },
+      function (data) {
+        console.log(data);
         const alertHtml = `
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          Username has been taken
+        <div class="alert alert-${
+          data.status === "fail" ? "danger" : "success"
+        } alert-dismissible fade show" role="alert">
+          ${data.message}
         </div>`;
         $(".alert").remove();
         $(".modal-body").prepend(alertHtml);
-      } else {
-        $.post("/account/login", { username, password }, function (data) {
-          window.location.href = data.referer;
-        });
       }
-    });
+    );
   }
 }
 

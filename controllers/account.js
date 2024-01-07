@@ -4,12 +4,39 @@ const User = require(path.join(__dirname, "..", "models", "user"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
+const nodemailer = require("nodemailer");
+const AppError = require(path.join(__dirname, "..", "utilities", "AppError"));
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
 const saltRounds = Number(process.env.SALT_ROUNDS);
 const randomPasswordLength = Number(process.env.PASSWORD_LENGTH_FOR_OAUTH);
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.SERVER_MAIL,
+    pass: process.env.SERVER_MAIL_PASSWORD,
+  },
+});
 
 let referer;
+const characters =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const verifyTokenLength = 16;
+
+async function generateVerifyToken() {
+  try {
+    let verifyToken = "";
+    for (let i = 0; i < verifyTokenLength; i++) {
+      verifyToken += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    const encryptedVerifyToken = await bcrypt.hash(verifyToken, saltRounds);
+    return [verifyToken, encryptedVerifyToken];
+  } catch (error) {
+    throw error;
+  }
+}
 
 function login(req, res, next) {
   passport.authenticate("local", function (err, user) {
@@ -52,27 +79,77 @@ function logout(req, res) {
 
 async function register(req, res, next) {
   try {
-    const { username, name, password } = req.body;
-    const user = await User.findOne({ username });
-    if (user === null || user === undefined) {
+    const { username, name, password, mail } = req.body;
+    if (mail === process.env.SERVER_MAIL) {
+      return res.json({
+        status: "fail",
+        message: "Forbidden mail",
+        referer: req.get("Referer"),
+      });
+    }
+    const userByUsername = await User.findOne({ username });
+    const userByMail = await User.findOne({ mail });
+    if (
+      (userByUsername === null || userByUsername === undefined) &&
+      (userByMail === null || userByMail === undefined)
+    ) {
       const encryptedPassword = await bcrypt.hash(password, saltRounds);
+      const [verifyToken, encryptedVerifyToken] = await generateVerifyToken();
+      const mailOptions = {
+        from: process.env.SERVER_MAIL,
+        to: mail,
+        subject: "Flagbay Account Confirmation",
+        html: `<p>Please click <a href="https://127.0.0.1:${process.env.PORT}/account/verifyAccount?mail=${mail}&token=${verifyToken}">here</a> to verify your account on Flagbay.</p>`,
+      };
+      await transporter.sendMail(mailOptions);
       await User.create({
         username,
         name,
+        mail,
+        verified: false,
+        verifyToken: encryptedVerifyToken,
         password: encryptedPassword,
         role: "user",
       });
       return res.json({
         status: "success",
-        message: "Register successfully",
+        message: "Register successfully, please verify your mail",
         referer: req.get("Referer"),
       });
     } else {
       return res.json({
         status: "fail",
-        message: "Username has been taken",
+        message: userByUsername
+          ? "Username has been taken"
+          : "Mail has been used for another account",
         referer: req.get("Referer"),
       });
+    }
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function verifyAccount(req, res, next) {
+  try {
+    const { token, mail } = req.query;
+    const userByMail = await User.findOne({ mail });
+    if (userByMail === null || userByMail === undefined) {
+      return next(new AppError(`Verify mail does not exists`, 404));
+    }
+    if (userByMail.verified) {
+      return next(new AppError(`Mail already verified`, 401));
+    }
+    const match = await bcrypt.compare(token, userByMail.verifyToken);
+    if (!match) {
+      return next(new AppError(`Invalid verify token`, 401));
+    } else {
+      userByMail.verifyToken = "0";
+      userByMail.verified = true;
+      userByMail.markModified("verified");
+      userByMail.markModified("verifyToken");
+      userByMail.save();
+      res.redirect("/");
     }
   } catch (error) {
     next(error);
@@ -135,3 +212,4 @@ exports.register = register;
 exports.callback = callback;
 exports.authenticate = authenticate;
 exports.successRedirect = successRedirect;
+exports.verifyAccount = verifyAccount;
