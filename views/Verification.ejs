@@ -114,18 +114,16 @@
         $("#PassModal").modal("show");
       });
     });
+
     function resendMail() {
+      $(".toast-body").text("Verification mail is sending...");
+      $(".toast-container").removeClass("d-none");
+      $(".toast").toast("show");
       $.post("/account/resendMail", function(data) {
         if (data.status === "success") {
           $(".toast-body").text(data.message);
           $(".toast-container").removeClass("d-none");
           $(".toast").toast("show");
-          setTimeout(function() {
-            $(".toast").toast("hide");
-            setTimeout(function() {
-              location.reload(); // Load lại trang sau khi toast đã tắt
-            }, 1000); // Đợi 1 giây 
-          }, 8000); // Tắt toast sau 8 giây
         }
       });
     }
