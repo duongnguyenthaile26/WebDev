@@ -576,3 +576,19 @@ input:checked + .payment-method-item::before {
   right: 5rem; 
   z-index: 1050;
 }
+.icon {
+  background: #39dc4742;
+  width: 3rem;
+  height: 3rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.btn-add {
+  overflow: hidden;
+  position: relative;
+  width: 12.5rem;
+  height: 3rem;
+  padding-right: 3rem;
+}

@@ -18,11 +18,11 @@
               <div>
                 <div class="brand d-sm-none">Sign In</div>
                 <label for="usernameInput">Email or Username:</label>
-                <input type="username" id="usernameInput" class="form-control username-input" placeholder="Username" required />
+                <input type="username" id="usernameInput" class="form-control username-input" placeholder="Username" required  />
               </div>
               <div>
                 <label for="passwordInput">Password:</label>
-                <input type="password" id="passwordInput" class="form-control password-input" placeholder="Password" required />
+                <input type="password" id="passwordInput" class="form-control password-input" placeholder="Password" onkeyup="handleKeyPress(event)" required />
               </div>
 
               <button class="btn btn-outline-primary" onclick="login()">

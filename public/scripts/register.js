@@ -52,7 +52,11 @@ function register() {
     );
   }
 }
-
+function handleKeyPress(event) {
+  if (event.keyCode === 13) {
+    login();
+  }
+}
 $("#regiser-form").on("reset", function () {
   // Xóa các thông báo lỗi khi form được reset
   $(".alert").remove();
