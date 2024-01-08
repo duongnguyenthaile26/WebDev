@@ -7,7 +7,7 @@ $(document).ready(function () {
   setInterval(function () {
     odometerBalance.text(currentBalance);
     odometerCheckout.text(checkoutTotal);
-  }, 2000);
+  }, 1500);
 
   function processCheckOutInput() {
     const payName = $(".pay-name-input").val();
@@ -33,6 +33,32 @@ $(document).ready(function () {
       const alertHtml = `
       <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
         ${alert}
+      </div>`;
+      $(".alert").remove();
+      $(".modal-body").prepend(alertHtml);
+    }
+  }
+
+  function processAddFunds() {
+    const cardName = $(".name-on-card-input").val();
+    const cardNumber = $(".card-number-input").val();
+    const month = $(".month-input").val();
+    const year = $(".year-input").val();
+    const cvv = $(".cvv-input").val();
+    if (
+      cardName !== "" &&
+      cardNumber !== "" &&
+      month !== "" &&
+      year !== "" &&
+      cvv != ""
+    ) {
+      // gửi một POST request về server (clear giỏ hàng)
+      // hiện thông báo thanh toán thành công
+      // chuyển về trang /checkout/cart sau 3s
+    } else {
+      const alertHtml = `
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
+        Please fill out the fields
       </div>`;
       $(".alert").remove();
       $(".modal-body").prepend(alertHtml);
@@ -69,6 +95,46 @@ $(document).ready(function () {
 
   $("#confirmOrderBtn").on("click", function () {
     processCheckOutInput();
+  });
+
+  // Add funds
+  $(".name-on-card-input").keypress(function (event) {
+    if (event.which === 13) {
+      event.preventDefault();
+      processAddFunds();
+    }
+  });
+
+  $(".card-number-input").keypress(function (event) {
+    if (event.which === 13) {
+      event.preventDefault();
+      processAddFunds();
+    }
+  });
+
+  $(".month-input").keypress(function (event) {
+    if (event.which === 13) {
+      event.preventDefault();
+      processAddFunds();
+    }
+  });
+
+  $(".year-input").keypress(function (event) {
+    if (event.which === 13) {
+      event.preventDefault();
+      processAddFunds();
+    }
+  });
+
+  $(".cvv-input").keypress(function (event) {
+    if (event.which === 13) {
+      event.preventDefault();
+      processAddFunds();
+    }
+  });
+
+  $("#confirmFundBtn").on("click", function () {
+    processAddFunds();
   });
 });
 

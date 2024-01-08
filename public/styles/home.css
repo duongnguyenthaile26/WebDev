@@ -544,6 +544,10 @@ thead {
   position: relative;
   flex-shrink: 0;
 }
+.payment-method-item:hover {
+  border: 5px solid lightskyblue;
+  shape-outside: margin-box;
+}
 input:checked + .payment-method-item {
   border-color: blue;
 }

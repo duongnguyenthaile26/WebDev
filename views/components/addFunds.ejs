@@ -25,25 +25,30 @@
             <div class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3">
               <div class="mb-1">
                 <label for="name-on-card" class="form-label">Name on card:</label>
-                <input type="text" id="name-on-card" class="form-control pay-name-input" name="name-on-card" placeholder="Name on card" required />
+                <input type="text" id="name-on-card" class="form-control name-on-card-input" name="name-on-card" placeholder="Name on card" required />
               </div>
               <div class="mb-1">
                 <label for="card-number" class="form-label">Card number:</label>
-                <input type="text" id="card-number" class="form-control pay-address-input" name="card-number" placeholder="Card number" required />
+                <input type="text" id="card-number" class="form-control card-number-input" name="card-number" placeholder="Card number" required />
               </div>
               <div class="mb-1 d-flex flex-row justify-content-between w-100">
-                <div class="m-1">
-                  <label for="expiry-date" class="form-label">Expiry date</label>
-                  <input type="date" class="form-control" id="expiry-date" name="expiry-date" placeholder="Expiry date" required />
+                <div>
+                  <label for="month" class="form-label">Month</label>
+                  <input type="text" class="form-control month-input" id="month" name="month" placeholder="Month" required />
                 </div>
-                <div class="m-1">
-                  <label for="cvv" class="form-label">CVV</label>
-                  <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV" required />
+                <div class="d-flex align-items-end mx-3" style="font-size: 30px;">/</div>
+                <div>
+                  <label for="year" class="form-label">Year</label>
+                  <input type="text" class="form-control year-input" id="year" name="year" placeholder="Year" required />
                 </div>
+              </div>
+              <div class="mb-1">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control cvv-input" id="cvv" name="cvv" placeholder="CVV" required />
               </div>
 
               <div class="text-center mt-5">
-                <button type="button" class="btn btn-outline-primary w-100" id="">
+                <button type="button" class="btn btn-outline-primary w-100" id="confirmFundBtn">
                   <i class="fa-solid fa-wallet p-2"></i>Pay
                 </button>
               </div>
