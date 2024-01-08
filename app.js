@@ -54,14 +54,11 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // Routes
-app.get("/denied", function (req, res) {
-  res.render("denied");
-});
 app.use("/", homeRouter);
 app.use("/account", accountRouter);
 app.use("/product", productRouter);
 app.use("/api", apiRouter);
-app.use("/checkout", verifyRole.verifyUser, checkoutRouter);
+app.use("/checkout", verifyRole.verifyVerifiedUser, checkoutRouter);
 app.use("/admin", verifyRole.verifyAdmin, adminRouter);
 
 app.all("*", function (req, res, next) {

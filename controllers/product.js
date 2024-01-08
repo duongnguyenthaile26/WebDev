@@ -32,7 +32,7 @@ async function search(req, res, next) {
     let allFlags = await Flag.aggregate([{ $project: { __v: 0 } }]);
     const query = req.query;
     const page = parseInt(query.page) || 1;
-    const itemsPerPage = 8;
+    const itemsPerPage = 9;
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = page * itemsPerPage;
     let flags = [...allFlags]; // Tạo bản sao của allFlags để tránh thay đổi dữ liệu gốc

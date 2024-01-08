@@ -98,7 +98,9 @@ $(document).ready(function () {
           </div>`;
           $(".alert").remove();
           $(".modal-body").prepend(alertHtml);
-          setTimeout(() => (window.location.href = "/account/profile"), 2000);
+          if (data.status === "success") {
+            setTimeout(() => (window.location.href = "/account/profile"), 2000);
+          }
         },
       });
     } else {

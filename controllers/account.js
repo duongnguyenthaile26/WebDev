@@ -238,19 +238,6 @@ async function modify(req, res, next) {
   }
 }
 
-async function verifyPage(req, res, next) {
-  try {
-    const user = await User.findOne({ username: req.user.username });
-    const categories = await Category.find({}).select("-__v");
-    const options = categories.map((category) => category.name);
-    res.render("Verification", {
-      user,
-      options,
-    });
-  } catch (error) {
-    next(error);
-  }
-}
 exports.login = login;
 exports.logout = logout;
 exports.profile = profile;
@@ -260,4 +247,3 @@ exports.authenticate = authenticate;
 exports.successRedirect = successRedirect;
 exports.verifyAccount = verifyAccount;
 exports.modify = modify;
-exports.verifyPage = verifyPage;

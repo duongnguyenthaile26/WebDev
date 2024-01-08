@@ -46,9 +46,6 @@ router.route("/modify").patch(verifyRole.verifyLoggedIn, controller.modify);
 
 router.use("/googleAuth", googleAuthRouter);
 
-router.route("/verifyPage").get(controller.verifyPage);
-
-
 googleAuthRouter.route("/").get(
   verifyRole.verifyGuest,
   function (req, res, next) {

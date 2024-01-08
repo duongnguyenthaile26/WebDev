@@ -29,6 +29,12 @@ function register() {
     $(".alert").remove();
     $(".modal-body").prepend(alertHtml);
   } else {
+    const alertHtml = `
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      Please wait...
+    </div>`;
+    $(".alert").remove();
+    $(".modal-body").prepend(alertHtml);
     $.post(
       "/account/register",
       { username, name, password, mail },
