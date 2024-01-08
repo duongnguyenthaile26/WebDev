@@ -155,7 +155,7 @@
 
     function addToCart() {
       const flagID = $(".flag-id").html();
-      $.post("/api/addToCart", {
+      $.post("/product/addToCart", {
         flagID,
         quantity
       }, function(data) {

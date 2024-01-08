@@ -8,9 +8,16 @@ const controller = require(path.join(
   "controllers",
   "product"
 ));
+const verifyRole = require(path.join(
+  __dirname,
+  "..",
+  "middlewares",
+  "verifyRole"
+));
 
 router.route("/detail/:flagId").get(controller.detail);
 router.route("/search").get(controller.search);
 router.route("/type").get(controller.type);
+router.route("/addToCart").post(verifyRole.verifyUser, controller.addToCart);
 
 module.exports = router;

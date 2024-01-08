@@ -2,6 +2,7 @@ const path = require("path");
 const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const url = require("url");
 const Category = require(path.join(__dirname, "..", "models", "category"));
+const User = require(path.join(__dirname, "..", "models", "user"));
 
 async function detail(req, res, next) {
   try {
@@ -109,6 +110,32 @@ async function type(req, res, next) {
   }
 }
 
+async function addToCart(req, res, next) {
+  try {
+    const username = req.user.username;
+    const { flagID, quantity: quantityString } = req.body;
+    const quantity = Number(quantityString);
+
+    const user = await User.findOne({ username });
+
+    const itemIndex = user.cart.findIndex((item) => item.flagID === flagID);
+
+    if (itemIndex > -1) {
+      user.cart[itemIndex].quantity += quantity;
+    } else {
+      user.cart.push({ flagID, quantity: quantity });
+    }
+
+    user.markModified("cart");
+    await user.save();
+
+    res.json({ status: "success" });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.detail = detail;
 exports.search = search;
 exports.type = type;
+exports.addToCart = addToCart;
