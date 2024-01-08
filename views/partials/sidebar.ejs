@@ -4,6 +4,17 @@
     <i class="fas fa-times fa-beat"></i>
   </div>
   <div class="menu">
+    <% if (user !== null && user !== undefined && user.role === "admin") { %>
+    <div class="item">
+      <a href="/admin/userManagement"><i class="fas fa-user"></i>User management</a>
+    </div>
+    <div class="item">
+      <a href="/admin/productManagement"><i class="far fa-flag"></i>Product management</a>
+    </div>
+    <div class="item">
+      <a href="/admin/categoryManagement"><i class="far fa-list-alt"></i>Category management</a>
+    </div>
+    <% } else { %>
     <% if (user !== null && user !== undefined && user.role === "user") { %>
     <div class="item">
       <a href="/checkout/cart"><i class="fas fa-cart-shopping"></i>Cart</a>
@@ -31,6 +42,7 @@
         <% } %>
       </div>
     </div>
+    <% } %>
     <div class="item">
       <a href="#"><i class="fas fa-info-circle"></i>About</a>
     </div>
