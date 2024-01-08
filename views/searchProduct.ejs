@@ -46,14 +46,16 @@
             </div>
           </div>
         </div>
+        <% if (user !== null && user !== undefined && user.role === "admin") { %>
         <div class="col-8 col-lg-6 d-flex justify-content-center align-items-center pt-3">
           <button type="button" class="btn btn-test">
             <div class="icon d-flex align-items-center justify-content-center rounded-circle">
-              <i class="fa-solid fa-cart-plus " ></i>
+              <i class="fa-regular fa-flag "></i>
             </div>
             <span class="fs-5" style="padding-left: 2rem;">Add new flag</span>
           </button>
         </div>
+        <% } %>
       </div>
       <div class="container d-block p-5">
         <div class="d-flex">
