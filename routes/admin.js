@@ -4,7 +4,10 @@ const router = express.Router();
 
 const controller = require(path.join(__dirname, "..", "controllers", "admin"));
 
-router.route("/userManagement").get(controller.userManagement);
-router.route("/categoryManagement").get(controller.categoriesManagement);
+router
+  .route("/userManagement")
+  .get(controller.userManagement)
+  .delete(controller.removeUser);
+router.route("/categoryManagement").get(controller.categoryManagement);
 
 module.exports = router;
