@@ -566,3 +566,9 @@ input:checked + .payment-method-item::before {
   height: 100%;
   object-fit: contain;
 }
+.toast-container {
+  position: fixed;
+  top: 5rem; 
+  right: 5rem; 
+  z-index: 1050;
+}
