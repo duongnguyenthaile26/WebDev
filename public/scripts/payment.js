@@ -52,9 +52,20 @@ $(document).ready(function () {
       year !== "" &&
       cvv != ""
     ) {
-      // gửi một POST request về server (clear giỏ hàng)
-      // hiện thông báo thanh toán thành công
-      // chuyển về trang /checkout/cart sau 3s
+      // Show loader
+      $("#loader-container").fadeIn();
+      $("body > *:not(#loader-container)").addClass("blurred");
+
+      setTimeout(function() {
+        // Hide loader after payment processing completes
+        $("#loader-container").fadeOut();
+
+        // Remove blur effect
+        $("body > *:not(#loader-container)").removeClass("blurred");
+
+        // Display success message or perform other actions
+        //alert("Payment successful!");
+      }, 3000);
     } else {
       const alertHtml = `
       <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
