@@ -99,6 +99,18 @@
             </button>
           </div>
           <% } %>
+          <div class="col-md-12 p-1 d-flex flex-column justify-content-between">
+            <button type="button" class="btn btn-outline-success" onclick="resendMail()">Send verification mail</button>
+            <div aria-live="polite" aria-atomic="true" class="position-relative">
+              <div class="toast-container d-none p-3" data-bs-container="body">
+                <div class="toast align-items-center text-bg-success d-flex" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="8000">
+                  <i class="m-2 fa-solid fa-circle-check fs-4"></i>
+                  <div class="toast-body" id="toast-body"></div>
+                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -149,6 +161,21 @@
         $("#PassModal").modal("show");
       });
     });
+    function resendMail() {
+      $.post("/account/resendMail", function(data) {
+        if (data.status === "success") {
+          $(".toast-body").text(data.message);
+          $(".toast-container").removeClass("d-none");
+          $(".toast").toast("show");
+          setTimeout(function() {
+            $(".toast").toast("hide");
+            setTimeout(function() {
+              location.reload(); // Load lại trang sau khi toast đã tắt
+            }, 1000); // Đợi 1 giây 
+          }, 8000); // Tắt toast sau 8 giây
+        }
+      });
+    }
   </script>
 </body>
 
