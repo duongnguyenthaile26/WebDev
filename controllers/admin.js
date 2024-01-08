@@ -5,11 +5,9 @@ const User = require(path.join(__dirname, "..", "models", "user"));
 
 async function userManagement(req, res, next) {
   try {
-    // cho sidebar
     const categories = await Category.find({}).select("-__v");
     const options = categories.map((category) => category.name);
 
-    // danh sách người dùng
     const users = await User.find({ role: { $ne: "admin" } }).select(
       "-password -__v"
     );
@@ -23,9 +21,8 @@ async function userManagement(req, res, next) {
     next(error);
   }
 }
-async function categoriesManagement(req, res, next) {
+async function categoryManagement(req, res, next) {
   try {
-    // cho sidebar
     const categories = await Category.find({}).select("-__v");
     const options = categories.map((category) => category.name);
 
@@ -39,5 +36,18 @@ async function categoriesManagement(req, res, next) {
   }
 }
 
+async function removeUser(req, res, next) {
+  try {
+    await User.findOneAndDelete({ username: req.body.username });
+    res.json({
+      status: "success",
+      message: "Delete user successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.userManagement = userManagement;
-exports.categoriesManagement = categoriesManagement;
+exports.categoryManagement = categoryManagement;
+exports.removeUser = removeUser;
