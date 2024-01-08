@@ -2,21 +2,28 @@ const path = require("path");
 const User = require(path.join(__dirname, "..", "models", "user"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 
-function verifyAdmin(req, res, next) {
+function checkAdmin(req, res, next) {
   if (req.isAuthenticated() && req.user.role === "admin") {
     return next();
   }
   res.render("denied");
 }
 
-function verifyLoggedIn(req, res, next) {
+function checkLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   res.redirect("/");
 }
 
-async function verifyVerifiedUser(req, res, next) {
+function checkNonVerifiedUser(req, res, next) {
+  if (!req.isAuthenticated() || req.user.role !== "user" || req.user.verified) {
+    return res.redirect("/");
+  }
+  next();
+}
+
+async function checkVerifiedUser(req, res, next) {
   if (!req.isAuthenticated() || req.user.role !== "user") {
     return res.redirect("/");
   }
@@ -36,22 +43,23 @@ async function verifyVerifiedUser(req, res, next) {
   }
 }
 
-function verifyUser(req, res, next) {
+function checkUser(req, res, next) {
   if (req.isAuthenticated() && req.user.role === "user") {
     return next();
   }
   res.redirect("/");
 }
 
-function verifyGuest(req, res, next) {
+function checkGuest(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
   }
   res.redirect("/");
 }
 
-exports.verifyAdmin = verifyAdmin;
-exports.verifyLoggedIn = verifyLoggedIn;
-exports.verifyUser = verifyUser;
-exports.verifyGuest = verifyGuest;
-exports.verifyVerifiedUser = verifyVerifiedUser;
+exports.checkAdmin = checkAdmin;
+exports.checkLoggedIn = checkLoggedIn;
+exports.checkUser = checkUser;
+exports.checkGuest = checkGuest;
+exports.checkVerifiedUser = checkVerifiedUser;
+exports.checkNonVerifiedUser = checkNonVerifiedUser;

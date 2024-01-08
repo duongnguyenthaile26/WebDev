@@ -18,6 +18,6 @@ const verifyRole = require(path.join(
 router.route("/detail/:flagId").get(controller.detail);
 router.route("/search").get(controller.search);
 router.route("/type").get(controller.type);
-router.route("/addToCart").post(verifyRole.verifyUser, controller.addToCart);
+router.route("/addToCart").post(verifyRole.checkUser, controller.addToCart);
 
 module.exports = router;

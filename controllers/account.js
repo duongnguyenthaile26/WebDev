@@ -138,11 +138,11 @@ async function verifyAccount(req, res, next) {
       return next(new AppError(`Verify mail does not exists`, 404));
     }
     if (userByMail.verified) {
-      return next(new AppError(`Mail already verified`, 401));
+      return next(new AppError(`Mail already verified`, 403));
     }
     const match = await bcrypt.compare(token, userByMail.verifyToken);
     if (!match) {
-      return next(new AppError(`Invalid verify token`, 401));
+      return next(new AppError(`Invalid or expired verify token`, 403));
     } else {
       userByMail.verifyToken = "0";
       userByMail.verified = true;
@@ -238,6 +238,29 @@ async function modify(req, res, next) {
   }
 }
 
+async function resendMail(req, res, next) {
+  try {
+    const user = await User.findOne({ username: req.user.username });
+    const [verifyToken, encryptedVerifyToken] = await generateVerifyToken();
+    const mailOptions = {
+      from: process.env.SERVER_MAIL,
+      to: user.mail,
+      subject: "Flagbay Account Confirmation",
+      html: `<p>Please click <a href="https://127.0.0.1:${process.env.PORT}/account/verifyAccount?mail=${user.mail}&token=${verifyToken}">here</a> to verify your account on Flagbay.</p>`,
+    };
+    await transporter.sendMail(mailOptions);
+    user.verifyToken = encryptedVerifyToken;
+    user.markModified("verifyToken");
+    await user.save();
+    res.json({
+      status: "success",
+      message: "Resend verification mail successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.login = login;
 exports.logout = logout;
 exports.profile = profile;
@@ -247,3 +270,4 @@ exports.authenticate = authenticate;
 exports.successRedirect = successRedirect;
 exports.verifyAccount = verifyAccount;
 exports.modify = modify;
+exports.resendMail = resendMail;

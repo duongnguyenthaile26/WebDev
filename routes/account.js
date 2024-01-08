@@ -19,44 +19,40 @@ const controller = require(path.join(
 let tempVisited;
 
 router.route("/login").post(
-  verifyRole.verifyGuest,
+  verifyRole.checkGuest,
   function (req, res, next) {
     req.tempVisited = req.session.visited;
     next();
   },
   controller.login
 );
-
 router.route("/logout").post(
-  verifyRole.verifyLoggedIn,
+  verifyRole.checkLoggedIn,
   function (req, res, next) {
     req.tempVisited = req.session.visited;
     next();
   },
   controller.logout
 );
-
-router.route("/register").post(verifyRole.verifyGuest, controller.register);
-
+router.route("/register").post(verifyRole.checkGuest, controller.register);
 router.route("/verifyAccount").get(controller.verifyAccount);
-
-router.route("/profile").get(verifyRole.verifyLoggedIn, controller.profile);
-
-router.route("/modify").patch(verifyRole.verifyLoggedIn, controller.modify);
+router.route("/profile").get(verifyRole.checkLoggedIn, controller.profile);
+router.route("/modify").patch(verifyRole.checkLoggedIn, controller.modify);
+router
+  .route("/resendMail")
+  .post(verifyRole.checkNonVerifiedUser, controller.resendMail);
 
 router.use("/googleAuth", googleAuthRouter);
-
 googleAuthRouter.route("/").get(
-  verifyRole.verifyGuest,
+  verifyRole.checkGuest,
   function (req, res, next) {
     tempVisited = req.session.visited;
     next();
   },
   controller.authenticate
 );
-
 googleAuthRouter.route("/callback").get(
-  verifyRole.verifyGuest,
+  verifyRole.checkGuest,
   function (req, res, next) {
     req.tempVisited = tempVisited;
     next();

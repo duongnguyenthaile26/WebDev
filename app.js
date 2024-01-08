@@ -58,8 +58,8 @@ app.use("/", homeRouter);
 app.use("/account", accountRouter);
 app.use("/product", productRouter);
 app.use("/api", apiRouter);
-app.use("/checkout", verifyRole.verifyVerifiedUser, checkoutRouter);
-app.use("/admin", verifyRole.verifyAdmin, adminRouter);
+app.use("/checkout", verifyRole.checkVerifiedUser, checkoutRouter);
+app.use("/admin", verifyRole.checkAdmin, adminRouter);
 
 app.all("*", function (req, res, next) {
   next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));
