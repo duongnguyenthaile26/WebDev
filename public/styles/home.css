@@ -577,18 +577,63 @@ input:checked + .payment-method-item::before {
   z-index: 1050;
 }
 .icon {
-  background: #39dc4742;
+  background: #ffab9d;
   width: 3rem;
   height: 3rem;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   bottom: 0;
 }
-.btn-add {
-  overflow: hidden;
-  position: relative;
-  width: 12.5rem;
-  height: 3rem;
-  padding-right: 3rem;
+
+.btn-test {
+    color: #111;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 10px 35px 8px 20px;
+    border-radius: 24px;
+    border: 1px solid #ffab9d;
+    position: relative;
+    z-index: 1;
+    transition: all .3s ease-in-out;
+}
+.btn-test:focus,
+.btn-test:hover{
+    color: #111;
+    box-shadow: 0 0 10px #ffab9d;
+}   
+.btn-test:before{
+    content: "";
+    background:#ffab9d;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.3s ease;
+}
+.btn-test:focus:before,
+.btn-test:hover:before{
+    background:#ffab9d;
+    width: 100%;
+}
+.btn-test:after{
+    content: "\f30b";
+    font-family: "Font Awesome 5 Free";
+    font-size: 18px;
+    font-weight: 900;
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transition: all .3s cubic-bezier(0.86, 0, 0.07, 1);
+}
+.btn-test:focus:after,
+.btn-test:hover:after{ right: 8px; }
+@media only screen and (max-width: 767px){
+    .btn-test{ margin-bottom: 20px; }
 }
