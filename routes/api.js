@@ -4,6 +4,6 @@ const router = express.Router();
 
 const controller = require(path.join(__dirname, "..", "controllers", "api"));
 
-router.route("/visitorData").post(controller.visitorData);
+router.route("/visitorData").get(controller.visitorData);
 
 module.exports = router;
