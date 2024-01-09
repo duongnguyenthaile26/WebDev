@@ -43,7 +43,7 @@
     </div>
     <div class="container p-5 d-flex flex-column justify-content-center align-items-center">
       <div class="btn-cate">
-        <button type="button" class="btn btn-add-cate light-brown d-flex btn-success mb-3"> 
+        <button type="button" class="btn btn-add-cate light-brown d-flex btn-success mb-3">
           <div>
             <i class="far fa-list-alt me-2"> </i>
           </div>
@@ -158,9 +158,9 @@
                       <label for="NewCategoryInput" class="fs-4 text-success pb-3">NEW CATEGORY</label>
                       <input type="text" id="NewCategoryInput" class="form-control NewCategory-input" placeholder="New Category" required />
                     </div>
-    
+
                     <div class="text-center">
-                      <button type="button" class="btn btn-outline-success" id="confirmNewCategoryBtn">
+                      <button type="button" class="btn btn-outline-success" id="confirmNewCategoryBtn" onclick="addCategory()">
                         Confirm
                       </button>
                     </div>
@@ -171,7 +171,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -290,14 +290,14 @@
       $(".btn-add-cate").click(function() {
         $("#NewCategoryModal").modal("show");
       });
-    
+
       // Xử lý sự kiện khi modal "NewCategory" được ẩn đi
-      $('#NewCategoryModal').on('hidden.bs.modal', function () {
+      $('#NewCategoryModal').on('hidden.bs.modal', function() {
         // Reset nội dung của modal sau khi ẩn
         $("#NewCategoryInput").val('');
       });
     });
-    $(document).ready(function () {
+    $(document).ready(function() {
       function processCategoryInput() {
         const categoryName = $("#NewCategoryInput").val();
         if (categoryName === "") {
@@ -309,32 +309,40 @@
           $(".modal-body").prepend(alertHtml);
           return;
         } else {
-          // Xử lý khi nhập đúng
-          // ...
-          // Hiển thị thông báo thành công
-          const alertHtml = `
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Category "${categoryName}" has been created successfully
-          </div>`;
-          $(".alert").remove();
-          $(".modal-body").prepend(alertHtml);
-          // Sau xử lý , chuyển hướng trang
-          setTimeout(() => {
-            window.location.href = "/admin/categoryManagement";
-          }, 2000);
+          $.ajax({
+            url: '/admin/categoryManagement',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              categoryName,
+            }),
+            success: function(data) {
+              const alertHtml = `
+              <div class="alert alert-${data.status === 'success' ? 'success' : 'danger'} alert-dismissible fade show" role="alert">
+                ${data.message}
+              </div>`;
+              $(".alert").remove();
+              $(".modal-body").prepend(alertHtml);
+              if (data.status === "success") {
+                setTimeout(() => {
+                  window.location.href = "/admin/categoryManagement";
+                }, 2000);
+              }
+            },
+          });
         }
       }
-    
-      $("#confirmNewCategoryBtn").on("click", function () {
+
+      $("#confirmNewCategoryBtn").on("click", function() {
         processCategoryInput();
       });
-    
-      $("#NewCategoryModal").on("hidden.bs.modal", function () {
+
+      $("#NewCategoryModal").on("hidden.bs.modal", function() {
         // Xóa các thông báo lỗi khi modal được ẩn đi
         $(".alert").remove();
       });
-    
-      $("#NewCategoryModal").on("show.bs.modal", function () {
+
+      $("#NewCategoryModal").on("show.bs.modal", function() {
         // Xóa các thông báo lỗi khi modal được hiển thị
         $(".alert").remove();
       });

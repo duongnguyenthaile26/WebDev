@@ -44,7 +44,8 @@ async function removeUser(req, res, next) {
 
 async function changeName(req, res, next) {
   try {
-    const { categoryName, newCategoryName } = req.body;
+    const categoryName = req.body.categoryName.trim().toLowerCase();
+    const newCategoryName = req.body.newCategoryName.trim().toLowerCase();
     const checkNewCategoryName = await Category.findOne({
       name: newCategoryName,
     });
@@ -75,9 +76,9 @@ async function changeName(req, res, next) {
 
 async function removeCategory(req, res, next) {
   try {
-    const { categoryName } = req.body;
-    await Category.findOneAndDelete({ name: categoryName.toLowerCase() });
-    const flags = await Flag.find({ type: categoryName.toLowerCase() });
+    const categoryName = req.body.categoryName.trim().toLowerCase();
+    await Category.findOneAndDelete({ name: categoryName });
+    const flags = await Flag.find({ type: categoryName });
     for (let i = 0; i < flags.length; i++) {
       const imagePath = path.join(
         __dirname,
@@ -103,8 +104,29 @@ async function removeCategory(req, res, next) {
   }
 }
 
+async function addCategory(req, res, next) {
+  try {
+    const categoryName = req.body.categoryName.trim().toLowerCase();
+    const category = await Category.findOne({ name: categoryName });
+    if (category) {
+      return res.json({
+        status: "fail",
+        message: "Category name already existed",
+      });
+    }
+    await Category.create({ name: categoryName });
+    return res.json({
+      status: "success",
+      message: "New category created successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.userManagement = userManagement;
 exports.categoryManagement = categoryManagement;
 exports.removeUser = removeUser;
 exports.changeName = changeName;
 exports.removeCategory = removeCategory;
+exports.addCategory = addCategory;
