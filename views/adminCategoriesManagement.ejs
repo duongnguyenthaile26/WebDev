@@ -130,7 +130,7 @@
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Cancel
               </button>
-              <button type="button" class="btn btn-primary" id="confirmChangeNameBtn">
+              <button type="button" class="btn btn-primary" id="confirmChangeNameBtn" onclick="changeName()">
                 COMFIRM
               </button>
             </div>
@@ -211,13 +211,33 @@
           .find("td:eq(0)")
           .text()
           .trim();
-        let categoryId = $(this).closest("tr").find("td:eq(0)").text().trim();
         $("#changeNameModalLabel").html(
           "CHANGE - " + categoryName.toUpperCase()
         );
         $("#changeNameModal").modal("show");
+        $("#confirmChangeNameBtn").removeAttr("categoryName");
+        $("#confirmChangeNameBtn").attr("categoryName", categoryName);
       });
     });
+
+    function changeName() {
+      const categoryName = $("#confirmChangeNameBtn").attr("categoryName");
+      const newCategoryName = $("#newNameInput").val().trim().toLowerCase();
+      const changeForAll = $("#changeForAllCheckbox").is(":checked");
+      $.ajax({
+        url: '/admin/categoryManagement',
+        type: 'PATCH',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          categoryName,
+          newCategoryName,
+          changeForAll,
+        }),
+        success: function(data) {
+          window.location.href = '/admin/categoryManagement';
+        },
+      });
+    }
   </script>
 </body>
 

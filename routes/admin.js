@@ -8,6 +8,9 @@ router
   .route("/userManagement")
   .get(controller.userManagement)
   .delete(controller.removeUser);
-router.route("/categoryManagement").get(controller.categoryManagement);
+router
+  .route("/categoryManagement")
+  .get(controller.categoryManagement)
+  .patch(controller.changeName);
 
 module.exports = router;
