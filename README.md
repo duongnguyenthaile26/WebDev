@@ -1,4 +1,4 @@
-# Đã xong CRUD cho category và user, giờ còn CRUD sản phẩm thì mình còn cần màn hình edit flag với add flag, làm cho t hai cái đó nữa là oke -> (Tín đang làm rồi nhe)
+# Đã xong CRUD cho category và user, giờ còn CRUD sản phẩm thì mình còn cần màn hình edit flag với add flag, làm cho t hai cái đó nữa là oke -> (Tín đang làm rồi nhe, xem thử cái upload file v ổn hong nha)
 
 # T đã có upload file CacViewConLai.png, là mấy cái view cuối cùng mình cần phải làm, ae front-end vào xem rồi làm giúp t nha, có gì cứ hỏi t
 
