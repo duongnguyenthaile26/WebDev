@@ -1,5 +1,7 @@
 # Đã xong CRUD cho category và user, giờ còn CRUD sản phẩm thì mình còn cần màn hình edit flag với add flag, làm cho t hai cái đó nữa là oke
 
+# T đã có upload file CacViewConLai.png, là mấy cái view cuối cùng mình cần phải làm, ae front-end vào xem rồi làm giúp t nha, có gì cứ hỏi t
+
 # Còn bên server thanh toán thì Thái lo tiếp nha, nếu cần thì cứ nói t giúp
 
 ### Minor note: t có mới sử dụng extension format mới là EJS Beautify để format các file EJS, ae có thể sử dụng setting của t trong file settings.json
