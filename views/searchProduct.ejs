@@ -186,7 +186,7 @@
 
     function changePage(page) {
       const urlParams = new URLSearchParams(window.location.search);
-      const nameParam = urlParams.get("name");
+      const nameParam = urlParams.get("name") || "";
       const newUrl = `<%= currentPageUrl %>?name=${nameParam}&page=${page}`;
       window.location.href = newUrl;
     }
@@ -198,7 +198,7 @@
     });
 
     function search() {
-      const searchInput = $(".name-input").val();
+      let searchInput = $(".name-input").val();
       const selectedCategories = [];
       $(".category-checkbox").each(function() {
         if ($(this).is(":checked")) {
