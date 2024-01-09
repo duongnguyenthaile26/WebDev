@@ -44,6 +44,7 @@
 
       <!-- ===================Content=================== -->
       <% flagsByCategory.forEach((category)=> { %>
+      <% if (category.flags.length) { %>
       <div id="<%= category.name.toLowerCase() %>-section" class="product <%= category.name.toLowerCase() %> p-5 pb-0">
         <div class="title-product p-3">
           <div class="fs-5">Category</div>
@@ -62,6 +63,7 @@
           </button>
         </div>
       </div>
+      <% } %>
       <% }); %>
     </div>
     <% } else { %>

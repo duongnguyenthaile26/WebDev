@@ -11,6 +11,7 @@ router
 router
   .route("/categoryManagement")
   .get(controller.categoryManagement)
-  .patch(controller.changeName);
+  .patch(controller.changeName)
+  .delete(controller.removeCategory);
 
 module.exports = router;

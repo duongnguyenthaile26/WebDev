@@ -96,7 +96,7 @@
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Cancel
               </button>
-              <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+              <button type="button" class="btn btn-danger" id="confirmDeleteBtn" onclick="removeCategory()">
                 YES
               </button>
             </div>
@@ -117,12 +117,7 @@
                 <div class="mb-3">
                   <label for="newNameInput" class="form-label">NEW NAME</label>
                   <input type="text" class="form-control" id="newNameInput" />
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="changeForAllCheckbox" />
-                    <label class="form-check-label" for="changeForAllCheckbox">
-                      Also change for all products with this category
-                    </label>
-                  </div>
+                  <span style="color: red">Warning: </span>this will change the type of all the flags in this category
                 </div>
               </form>
             </div>
@@ -193,17 +188,32 @@
     });
     $(document).ready(function() {
       $(".btn-outline-danger").click(function() {
-        // Lấy username và userid để xóa
-        let name = $(this).closest("tr").find("td:eq(0)").text().trim();
-        let categoryID = $(this).closest("tr").find("td:eq(0)").text().trim();
+        let categoryName = $(this).closest("tr").find("td:eq(0)").text().trim();
 
         $("#deleteUserMessage").html(
-          "Are you sure you want to delete <strong> '" + name + "' </strong>?"
+          "Are you sure you want to delete <strong> '" + categoryName + "' </strong>?"
         );
-
+        $("#confirmDeleteBtn").removeAttr("categoryName");
+        $("#confirmDeleteBtn").attr("categoryName", categoryName);
         $("#deleteCateModal").modal("show");
       });
     });
+
+    function removeCategory() {
+      const categoryName = $("#confirmDeleteBtn").attr("categoryName");
+      $.ajax({
+        url: '/admin/categoryManagement',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          categoryName,
+        }),
+        success: function(data) {
+          window.location.href = '/admin/categoryManagement';
+        },
+      });
+    }
+
     $(document).ready(function() {
       $(".btn-outline-warning").click(function() {
         let categoryName = $(this)
@@ -223,7 +233,6 @@
     function changeName() {
       const categoryName = $("#confirmChangeNameBtn").attr("categoryName");
       const newCategoryName = $("#newNameInput").val().trim().toLowerCase();
-      const changeForAll = $("#changeForAllCheckbox").is(":checked");
       $.ajax({
         url: '/admin/categoryManagement',
         type: 'PATCH',
@@ -231,7 +240,6 @@
         data: JSON.stringify({
           categoryName,
           newCategoryName,
-          changeForAll,
         }),
         success: function(data) {
           window.location.href = '/admin/categoryManagement';

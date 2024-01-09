@@ -44,7 +44,7 @@ async function removeUser(req, res, next) {
 
 async function changeName(req, res, next) {
   try {
-    const { categoryName, newCategoryName, changeForAll } = req.body;
+    const { categoryName, newCategoryName } = req.body;
     const checkNewCategoryName = await Category.findOne({
       name: newCategoryName,
     });
@@ -58,19 +58,45 @@ async function changeName(req, res, next) {
     category.name = newCategoryName;
     category.markModified("name");
     await category.save();
-    if (changeForAll) {
-      const flags = await Flag.find({ type: categoryName });
-      for (let i = 0; i < flags.length; i++) {
-        flags[i].type = newCategoryName;
-        flags[i].markModified("type");
-        await flags[i].save();
-      }
+    const flags = await Flag.find({ type: categoryName });
+    for (let i = 0; i < flags.length; i++) {
+      flags[i].type = newCategoryName;
+      flags[i].markModified("type");
+      await flags[i].save();
     }
     res.json({
       status: "success",
-      message: changeForAll
-        ? "Successfully changed category name, with all of the flags within the category also changed to the new category"
-        : "Successfully changed category name",
+      message: "Successfully changed category name",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function removeCategory(req, res, next) {
+  try {
+    const { categoryName } = req.body;
+    await Category.findOneAndDelete({ name: categoryName.toLowerCase() });
+    const flags = await Flag.find({ type: categoryName.toLowerCase() });
+    for (let i = 0; i < flags.length; i++) {
+      const imagePath = path.join(
+        __dirname,
+        "..",
+        "public",
+        "flags",
+        flags[i].image
+      );
+      fs.unlink(imagePath, async function (error) {
+        if (error) {
+          console.error(error);
+        } else {
+          await Flag.deleteOne({ _id: flags[i]._id });
+        }
+      });
+    }
+    res.send({
+      status: "success",
+      message: "Remove category successfully",
     });
   } catch (error) {
     next(error);
@@ -81,3 +107,4 @@ exports.userManagement = userManagement;
 exports.categoryManagement = categoryManagement;
 exports.removeUser = removeUser;
 exports.changeName = changeName;
+exports.removeCategory = removeCategory;
