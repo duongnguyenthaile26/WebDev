@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  const currentBalance = 123456; // số tiền hiện có trong ví
+  let currentBalance = 123456; // số tiền hiện có trong ví
   const checkoutTotal = Number($(".total-cart-price").text()); // số tiền phải trả
   const odometerBalance = $("#odometer-balance");
   const odometerCheckout = $("#odometer-checkout");
@@ -40,16 +40,16 @@ $(document).ready(function () {
   }
 
   function processAddFunds() {
+    const paymentAmount = $(".payment-amount-input").val();
     const cardName = $(".name-on-card-input").val();
     const cardNumber = $(".card-number-input").val();
-    const month = $(".month-input").val();
-    const year = $(".year-input").val();
+    const expiry = $(".expiry-input").val();
     const cvv = $(".cvv-input").val();
     if (
+      paymentAmount !== "" &&
       cardName !== "" &&
       cardNumber !== "" &&
-      month !== "" &&
-      year !== "" &&
+      expiry !== "" &&
       cvv != ""
     ) {
       // Show loader
@@ -57,14 +57,12 @@ $(document).ready(function () {
       $("body > *:not(#loader-container)").addClass("blurred");
 
       setTimeout(function() {
-        // Hide loader after payment processing completes
         $("#loader-container").fadeOut();
-
-        // Remove blur effect
         $("body > *:not(#loader-container)").removeClass("blurred");
 
         // Display success message or perform other actions
         //alert("Payment successful!");
+        currentBalance += Number(paymentAmount);
       }, 3000);
     } else {
       const alertHtml = `
@@ -109,6 +107,13 @@ $(document).ready(function () {
   });
 
   // Add funds
+  $(".payment-amount-input").keypress(function (event) {
+    if (event.which === 13) {
+      event.preventDefault();
+      processAddFunds();
+    }
+  });
+
   $(".name-on-card-input").keypress(function (event) {
     if (event.which === 13) {
       event.preventDefault();
@@ -123,14 +128,7 @@ $(document).ready(function () {
     }
   });
 
-  $(".month-input").keypress(function (event) {
-    if (event.which === 13) {
-      event.preventDefault();
-      processAddFunds();
-    }
-  });
-
-  $(".year-input").keypress(function (event) {
+  $(".expiry-input").keypress(function (event) {
     if (event.which === 13) {
       event.preventDefault();
       processAddFunds();
