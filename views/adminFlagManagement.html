@@ -38,27 +38,40 @@
         </div>
       </div>
     </div>
-    <div class="d-flex flex-row justify-content-center align-items-top">
+    <div class="container d-flex flex-column gap-2 pt-5">
+      <div class="d-flex flex-row justify-content-between align-items-center">
+        <div class="col-3">
+          <label for="flag-name" class="form-label">Name:</label>
+          <input type="text" id="flag-name" class="form-control mb-3 flag-name-input" name="flag-name" placeholder="Flag Name" required />
+        </div>
+        
+        <div class="col-3">
+          <label for="category" class="form-label">Category:</label>
+          <select id="category" class="form-select mb-3 category-input" aria-label="CategoryLabel" name="category">
+            <option value="" disabled selected hidden>Select Category</option>
+            <option value="national">national</option>
+            <option value="political">political</option>
+            <option value="organizational">organizational</option>
+            <option value="sporting">sporting</option>
+            <option value="others">others</option>
+          </select>
+        </div>
+        
+        <div class="col-3">
+          <label for="flag-price" class="form-label">Price:</label>
+          <input type="number" id="flag-price" class="form-control mb-3 flag-price-input" name="flag-price" placeholder="Price" required />
+        </div>
+      </div>
+      
       <form action="/upload" method="post" enctype="multipart/form-data">
           <div class="mb-3">
               <label for="formFile" class="form-label"></label>
-              <input type="file" name="images" id="formFile" class="form-control" multiple>
+              <input type="file" name="images" id="formFile" class="form-control">
           </div>
       </form>
-
-      <div class="mx-5 my-4">
-        <label for="name-on-card" class="form-label">Name on card:</label>
-        <input type="text" id="name-on-card" class="form-control mb-3 name-on-card-input" name="name-on-card" placeholder="Name on card" required />
-
-        <label for="card-number" class="form-label">Card number:</label>
-        <input type="text" id="card-number" class="form-control mb-3 card-number-input" name="card-number" placeholder="Card number" required />
-
-        <label for="card-number" class="form-label">Card number:</label>
-        <input type="text" id="card-number" class="form-control mb-3 card-number-input" name="card-number" placeholder="Card number" required />
-      </div>
     </div>
     <div class="d-flex flex-row justify-content-center p-5">
-      <button class="col-3 p-1 m-3 btn btn-outline-danger">Reset</button>
+      <button class="col-3 p-1 m-3 btn btn-outline-danger" id="resetFlagMnBtn">Reset</button>
       <button class="col-3 p-1 m-3 btn btn-outline-success">Confirm</button>
     </div>
   </div>
@@ -127,7 +140,15 @@
       });
     });
     $(() => {
-        $("#formFile").fileinput({theme: 'fa6', showUpload: true, previewFileType: 'any'});
+        $("#formFile").fileinput({theme: 'fa6', showUpload: false, previewFileType: 'any'});
+    });
+    $(document).ready(function() {
+      $("#resetFlagMnBtn").click(function() {
+        $('input[type="text"]').val("");
+        $('input[type="number"]').val("");
+        $("#category").prop("selectedIndex", 0);
+        $(".fileinput-remove").click();
+      });
     });
 
     function removeUser() {

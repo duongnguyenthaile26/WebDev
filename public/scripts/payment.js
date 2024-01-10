@@ -2,7 +2,7 @@ $(document).ready(function () {
   const odometerBalance = $("#odometer-balance");
   const odometerCheckout = $("#odometer-checkout");
   const checkoutTotal = Number($(".total-cart-price").text()); // số tiền phải trả
-  const currentBalance = Number($("#user-balance").text()); // số tiền hiện có trong ví
+  const currentBalance = Number($("#user-balance").text()) || 0; // số tiền hiện có trong ví
   setInterval(function () {
     odometerBalance.text(currentBalance);
     odometerCheckout.text(checkoutTotal);
