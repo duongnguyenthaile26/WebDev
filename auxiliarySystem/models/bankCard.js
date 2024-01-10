@@ -1,10 +1,15 @@
 const mongoose = require("mongoose");
 
 const bankCardSchema = new mongoose.Schema({
-  method: { type: String, required: true },
+  method: {
+    type: String,
+    required: true,
+    enums: ["visa", "mastercard"],
+    default: "visa",
+  },
   id: { type: String, required: true, uniqued: true },
   holder: { type: String, required: true },
-  issue_date: {
+  issueDate: {
     type: String,
     required: true,
     match: /^(01|02|03|04|05|06|07|08|09|10|11|12)\/[0-9]{2,2}$/,
@@ -14,6 +19,7 @@ const bankCardSchema = new mongoose.Schema({
     required: true,
     match: /^\d{3,4}$/,
   },
+  balance: { type: Number, required: true, default: 0 },
 });
 const BankCard = mongoose.model("bankCard", bankCardSchema);
 

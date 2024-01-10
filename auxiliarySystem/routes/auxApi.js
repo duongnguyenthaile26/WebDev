@@ -12,10 +12,14 @@ const controller = require(path.join(__dirname, "..", "controllers", "auxApi"));
 
 router.route("/test").post(verifyToken, controller.test);
 
-router.route("/wallet").post(controller.addWallet).get(controller.getWallet);
+router.route("/wallet").post(controller.addWallet);
+
+router.route("/wallet/:userId").get(controller.getWallet);
 
 router.route("/deposit").post(controller.deposit);
+
 router.route("/pay").post(controller.pay);
 
-router.route("/transaction").get(controller.getTransaction);
+router.route("/transaction").get(controller.getAllTransaction);
+
 module.exports = router;

@@ -35,15 +35,55 @@ async function addWallet(userId, username) {
 async function getWallet(userId) {
   const token = generateToken();
   const respone = await axios.get(
-    `https://127.0.0.1:8000/api/wallet/?userId=${userId}`,
+    `https://127.0.0.1:8000/api/wallet/${userId}`,
     {
       headers: { Authorization: `Bearer ${token}` },
       httpsAgent,
     }
   );
-
   return respone.data.wallet;
+}
+
+// deposit
+async function deposit(amount, bankCard, wallet) {
+  const token = generateToken();
+  const respone = await axios.get(
+    `https://127.0.0.1:8000/api/deposit`,
+    //Lưu ý cấu trúc wallet: {userId}
+    { amount, bankCard, wallet },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+      httpsAgent,
+    }
+  );
+  return respone.data;
+}
+// pay
+async function pay(userId) {
+  const token = generateToken();
+  const respone = await axios.post(
+    `https://127.0.0.1:8000/api/pay`,
+    //Lưu ý cấu trúc wallet: {userId}
+    { amount, wallet },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+      httpsAgent,
+    }
+  );
+  return respone.data;
+}
+// get all transaction
+async function getAllTransaction() {
+  const token = generateToken();
+  const respone = await axios.get(`https://127.0.0.1:8000/api/transaction`, {
+    headers: { Authorization: `Bearer ${token}` },
+    httpsAgent,
+  });
+  return respone.data.transactions;
 }
 
 exports.addWallet = addWallet;
 exports.getWallet = getWallet;
+exports.deposit = deposit;
+exports.pay = pay;
+exports.getAllTransaction = getAllTransaction;
