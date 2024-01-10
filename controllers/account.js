@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const AppError = require(path.join(__dirname, "..", "utilities", "AppError"));
+const AuxApi = require(path.join(__dirname, "..", "utilities", "AuxApi"));
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
 const saltRounds = Number(process.env.SALT_ROUNDS);
@@ -102,7 +103,8 @@ async function register(req, res, next) {
         html: `<p>Please click <a href="https://127.0.0.1:${process.env.PORT}/account/verifyAccount?mail=${mail}&token=${verifyToken}">here</a> to verify your account on Flagbay.</p>`,
       };
       await transporter.sendMail(mailOptions);
-      await User.create({
+
+      const newUser = await User.create({
         username,
         name,
         mail,
@@ -111,6 +113,9 @@ async function register(req, res, next) {
         password: encryptedPassword,
         role: "user",
       });
+      // Tạo ví điện tử cho user
+      await AuxApi.addWallet(newUser._id, username);
+
       return res.json({
         status: "success",
         message: "Register successfully, please verify your mail",
@@ -177,7 +182,8 @@ async function successRedirect(req, res, next) {
         .toString("hex")
         .slice(0, randomPasswordLength);
       const password = await bcrypt.hash(randomPassword, saltRounds);
-      await User.create({
+
+      const newUser = await User.create({
         username: req.user.username,
         password,
         name: req.user.name,
@@ -186,6 +192,8 @@ async function successRedirect(req, res, next) {
         verified: true,
         verifyToken: "0",
       });
+      // Tạo ví điện tử cho user
+      await AuxApi.addWallet(newUser._id, req.user.username);
     }
     req.session.visited = req.tempVisited;
     res.redirect(referer);

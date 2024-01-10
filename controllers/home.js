@@ -34,6 +34,7 @@ async function render(req, res, next) {
     }
 
     // nếu người dùng không phải admin (guest hoặc user)
+    console.log(req.user);
     res.render("home", {
       user: req.user,
       cheapestFlags,

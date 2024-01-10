@@ -1,9 +1,8 @@
 $(document).ready(function () {
-  const currentBalance = 123456; // số tiền hiện có trong ví
-  const checkoutTotal = Number($(".total-cart-price").text()); // số tiền phải trả
   const odometerBalance = $("#odometer-balance");
   const odometerCheckout = $("#odometer-checkout");
-
+  const checkoutTotal = Number($(".total-cart-price").text()); // số tiền phải trả
+  const currentBalance = Number($("#user-balance").text()); // số tiền hiện có trong ví
   setInterval(function () {
     odometerBalance.text(currentBalance);
     odometerCheckout.text(checkoutTotal);
@@ -56,7 +55,7 @@ $(document).ready(function () {
       $("#loader-container").fadeIn();
       $("body > *:not(#loader-container)").addClass("blurred");
 
-      setTimeout(function() {
+      setTimeout(function () {
         // Hide loader after payment processing completes
         $("#loader-container").fadeOut();
 
