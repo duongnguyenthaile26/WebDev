@@ -666,3 +666,35 @@ input:checked + .payment-method-item::before {
 @media only screen and (max-width: 767px){
     .btn-test{ margin-bottom: 20px; }
 }
+
+.bg-modal {
+  background-image: url(../images/login.png);
+}
+.bg-modal-register {
+  background-image: url(../images/register.png);
+}
+
+
+
+.btn-add-cate:hover{
+  box-shadow: 0 2px 0 #1eb971;
+}
+
+.btn-add-cate:hover, .btn-add-cate:focus{
+  outline: none;
+  top:2px;
+}
+.btn-add-cate{
+  text-transform: capitalize;
+  padding: 0.75rem 1rem;
+  border-radius: 25px;
+  box-shadow: 0 5px 0 #1eb971;
+  transition:all 0.2s ease-in-out 0s;
+  position: relative;
+  top:0;
+}
+@media only screen and (max-width: 767px) {
+  .btn-add-cate{
+      margin-bottom: 25px;
+  }
+}
