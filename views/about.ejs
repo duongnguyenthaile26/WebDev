@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js" integrity="sha512-51WDTV7haD9BBDc8RWH2r5TnuSiRyAqEnbGyuKHYn+qpYCrCckxFeqlr1I5UoOULijyLV2vnHO9LS4MrAzHxwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.7/themes/odometer-theme-minimal.min.css" integrity="sha512-Jeqp8CoPCvf9tf/uWokfCTsFcv5BIhfTYaTTJA0NKn6B88zDSWe5d/9HTmZX63FGpGGQdB8Chg2khB96+wn4Tw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/styles/home.css" />
+  <link rel="stylesheet" href="/styles/login_register.css" />
+</head>
+
+<body>
+  <!-- ===================SIDEBAR=================== -->
+  <%- include('./partials/sidebar.ejs'); %>
+  <!-- ===================SIDEBAR=================== -->
+
+  <!-- ===================HEADER=================== -->
+  <%- include('./partials/header.ejs') %>
+  <!-- ===================HEADER=================== -->
+
+  <!-- ===================CONTENT=================== -->
+  <div class="content-body pb-5">
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="justify-content-center intro p-3 mx-2">
+              <div style="color: #f0f2f5; visibility: hidden">Ignore text</div>
+              <div class="fs-1 text-center pe-3 fw-bold text-dark" style="width: 30rem">
+                OUR TEAM MEMBERS
+              </div>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-md-6 mb-5">
+                <div class="bg-white rounded shadow-sm py-5 px-4 d-flex flex-column justify-content-center align-items-center ">
+                    <img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg" alt="pic"  class="rounded-circle mb-3 img-thumbnail shadow-sm" style="width: 15rem; height: 15rem;">
+                    <h5 class="mb-0 fs-3">Lê Nguyễn Thái Dương - 21127736</h5><span class="fs-4 text-muted">lntduong21@clc.fitus.edu.vn</span>
+                    <ul class="social mb-0 list-inline mt-3">
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 mb-5">
+                <div class="bg-white rounded shadow-sm py-5 px-4 d-flex flex-column justify-content-center align-items-center ">
+                    <img src="https://scontent.fsgn5-2.fna.fbcdn.net/v/t39.30808-6/350511655_274570165068412_6693343132773094437_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=783fdb&_nc_eui2=AeH0AhkumKlcMpOg5wUDusjy-kqtuPQ0e5n6Sq249DR7meccyyYGMb4u1EGs5NlIRZLUG6PMlh-bzTh3aOn3rKHS&_nc_ohc=mmGW4L8N3PwAX8c9Npz&_nc_oc=AQmW3t_qY6DFlbBOuKbF_Th3MIkRJTY0si7KPAltMRO6TKdLyvuS-ktncziOaYc4rTM&_nc_ht=scontent.fsgn5-2.fna&oh=00_AfCb4_tJEO7IVcn93YMdF9_NrCLpy876jz-MBAr1XfkSEQ&oe=65A38FF1" alt="pic"  class="rounded-circle mb-3 img-thumbnail shadow-sm" style="width: 15rem; height: 15rem;">
+                    <h5 class="mb-0 fs-3">Nguyễn Hồng Thái - 21127736</h5><span class="fs-4 text-muted">nhthai21@clc.fitus.edu.vn</span>
+                    <ul class="social mb-0 list-inline mt-3">
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 mb-5">
+                <div class="bg-white rounded shadow-sm py-5 px-4 d-flex flex-column justify-content-center align-items-center ">
+                    <img src="https://bootstrapious.com/i/snippets/sn-about/avatar-3.png" alt="pic"  class="rounded-circle mb-3 img-thumbnail shadow-sm" style="width: 15rem; height: 15rem;">
+                    <h5 class="mb-0 fs-3">Ngô Đức Tín - 21127736</h5><span class="fs-4 text-muted">ndtin21@clc.fitus.edu.vn</span>
+                    <ul class="social mb-0 list-inline mt-3">
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 mb-5">
+                <div class="bg-white rounded shadow-sm py-5 px-4 d-flex flex-column justify-content-center align-items-center ">
+                    <img src="https://scontent-sin6-4.xx.fbcdn.net/v/t39.30808-6/326241567_1172912306667242_5711925884491648982_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeE01-QAFL3DIG9t1NknPApbO_d2AMBajSI793YAwFqNImES9KEKQiVnFav8XxUebsR1KZ0P1tGusEP1DtWSgrw2&_nc_ohc=7_T1G_Utid8AX8Y3IR5&_nc_ht=scontent-sin6-4.xx&oh=00_AfBZON4wXwrRDQ4zlE-JCzeLZr-pwf4xL8RrJnpxUQpAWw&oe=65A3ED53" alt="pic"  class="rounded-circle mb-3 img-thumbnail shadow-sm" style="width: 15rem; height: 15rem;">
+                    <h5 class="mb-0 fs-3">Trần Thái Toàn - 21127736</h5><span class="fs-4 text-muted">tttoan21@clc.fitus.edu.vn</span>
+                    <ul class="social mb-0 list-inline mt-3">
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="social-link"><i class="fa-brands fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- ===================FOOTER=================== -->
+  <%- include('./partials/footer.ejs') %>
+  <!-- ===================FOOTER=================== -->
+
+  <script>
+    $(document).ready(function() {
+      $(".sub-btn").click(function() {
+        $(this).next(".sub-menu").slideToggle();
+        $(this).find(".dropdown").toggleClass("rotate");
+      });
+
+      $(".menu-btn").click(function() {
+        $(".side-bar").addClass("active");
+        $(".menu-btn").css("visibility", "hidden");
+      });
+
+      $(".close-btn").click(function() {
+        $(".side-bar").removeClass("active");
+        $(".menu-btn").css("visibility", "visible");
+      });
+
+      $(document).on("click", function(event) {
+        if (
+          !$(event.target).closest(".side-bar").length &&
+          !$(event.target).is(".side-bar") &&
+          !$(event.target).is(".menu-btn") &&
+          !$(event.target).closest(".menu-btn").length
+        ) {
+          $(".side-bar").removeClass("active");
+          $(".menu-btn").css("visibility", "visible");
+        }
+      });
+    });
+    $(".search-box").click(function() {
+      $("#search-form").submit();
+    });
+    $(document).ready(function() {
+      $(".login-container").click(function() {
+        $("#LoginModal").modal("show");
+      });
+
+      $(".register-container").click(function() {
+        $("#RegisterModal").modal("show");
+      });
+    });
+    $(document).ready(function() {
+      $(".flag-link").click(function(event) {
+        event.preventDefault();
+        window.location.href = $(this).attr("href");
+      });
+    });
+  </script>
+</body>
+
+</html>
