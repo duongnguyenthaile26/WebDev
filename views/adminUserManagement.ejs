@@ -85,6 +85,7 @@
           </div>
         </div>
       </div>
+     <!-- ===================MODAL DELETE=================== -->
       <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="max-width: 40%">
           <div class="modal-content" style="background-color: white">
@@ -103,6 +104,35 @@
               </button>
               <button type="button" class="btn btn-danger" id="confirmDeleteBtn" onclick="removeUser()">
                 YES
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ===================MODAL EDIT=================== -->
+      <div class="modal fade" id="EditNameModal" tabindex="-1" aria-labelledby="EditNameModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 40%">
+          <div class="modal-content" style="background-color: white">
+            <div class="modal-header">
+              <h5 class="modal-title fs-4 text-warning" id="EditNameModalLabel">CHANGE USER INFOR</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body fs-5">
+              <form>
+                <div class="mb-3">
+                  <label for="newUsermameInput" class="form-label">NEW USERNAME</label>
+                  <input type="text" class="form-control mb-4" id="newUsernameInput" />
+                  <label for="newNameInput" class="form-label">NEW NAME</label>
+                  <input type="text" class="form-control" id="newNameInput" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancel
+              </button>
+              <button type="button" class="btn btn-primary" id="confirmChangeNameBtn">
+                COMFIRM
               </button>
             </div>
           </div>
@@ -189,6 +219,50 @@
         },
       });
     }
+    $(document).ready(function() {
+      $(".btn-outline-warning").click(function() {
+        $("#EditNameModal").modal("show");
+      });
+      function processEditInput() {
+        const newUsername = $("#newUsernameInput").val();
+        const newName = $("#newNameInput").val();
+        if (newUsername === "" || newName === "") {
+          const alertHtml = `
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Please enter both the new username and name
+          </div>`;
+          $(".alert").remove();
+          $(".modal-body").prepend(alertHtml);
+        } else {
+          // Xử lý khi cả hai nhập đúng
+          // ...
+
+          const alertHtml = `
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            User "${newUsername}" has been updated successfully with name "${newName}"
+          </div>`;
+          $(".alert").remove();
+          $(".modal-body").prepend(alertHtml);
+          setTimeout(() => {
+            window.location.href = "/admin/userManagement";
+          }, 2000); 
+        }
+      }
+    
+      $("#confirmChangeNameBtn").on("click", function () {
+        processEditInput();
+      });
+    
+      $("#EditNameModal").on("hidden.bs.modal", function () {
+        // Xóa các thông báo lỗi khi modal được ẩn đi
+        $(".alert").remove();
+      });
+    
+      $("#EditNameModal").on("show.bs.modal", function () {
+        // Xóa các thông báo lỗi khi modal được hiển thị
+        $(".alert").remove();
+      });
+    });
   </script>
 </body>
 

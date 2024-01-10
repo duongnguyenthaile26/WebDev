@@ -269,7 +269,14 @@
         $("#confirmChangeNameBtn").attr("categoryName", categoryName);
       });
     });
-
+    function showAlertInChangeNameModal(alertType, message) {
+      const alertHtml = `
+        <div class="alert alert-${alertType} alert-dismissible fade show" role="alert">
+          ${message}
+        </div>`;
+      $(".alert").remove();
+      $(".modal-body").prepend(alertHtml);
+    }
     function changeName() {
       const categoryName = $("#confirmChangeNameBtn").attr("categoryName");
       const newCategoryName = $("#newNameInput").val().trim().toLowerCase();
@@ -282,7 +289,13 @@
           newCategoryName,
         }),
         success: function(data) {
-          window.location.href = '/admin/categoryManagement';
+          showAlertInChangeNameModal(data.status === 'success' ? 'success' : 'danger', data.message);
+
+          if (data.status === "success") {
+            setTimeout(() => {
+              window.location.href = "/admin/categoryManagement";
+            }, 2000);
+          }
         },
       });
     }
@@ -295,6 +308,16 @@
       $('#NewCategoryModal').on('hidden.bs.modal', function() {
         // Reset nội dung của modal sau khi ẩn
         $("#NewCategoryInput").val('');
+      });
+      $('#changeNameModal').on('hidden.bs.modal', function() {
+        // Xóa các thông báo lỗi khi modal được ẩn đi
+        $(".alert").remove();
+      });
+    
+      // Xử lý sự kiện khi modal "changeNameModal" được hiển thị
+      $('#changeNameModal').on('show.bs.modal', function() {
+        // Xóa các thông báo lỗi khi modal được hiển thị
+        $(".alert").remove();
       });
     });
     $(document).ready(function() {

@@ -211,9 +211,7 @@ footer {
   vertical-align: top;
 }
 
-.footer .footer-left {
-  width: 30%;
-}
+
 
 .footer .footer-left .user {
   font-size: 40px;
@@ -249,9 +247,7 @@ footer {
   padding-top: 10%;
 }
 
-.footer .footer-center {
-  width: 35%;
-}
+
 
 .footer .footer-center i {
   background-color: #33383b;
@@ -290,9 +286,6 @@ footer {
   text-decoration: none;
 }
 
-.footer .footer-right {
-  width: 30%;
-}
 
 .footer .footer-about {
   line-height: 20px;
