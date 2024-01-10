@@ -75,7 +75,7 @@
               <% } %> <% if (user !== null && user !== undefined && user.role
                 === "admin") { %>
               <button type="button" class="btn btn-warning mx-2">EDIT</button>
-              <button type="button" class="btn btn-danger ms-2">
+              <button type="button" class="btn btn-danger ms-2 delete-product">
                 DELETE
               </button>
               <% } %>
@@ -188,7 +188,7 @@
       });
     }
     $(document).ready(function() {
-      $(".btn.btn-danger").click(function() {
+      $(".delete-product").click(function() {
         const productName = $(".name").text().trim();
     
         $("#deleteProductMessage").html(`
@@ -209,7 +209,12 @@
         window.location.href = "/admin/productManagement"; 
       });
     });
+    $(".btn.btn-warning").click(function() {
+      var flagId = $(".flag-id").text().trim();
+      window.location.href = "/admin/editFlag/" + flagId;
+    });
   </script>
+  
 </body>
 
 </html>

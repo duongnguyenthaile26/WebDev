@@ -21,15 +21,15 @@
 
 <body>
   <!-- ===================SIDEBAR=================== -->
-  <!-- <%- include('./partials/sidebar.ejs'); %> -->
+  <%- include('./partials/sidebar.ejs'); %>
   <!-- ===================SIDEBAR=================== -->
 
   <!-- ===================HEADER=================== -->
-  <!-- <%- include('./partials/header.ejs') %> -->
+  <%- include('./partials/header.ejs') %>
   <!-- ===================HEADER=================== -->
 
   <!-- ===================CONTENT=================== -->
-  <div class="container content-body pb-5">
+  <div class="container pb-5">
     <div class="d-flex flex-column justify-content-center align-items-center">
       <div class="justify-content-center intro p-3 mx-2">
         <div style="color: #f0f2f5; visibility: hidden">Ignore text</div>
@@ -42,42 +42,41 @@
       <div class="d-flex flex-row justify-content-between align-items-center">
         <div class="col-3">
           <label for="flag-name" class="form-label">Name:</label>
-          <input type="text" id="flag-name" class="form-control mb-3 flag-name-input" name="flag-name" placeholder="Flag Name" required />
+          <input type="text" id="flag-name" class="form-control mb-3 flag-name-input" name="flag-name" placeholder="Flag Name" value="<%= flag.name %>" required />
         </div>
         
         <div class="col-3">
           <label for="category" class="form-label">Category:</label>
-          <select id="category" class="form-select mb-3 category-input" aria-label="CategoryLabel" name="category">
-            <option value="" disabled selected hidden>Select Category</option>
-            <option value="national">national</option>
-            <option value="political">political</option>
-            <option value="organizational">organizational</option>
-            <option value="sporting">sporting</option>
-            <option value="others">others</option>
+          <select id="category" class="form-select mb-3" aria-label="Category" name="category">
+            <% categories.forEach((category) => { %>
+              <option value="<%= category.name %>" <% if (category.name === flag.type) { %>selected<% } %>><%= category.name %></option>
+            <% }); %>
           </select>
         </div>
         
         <div class="col-3">
           <label for="flag-price" class="form-label">Price:</label>
-          <input type="number" id="flag-price" class="form-control mb-3 flag-price-input" name="flag-price" placeholder="Price" required />
+          <input type="number" id="flag-price" class="form-control mb-3 flag-price-input" name="flag-price" value="<%= flag.price %>" placeholder="Price" required />
         </div>
       </div>
       
       <form action="/upload" method="post" enctype="multipart/form-data">
-          <div class="mb-3">
-              <label for="formFile" class="form-label"></label>
-              <input type="file" name="images" id="formFile" class="form-control">
-          </div>
+        <div class="mb-3">
+          <label for="formFile" class="form-label"></label>
+          <input type="file" name="images" id="formFile" class="form-control">
+        </div>
       </form>
     </div>
-    <div class="d-flex flex-row justify-content-center p-5">
+    
+    <div class="d-flex flex-row justify-content-center px-5">
       <button class="col-3 p-1 m-3 btn btn-outline-danger" id="resetFlagMnBtn">Reset</button>
       <button class="col-3 p-1 m-3 btn btn-outline-success">Confirm</button>
     </div>
   </div>
+  <div class="flag-id" style="display: none"><%= flag._id %></div>
 
   <!-- ===================FOOTER=================== -->
-  <!-- <%- include('./partials/footer.ejs') %> -->
+  <%- include('./partials/footer.ejs') %>
   <!-- ===================FOOTER=================== -->
 
   <script>
@@ -127,18 +126,6 @@
         window.location.href = $(this).attr("href");
       });
     });
-    $(document).ready(function() {
-      $(".btn-outline-danger").click(function() {
-        const username = $(this).closest("tr").find("td:eq(0)").text().trim();
-
-        $("#deleteUserMessage").html(`
-          <span>Are you sure you want to delete user <strong>${username}</strong><span>?`);
-        $("#confirmDeleteBtn").removeAttr("username");
-        $("#confirmDeleteBtn").attr("username", username);
-
-        $("#deleteUserModal").modal("show");
-      });
-    });
     $(() => {
         $("#formFile").fileinput({theme: 'fa6', showUpload: false, previewFileType: 'any'});
     });
@@ -150,21 +137,23 @@
         $(".fileinput-remove").click();
       });
     });
+    $(document).ready(function() {
+      // Get the path to the existing image from the flag.image property
+      var existingImagePath = "/flags/<%= flag.image %>";
+      
+      $(".file-preview").append('<div class = "fs-4"> Existing File: </div>');
 
-    function removeUser() {
-      const username = $("#confirmDeleteBtn").attr("username");
-      $.ajax({
-        url: '/admin/userManagement',
-        type: 'DELETE',
-        contentType: 'application/json',
-        data: JSON.stringify({
-          username,
-        }),
-        success: function(data) {
-          window.location.href = '/admin/userManagement';
-        },
+      if (existingImagePath) {
+        $(".file-preview").append('<img src="' + existingImagePath + '" class="img-thumbnail me-3" style="width: 15rem; height: 15rem; " />');
+      }      // Show a clear button for the existing image
+      $(".file-preview").append('<button type="button" class="btn btn-sm btn-danger clear-existing-image">Clear</button>');
+    
+      $(".clear-existing-image").click(function() {
+        $("#formFile").val(""); 
+        $(".img-thumbnail").remove(); 
+        $(this).hide(); // Hide the clear button
       });
-    }
+    });
   </script>
 </body>
 

@@ -15,4 +15,6 @@ router
   .delete(controller.removeCategory)
   .post(controller.addCategory);
 
+router.route("/editFlag/:flagId").get(controller.editflags)
+
 module.exports = router;

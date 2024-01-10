@@ -3,6 +3,7 @@ const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const User = require(path.join(__dirname, "..", "models", "user"));
 const fs = require("fs");
+const exp = require("constants");
 
 async function userManagement(req, res, next) {
   try {
@@ -124,9 +125,33 @@ async function addCategory(req, res, next) {
   }
 }
 
+
+async function editflags(req, res, next) {
+  try {
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map((category) => category.name);
+
+    const flagId = req.params.flagId; // Lấy id của flag từ URL
+    const flag = await Flag.findById(flagId).lean();
+    const type = flag.type;
+    const flagsToShow = await Flag.find({ type }).lean();
+    res.render("adminFlagManagement", {
+      user: req.user,
+      flag,
+      options,
+      type,
+      flagsToShow,
+      categories,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.userManagement = userManagement;
 exports.categoryManagement = categoryManagement;
 exports.removeUser = removeUser;
 exports.changeName = changeName;
 exports.removeCategory = removeCategory;
 exports.addCategory = addCategory;
+exports.editflags = editflags;
