@@ -32,10 +32,10 @@ async function addWallet(userId, username) {
   return respone.data.wallet;
 }
 // get wallet
-async function getWallet(userId) {
+async function getWallet(username) {
   const token = generateToken();
   const respone = await axios.get(
-    `https://127.0.0.1:8000/api/wallet/${userId}`,
+    `https://127.0.0.1:8000/api/wallet/${username}`,
     {
       headers: { Authorization: `Bearer ${token}` },
       httpsAgent,

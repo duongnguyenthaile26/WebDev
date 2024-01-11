@@ -4,7 +4,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const path = require("path");
 const User = require(path.join(__dirname, "..", "models", "user"));
-const AuxApi = require(path.join(__dirname, "..", "utilities", "AuxApi"));
+
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
 passport.use(
@@ -21,14 +21,13 @@ passport.use(
       if (!match) {
         return done(null, false);
       }
-      const wallet = await AuxApi.getWallet(user._id);
+
       done(null, {
         username: user.username,
         role: user.role,
         name: user.name,
         mail: user.mail,
         verified: user.verified,
-        wallet,
       });
     } catch (error) {
       done(error);
@@ -60,7 +59,6 @@ passport.serializeUser(function (user, done) {
     name: user.name,
     mail: user.mail,
     verified: user.verified,
-    wallet: user.wallet,
   });
 });
 
@@ -73,14 +71,13 @@ passport.deserializeUser(async function (user, done) {
         return done(null, false);
       }
     }
-    const wallet = await AuxApi.getWallet(dbUser._id);
+
     done(null, {
       username: dbUser.username,
       role: dbUser.role,
       name: dbUser.name,
       mail: dbUser.mail,
       verified: dbUser.verified,
-      wallet,
     });
   } catch (error) {
     done(error);

@@ -104,7 +104,7 @@ async function register(req, res, next) {
       };
       await transporter.sendMail(mailOptions);
 
-      const newUser = await User.create({
+      await User.create({
         username,
         name,
         mail,
@@ -114,7 +114,7 @@ async function register(req, res, next) {
         role: "user",
       });
       // Tạo ví điện tử cho user
-      await AuxApi.addWallet(newUser._id, username);
+      await AuxApi.addWallet(username);
 
       return res.json({
         status: "success",
@@ -183,7 +183,7 @@ async function successRedirect(req, res, next) {
         .slice(0, randomPasswordLength);
       const password = await bcrypt.hash(randomPassword, saltRounds);
 
-      const newUser = await User.create({
+      await User.create({
         username: req.user.username,
         password,
         name: req.user.name,
@@ -193,7 +193,7 @@ async function successRedirect(req, res, next) {
         verifyToken: "0",
       });
       // Tạo ví điện tử cho user
-      await AuxApi.addWallet(newUser._id, req.user.username);
+      await AuxApi.addWallet(req.user.username);
     }
     req.session.visited = req.tempVisited;
     res.redirect(referer);

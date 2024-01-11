@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
 const walletSchema = new mongoose.Schema({
-  userId: { type: String, unique: true, required: true },
-  username: { type: String },
+  username: { type: String, unique: true, required: true },
   balance: { type: Number, required: true, default: 0 },
 });
 
