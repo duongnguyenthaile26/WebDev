@@ -4,11 +4,9 @@ const Category = require(path.join(__dirname, "..", "models", "category"));
 
 async function render(req, res, next) {
   try {
-    // cho sidebar
     const categories = await Category.find({}).select("-__v");
     const options = categories.map((category) => category.name);
 
-    // nếu người dùng là admin
     if (req.user && req.user.role === "admin") {
       return res.render("home", {
         user: req.user,
@@ -33,8 +31,6 @@ async function render(req, res, next) {
       flagsByCategory.push(category);
     }
 
-    // nếu người dùng không phải admin (guest hoặc user)
-    console.log(req.user);
     res.render("home", {
       user: req.user,
       cheapestFlags,
@@ -45,43 +41,13 @@ async function render(req, res, next) {
     next(error);
   }
 }
-async function About(req, res, next) {
+
+async function about(req, res, next) {
   try {
-    // cho sidebar
     const categories = await Category.find({}).select("-__v");
     const options = categories.map((category) => category.name);
-
-    // nếu người dùng là admin
-    if (req.user && req.user.role === "admin") {
-      return res.render("about", {
-        user: req.user,
-        options,
-      });
-    }
-
-    const cheapestFlags = await Flag.find({})
-      .sort({ price: 1 })
-      .limit(12)
-      .select("-__v");
-
-    const flagsByCategory = [];
-    for (let i = 0; i < options.length; i++) {
-      const category = { name: options[i] };
-      const flags = await Flag.aggregate([
-        { $match: { type: category.name.toLowerCase() } },
-        { $sample: { size: 4 } },
-        { $project: { __v: 0 } },
-      ]);
-      category.flags = flags;
-      flagsByCategory.push(category);
-    }
-
-    // nếu người dùng không phải admin (guest hoặc user)
-    console.log(req.user);
     res.render("about", {
       user: req.user,
-      cheapestFlags,
-      flagsByCategory,
       options,
     });
   } catch (error) {
@@ -90,4 +56,4 @@ async function About(req, res, next) {
 }
 
 exports.render = render;
-exports.About = About;
+exports.about = about;

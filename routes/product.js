@@ -19,5 +19,7 @@ router.route("/detail/:flagId").get(controller.detail);
 router.route("/search").get(controller.search);
 router.route("/type").get(controller.type);
 router.route("/addToCart").post(verifyRole.checkUser, controller.addToCart);
+router.route("/addFlag").get(controller.addFlagView);
+router.route("/editFlag/:flagId").get(controller.editFlagView);
 
 module.exports = router;

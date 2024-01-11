@@ -135,7 +135,41 @@ async function addToCart(req, res, next) {
   }
 }
 
+async function addFlagView(req, res, next) {
+  try {
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map((category) => category.name);
+    res.render("adminProductManagement", {
+      mode: "add",
+      flag: null,
+      user: req.user,
+      options,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function editFlagView(req, res, next) {
+  try {
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map((category) => category.name);
+    const { flagId } = req.params;
+    const flag = await Flag.findOne({ _id: flagId });
+    res.render("adminProductManagement", {
+      mode: "edit",
+      flag,
+      user: req.user,
+      options,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.detail = detail;
 exports.search = search;
 exports.type = type;
 exports.addToCart = addToCart;
+exports.addFlagView = addFlagView;
+exports.editFlagView = editFlagView;
