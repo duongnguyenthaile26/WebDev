@@ -1,8 +1,13 @@
-$(document).ready(function () {
+$(document).ready(async function () {
   const odometerBalance = $("#odometer-balance");
   const odometerCheckout = $("#odometer-checkout");
   const checkoutTotal = Number($(".total-cart-price").text()); // số tiền phải trả
-  const currentBalance = Number($("#user-balance").text()) || 0; // số tiền hiện có trong ví
+  const currentBalance = await new Promise((resolve, reject) => {
+    $.get("/checkout/balance", function (data) {
+      // Nếu status === fail => data.balance = -1
+      resolve(data.balance);
+    });
+  }); // số tiền hiện có trong ví
   setInterval(function () {
     odometerBalance.text(currentBalance);
     odometerCheckout.text(checkoutTotal);

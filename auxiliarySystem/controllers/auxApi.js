@@ -1,6 +1,4 @@
-const mongoose = require("mongoose");
 const path = require("path");
-const { stringify } = require("querystring");
 const BankCard = require(path.join(__dirname, "..", "models", "bankCard"));
 const Transaction = require(path.join(
   __dirname,
@@ -22,14 +20,8 @@ function test(req, res, next) {
 async function getWallet(req, res, next) {
   try {
     const username = req.params.username;
-    if (typeof id !== "string" || id.length !== 24) {
-      return res.json({
-        status: "fail",
-        statusCode: 404,
-        message: "Invalid Id",
-      });
-    }
-    const wallet = await Wallet.findone({ username }).select("-_id -__v");
+
+    const wallet = await Wallet.findOne({ username }).select("-_id -__v");
     if (!wallet) {
       return res.json({
         status: "fail",
@@ -45,6 +37,10 @@ async function getWallet(req, res, next) {
       wallet,
     });
   } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
     next(error);
   }
 }
@@ -62,6 +58,10 @@ async function addWallet(req, res, next) {
       wallet,
     });
   } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
     next(error);
   }
 }
@@ -106,6 +106,10 @@ async function deposit(req, res, next) {
       transaction,
     });
   } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
     next(error);
   }
 }
@@ -141,6 +145,10 @@ async function pay(req, res, next) {
       transaction,
     });
   } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
     next(error);
   }
 }
@@ -153,6 +161,10 @@ async function getAllTransaction(req, res, next) {
       transactions,
     });
   } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
     next(error);
   }
 }

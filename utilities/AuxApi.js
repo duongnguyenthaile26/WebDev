@@ -19,20 +19,20 @@ function generateToken() {
   return jwt.sign(payload, process.env.JWT_SECRET);
 }
 
-async function addWallet(userId, username) {
+async function addWallet(username) {
   const token = generateToken();
   const respone = await axios.post(
     "https://127.0.0.1:8000/api/wallet",
-    { userId, username },
+    { username },
     {
       headers: { Authorization: `Bearer ${token}` },
       httpsAgent,
     }
   );
-  return respone.data.wallet;
+  return respone.data;
 }
 
-async function getWallet(userId) {
+async function getWallet(username) {
   const token = generateToken();
   const respone = await axios.get(
     `https://127.0.0.1:8000/api/wallet/${username}`,
@@ -41,7 +41,7 @@ async function getWallet(userId) {
       httpsAgent,
     }
   );
-  return respone.data.wallet;
+  return respone.data;
 }
 
 async function deposit(amount, bankCard, wallet) {
