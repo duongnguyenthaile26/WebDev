@@ -18,7 +18,7 @@ function generateToken() {
   };
   return jwt.sign(payload, process.env.JWT_SECRET);
 }
-// add wallet
+
 async function addWallet(userId, username) {
   const token = generateToken();
   const respone = await axios.post(
@@ -31,8 +31,8 @@ async function addWallet(userId, username) {
   );
   return respone.data.wallet;
 }
-// get wallet
-async function getWallet(username) {
+
+async function getWallet(userId) {
   const token = generateToken();
   const respone = await axios.get(
     `https://127.0.0.1:8000/api/wallet/${username}`,
@@ -44,12 +44,11 @@ async function getWallet(username) {
   return respone.data.wallet;
 }
 
-// deposit
 async function deposit(amount, bankCard, wallet) {
   const token = generateToken();
   const respone = await axios.get(
     `https://127.0.0.1:8000/api/deposit`,
-    //Lưu ý cấu trúc wallet: {userId}
+    // Lưu ý cấu trúc wallet: {userId}
     { amount, bankCard, wallet },
     {
       headers: { Authorization: `Bearer ${token}` },
@@ -58,12 +57,12 @@ async function deposit(amount, bankCard, wallet) {
   );
   return respone.data;
 }
-// pay
+
 async function pay(userId) {
   const token = generateToken();
   const respone = await axios.post(
     `https://127.0.0.1:8000/api/pay`,
-    //Lưu ý cấu trúc wallet: {userId}
+    // Lưu ý cấu trúc wallet: {userId}
     { amount, wallet },
     {
       headers: { Authorization: `Bearer ${token}` },
@@ -72,7 +71,7 @@ async function pay(userId) {
   );
   return respone.data;
 }
-// get all transaction
+
 async function getAllTransaction() {
   const token = generateToken();
   const respone = await axios.get(`https://127.0.0.1:8000/api/transaction`, {
