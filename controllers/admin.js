@@ -137,7 +137,7 @@ async function transaction(req, res, next) {
       message: "Get all transaction successfully",
       transactions: data.transactions,
     });
-    // Thêm file transaction.ejg vào rồi thì uncomment cái này
+    // Thêm file transaction.ejs vào rồi thì uncomment cái này
     // res.render("transaction", { transactions: data.transactions });
   } catch (error) {
     next(error);
