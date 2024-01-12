@@ -15,4 +15,6 @@ router
   .delete(controller.removeCategory)
   .post(controller.addCategory);
 
+router.route("/transaction").get(controller.transaction);
+
 module.exports = router;

@@ -13,5 +13,5 @@ router.route("/cart").get(controller.cart).delete(controller.removeItem);
 router.route("/payment").post(controller.payment);
 router.route("/balance").get(controller.getBalance);
 router.route("/deposit").post(controller.deposit);
-
+router.route("/purchase").get(controller.purchaseHistory);
 module.exports = router;

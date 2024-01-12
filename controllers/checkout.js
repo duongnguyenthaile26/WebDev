@@ -97,7 +97,7 @@ async function payment(req, res, next) {
     }
     const total = Number(transaction.amount);
 
-    //TODO: send oder to user email
+    //TODO: send order to user email
     const order = {
       name: req.body.name,
       address: req.body.address,
@@ -174,9 +174,39 @@ async function getBalance(req, res, next) {
     next(error);
   }
 }
+async function purchaseHistory(req, res, next) {
+  try {
+    const user = await User.findOne({ username: req.user.username });
+    // Làm xong file ejs thì xóa cái này
+    res.json({
+      status: "success",
+      orderList: user.orderList,
+    });
+    /*
+    trong hàm payment dòng 101
+    orderList:{
+      name: 
+      address: 
+      email: 
+      phone: 
+      createDate: transaction.createDate, kiểu Date
+      transactionId: transaction._id,
+      total: total,
+      flags: [
+        {name,quantity,totalPrice,price}
+        kệ cái price, hiện totalPrice
+      ]
+    }
+    */
+    // res.render("purchase", { orderList: orderList });
+  } catch (error) {
+    next(error);
+  }
+}
 
 exports.cart = cart;
 exports.removeItem = removeItem;
 exports.payment = payment;
 exports.deposit = deposit;
 exports.getBalance = getBalance;
+exports.purchaseHistory = purchaseHistory;

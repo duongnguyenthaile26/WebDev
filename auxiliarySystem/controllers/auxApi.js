@@ -86,7 +86,7 @@ async function deposit(req, res, next) {
       createDate: Date.now(),
       command: "deposit",
       amount: depositAmount,
-      content: "deposit money to wallet",
+      content: "Deposit money to wallet",
       username: wallet.username,
     });
 

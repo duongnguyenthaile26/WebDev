@@ -77,7 +77,7 @@ async function getAllTransaction() {
     headers: { Authorization: `Bearer ${token}` },
     httpsAgent,
   });
-  return respone.data.transactions;
+  return respone.data;
 }
 
 exports.addWallet = addWallet;
