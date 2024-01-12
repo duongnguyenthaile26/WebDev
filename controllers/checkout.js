@@ -2,6 +2,7 @@ const path = require("path");
 const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const User = require(path.join(__dirname, "..", "models", "user"));
+const AuxApi = require(path.join(__dirname, "..", "utilities", "AuxApi"));
 const axios = require("axios");
 const https = require("https");
 const jwt = require("jsonwebtoken");
@@ -93,6 +94,40 @@ async function payment(req, res, next) {
   }
 }
 
+async function getBalance(req, res, next) {
+  try {
+    console.log(req.user);
+    let wallet = null;
+    const resGetWallet = await AuxApi.getWallet(req.user.username);
+    if (
+      resGetWallet.status === "fail" &&
+      resGetWallet.message === "Wallet Not Found"
+    ) {
+      const resAddWallet = await AuxApi.addWallet(req.user.username);
+      if (resAddWallet.status === "success") {
+        wallet = resAddWallet.wallet;
+      }
+    } else if (resGetWallet.status === "success") {
+      wallet = resGetWallet.wallet;
+    }
+    console.log(wallet);
+    if (!wallet) {
+      return res.json({
+        status: "fail",
+        message: "get balance failed",
+        balance: -1,
+      });
+    }
+    res.json({
+      status: "success",
+      message: "get balance successfully",
+      balance: wallet.balance,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 async function removeItem(req, res, next) {
   try {
     const user = await User.findOne({ username: req.user.username });
@@ -115,3 +150,4 @@ async function removeItem(req, res, next) {
 exports.payment = payment;
 exports.cart = cart;
 exports.removeItem = removeItem;
+exports.getBalance = getBalance;
