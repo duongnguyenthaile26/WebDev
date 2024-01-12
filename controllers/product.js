@@ -1,6 +1,7 @@
 const path = require("path");
-const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const url = require("url");
+const fs = require("fs");
+const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const User = require(path.join(__dirname, "..", "models", "user"));
 
@@ -167,9 +168,57 @@ async function editFlagView(req, res, next) {
   }
 }
 
+async function unlinkFile(fileName) {
+  try {
+    await fs.promises.unlink(
+      path.join(__dirname, "..", "public", "flags", fileName)
+    );
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function addFlag(req, res, next) {
+  try {
+    const { name, type, price } = req.body;
+    const checkName = await Flag.findOne({ name });
+    if (checkName) {
+      await unlinkFile(req.fileName);
+      return res.json({
+        status: "fail",
+        message: "Flag name already existed",
+      });
+    }
+    const checkCategory = await Category.findOne({ name: type });
+    if (!checkCategory) {
+      await unlinkFile(req.fileName);
+      return res.json({
+        status: "fail",
+        message: "Category does not exist",
+      });
+    }
+    await Flag.create({ name, type, price, image: req.fileName });
+    res.json({
+      status: "success",
+      message: "Add new flag successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function editFlag(req, res, next) {
+  try {
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.detail = detail;
 exports.search = search;
 exports.type = type;
 exports.addToCart = addToCart;
 exports.addFlagView = addFlagView;
 exports.editFlagView = editFlagView;
+exports.addFlag = addFlag;
+exports.editFlag = editFlag;

@@ -42,7 +42,7 @@
     <div class="d-flex flex-column justify-content-center align-items-center">
       <div class="justify-content-center intro p-3 mx-2">
         <div style="color: #f0f2f5; visibility: hidden">Ignore text</div>
-        <div class="fs-1 text-center pe-3 fw-bold text-dark" style="width: 30rem">
+        <div class="fs-1 text-center pe-3 fw-bold text-dark" style="width: 30rem" id="pageMode">
           <%= mode === "add" ? "Add new flag" : "Edit flag" %>
         </div>
       </div>
@@ -79,9 +79,22 @@
     </div>
     <div class="d-flex flex-row justify-content-center p-5">
       <button class="col-3 p-1 m-3 btn btn-outline-danger" id="resetFlagMnBtn">Reset</button>
-      <button class="col-3 p-1 m-3 btn btn-outline-success">Confirm</button>
+      <button class="col-3 p-1 m-3 btn btn-outline-success" onclick="submitForm()">Confirm</button>
+      <div aria-live="polite" aria-atomic="true" class="position-relative">
+        <div class="toast-container d-none p-3" data-bs-container="body">
+          <div class="toast align-items-center d-flex" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="8000" id="toastMainTag">
+            <i class="m-2 fa-solid fs-4" id="toastIcon"></i>
+            <div class="toast-body" id="toast-body"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <% if (mode === "edit") { %>
+  <div class="d-none" id="flagIDTag"><%= flag._id %></div>
+  <% } %>
+
   <!-- ===================FOOTER=================== -->
   <%- include('./partials/footer.ejs') %>
   <!-- ===================FOOTER=================== -->
@@ -89,7 +102,7 @@
   <script>
     $("#formFile").fileinput({
       initialPreview: [
-        "<img class='kv-preview-data file-preview-image' src='/flags/<%= flag.image %>'>"
+        "<img id='previewFlag' class='kv-preview-data file-preview-image' src='/flags/<%= flag.image %>'>"
       ],
       initialCaption: '<%= flag.image %>',
       autoReplace: true,
@@ -171,28 +184,84 @@
         window.location.href = $(this).attr("href");
       });
     });
-    $(document).ready(function() {
-      $(".btn-outline-danger").click(function() {
-        const username = $(this).closest("tr").find("td:eq(0)").text().trim();
-
-        $("#deleteUserMessage").html(`
-          <span>Are you sure you want to delete user <strong>${username}</strong><span>?`);
-        $("#confirmDeleteBtn").removeAttr("username");
-        $("#confirmDeleteBtn").attr("username", username);
-
-        $("#deleteUserModal").modal("show");
-      });
-    });
 
     $(document).ready(function() {
       $("#resetFlagMnBtn").click(function() {
         $('input[type="text"]').val("");
         $('input[type="number"]').val("");
         $("#category").prop("selectedIndex", 0);
-
         $(".fileinput-remove").click();
       });
     });
+
+    function showToast(status, message) {
+      $("#toastMainTag").removeClass("text-bg-danger");
+      $("#toastMainTag").removeClass("text-bg-success");
+      $("#toastIcon").removeClass("fa-exclamation-circle");
+      $("#toastIcon").removeClass("fa-circle-check");
+
+      if (status === "fail") {
+        $("#toastMainTag").addClass("text-bg-danger");
+        $("#toastIcon").addClass("fa-exclamation-circle");
+      } else {
+        $("#toastMainTag").addClass("text-bg-success");
+        $("#toastIcon").addClass("fa-circle-check");
+      }
+
+      $(".toast-body").text(message);
+      $(".toast-container").removeClass("d-none");
+      $(".toast").toast("show");
+    }
+
+    function submitForm() {
+      const mode = $("#pageMode").html().trim().toLowerCase();
+      const category = $("#category").find(":selected").val();
+      const name = $("#flag-name").val();
+      const price = $("#flag-price").val();
+      const image = $("#formFile").prop("files")[0];
+      if (category === "" || name === "" || price === "") {
+        showToast("fail", "Please fill out all the fields");
+        return;
+      }
+      if (mode === "edit flag") {
+        if (image === undefined) {
+          const previewImage = $("#previewFlag")[0];
+          if (previewImage === undefined) {
+            showToast("fail", "Please give an image for the flag");
+            return;
+          }
+        }
+      } else {
+        if (image === undefined) {
+          showToast("fail", "Please give an image for the flag");
+          return;
+        }
+      }
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("price", price);
+      formData.append("name", name);
+      formData.append("type", category);
+      if (mode === "edit flag") {
+        const flagID = $("#flagIDTag").html().trim();
+        formData.append("flagID", flagID);
+      }
+      $.ajax({
+        url: mode === "edit flag" ? "/product/editFlag" : "/product/addFlag",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          if (data.status === "success") {
+            showToast(data.status, data.message);
+            setTimeout(() => window.location.href = "/product/search", 2000);
+          } else {
+            showToast("fail", data.message || "Server error");
+          }
+        }
+      });
+    }
   </script>
 </body>
 
