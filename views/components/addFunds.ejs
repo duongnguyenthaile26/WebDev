@@ -1,58 +1,128 @@
-<div class="modal fade >" id="AddMoneyModal" tabindex="-1" aria-labelledby="AddMoneyModalLabel" aria-hidden="true">
+<div
+  class="modal fade >"
+  id="AddMoneyModal"
+  tabindex="-1"
+  aria-labelledby="AddMoneyModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
         <div class="d-flex justify-content-end">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="container justify-content-center">
           <div class="row px-3 px-sm-0" style="width: 100%">
-            <div class="content-left col-12 d-none col-sm-5 d-sm-block" style="padding-right: 2.5rem; margin-top: 0px">
+            <div
+              class="content-left col-12 d-none col-sm-5 d-sm-block"
+              style="padding-right: 2.5rem; margin-top: 0px"
+            >
               <h1 class="brand mb-5">PAYMENT DETAILS</h1>
               <div class="detail mb-2">Payment method</div>
               <div class="payment-method">
-                <input type="radio" name="payment-method" id="method-1" />
+                <input
+                  type="radio"
+                  name="payment-method"
+                  value="visa"
+                  id="method-1"
+                />
                 <label for="method-1" class="payment-method-item">
                   <img src="/images/visa.png" alt="" />
                 </label>
-                <input type="radio" name="payment-method" id="method-2" />
+                <input
+                  type="radio"
+                  name="payment-method"
+                  value="mastercard"
+                  id="method-2"
+                />
                 <label for="method-2" class="payment-method-item">
                   <img src="/images/mastercard.png" alt="" />
                 </label>
                 <input type="radio" name="payment-method" id="method-3" />
               </div>
             </div>
-            <div class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3">
+            <div
+              class="content-right col-sm-7 col-12 d-flex flex-column gap-3 py-3"
+            >
               <div class="mb-1">
-                <label for="payment-amount" class="form-label">Payment amount:</label>
+                <label for="payment-amount" class="form-label"
+                  >Payment amount:</label
+                >
                 <div class="input-group">
                   <span class="input-group-text border border-success">
                     <i class="fa-solid fa-dollar-sign text-success"></i>
                   </span>
-                  <input type="number" id="payment-amount" class="form-control payment-amount-input border border-success" name="payment-amount" placeholder="Payment amount" required />
+                  <input
+                    type="number"
+                    id="payment-amount"
+                    class="form-control payment-amount-input border border-success"
+                    name="payment-amount"
+                    placeholder="Payment amount"
+                    required
+                  />
                 </div>
               </div>
               <div class="mb-1">
-                <label for="name-on-card" class="form-label">Name on card:</label>
-                <input type="text" id="name-on-card" class="form-control name-on-card-input" name="name-on-card" placeholder="Name on card" required />
+                <label for="name-on-card" class="form-label"
+                  >Name on card:</label
+                >
+                <input
+                  type="text"
+                  id="name-on-card"
+                  class="form-control name-on-card-input"
+                  name="name-on-card"
+                  placeholder="Name on card"
+                  required
+                />
               </div>
               <div class="mb-1">
                 <label for="card-number" class="form-label">Card number:</label>
-                <input type="text" id="card-number" class="form-control card-number-input" name="card-number" placeholder="Card number" required />
+                <input
+                  type="text"
+                  id="card-number"
+                  class="form-control card-number-input"
+                  name="card-number"
+                  placeholder="Card number"
+                  required
+                />
               </div>
               <div class="mb-1 d-flex flex-row justify-content-between w-100">
                 <div class="col-6">
                   <label for="expiry" class="form-label">Expiry date:</label>
-                  <input type="text" class="form-control expiry-input" id="expiry" name="expiry" placeholder="mm/yy" maxlength="5" required />
+                  <input
+                    type="text"
+                    class="form-control expiry-input"
+                    id="expiry"
+                    name="expiry"
+                    placeholder="mm/yy"
+                    maxlength="5"
+                    required
+                  />
                 </div>
                 <div class="col-5">
                   <label for="cvv" class="form-label">CVV:</label>
-                  <input type="text" class="form-control cvv-input" id="cvv" name="cvv" placeholder="CVV" required />
+                  <input
+                    type="text"
+                    class="form-control cvv-input"
+                    id="cvv"
+                    name="cvv"
+                    placeholder="CVV"
+                    required
+                  />
                 </div>
               </div>
 
               <div class="text-center mt-5">
-                <button type="button" class="btn btn-outline-primary w-100" id="confirmFundBtn">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary w-100"
+                  id="confirmFundBtn"
+                >
                   <i class="fa-solid fa-wallet p-2"></i>Pay
                 </button>
               </div>

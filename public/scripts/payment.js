@@ -2,7 +2,7 @@ $(document).ready(async function () {
   const odometerBalance = $("#odometer-balance");
   const odometerCheckout = $("#odometer-checkout");
   const checkoutTotal = Number($(".total-cart-price").text()); // số tiền phải trả
-  const currentBalance = await new Promise((resolve, reject) => {
+  let currentBalance = await new Promise((resolve, reject) => {
     $.get("/checkout/balance", function (data) {
       // Nếu status === fail => data.balance = -1
       resolve(data.balance);
@@ -26,6 +26,26 @@ $(document).ready(async function () {
     ) {
       // gửi một POST request về server (clear giỏ hàng)
       // hiện thông báo thanh toán thành công
+      console.log(checkoutTotal);
+      $.post(
+        "/checkout/payment",
+        {
+          amount: checkoutTotal,
+          name: payName,
+          address: payAddress,
+          email: payEmail,
+          phone: payPhoneNum,
+        },
+        function (data) {
+          if (data.status === "success")
+            setTimeout(function () {
+              window.location.href = "/checkout/cart";
+            }, 3000);
+          else {
+            // xử lí fail
+          }
+        }
+      );
       // chuyển về trang /checkout/cart sau 3s
     } else {
       let alert = "Please fill out the fields";
@@ -49,12 +69,16 @@ $(document).ready(async function () {
     const cardNumber = $(".card-number-input").val();
     const expiry = $(".expiry-input").val();
     const cvv = $(".cvv-input").val();
+    const method = $(
+      '.payment-method input[name="payment-method"]:checked'
+    ).val();
     if (
       paymentAmount !== "" &&
       cardName !== "" &&
       cardNumber !== "" &&
       expiry !== "" &&
-      cvv != ""
+      cvv != "" &&
+      method
     ) {
       // Show loader
       $("#loader-container").fadeIn();
@@ -65,8 +89,32 @@ $(document).ready(async function () {
         $("body > *:not(#loader-container)").removeClass("blurred");
 
         // Display success message or perform other actions
-        //alert("Payment successful!");
-        currentBalance += Number(paymentAmount);
+        $.post(
+          "/checkout/deposit",
+          {
+            amount: paymentAmount,
+            bankCard: {
+              method: method,
+              id: cardNumber,
+              holder: cardName,
+              issueDate: expiry,
+              cvv: cvv,
+            },
+          },
+          function (data) {
+            console.log(data);
+            if (data.status === "success") {
+              currentBalance = data.balance;
+              alert("Add fund successfully!");
+              $("#AddMoneyModal").modal("hide"); // Đóng modal cũ
+              $("#AddMoneyModal input").val(""); // clear bank information
+              $("#PayModal").modal("show"); // Mở modal mới
+            } else {
+              // data.staus === "fail"
+              alert("Error: " + data.message);
+            }
+          }
+        );
       }, 3000);
     } else {
       const alertHtml = `
@@ -139,14 +187,19 @@ $(document).ready(async function () {
     }
   });
 
-  $('#expiry').on('keydown', function (event) {
-    var inputValue = $(this).val().replace(/[^0-9/]/g, '');
+  $("#expiry").on("keydown", function (event) {
+    var inputValue = $(this)
+      .val()
+      .replace(/[^0-9/]/g, "");
 
-    if ((inputValue.includes('/') || inputValue.length < 1) && event.key === '/') {
+    if (
+      (inputValue.includes("/") || inputValue.length < 1) &&
+      event.key === "/"
+    ) {
       event.preventDefault();
     }
 
-    if (event.which === 8 && inputValue.charAt(inputValue.length - 1) === '/') {
+    if (event.which === 8 && inputValue.charAt(inputValue.length - 1) === "/") {
       inputValue = inputValue.slice(0, -2);
       $(this).val(inputValue);
       event.preventDefault();
@@ -157,25 +210,27 @@ $(document).ready(async function () {
     }
   });
 
-  $('#expiry').on('input', function(e) {
-    var inputValue = $(this).val().replace(/[^0-9/]/g, '');
+  $("#expiry").on("input", function (e) {
+    var inputValue = $(this)
+      .val()
+      .replace(/[^0-9/]/g, "");
 
     // Add leading zero if only one number is pressed
-    if (inputValue.length === 2 && inputValue.charAt(1) === '/') {
-      if (inputValue.charAt(0) !== '0') {
-        inputValue = '0' + inputValue;
+    if (inputValue.length === 2 && inputValue.charAt(1) === "/") {
+      if (inputValue.charAt(0) !== "0") {
+        inputValue = "0" + inputValue;
       } else {
-        inputValue = '01';
+        inputValue = "01";
       }
     }
 
     // Format month when pressing two numbers
     if (inputValue.length === 2) {
       if (parseInt(inputValue) > 12) {
-        inputValue = '12';
+        inputValue = "12";
       }
       if (parseInt(inputValue) < 1) {
-        inputValue = '01';
+        inputValue = "01";
       }
     }
 
@@ -183,27 +238,27 @@ $(document).ready(async function () {
     if (inputValue.length >= 2) {
       var month = inputValue.substring(0, 2);
       if (parseInt(month) > 12) {
-        month = '12';
+        month = "12";
       }
       inputValue = month + inputValue.substring(2);
     }
 
     // Add "/" after the month
-    if (inputValue.length >= 2 && inputValue.charAt(2) !== '/') {
-      inputValue = inputValue.substring(0, 2) + '/' + inputValue.substring(2);
+    if (inputValue.length >= 2 && inputValue.charAt(2) !== "/") {
+      inputValue = inputValue.substring(0, 2) + "/" + inputValue.substring(2);
     }
 
     // Format year
     if (inputValue.length >= 5) {
       var year = inputValue.substring(3, 5);
       if (parseInt(year) > 24) {
-        year = '24';
+        year = "24";
       }
       inputValue = inputValue.substring(0, 3) + year;
     }
 
     // Block the '/' key if input value is more than 2 characters
-    if (inputValue.length > 2 && e.key === '/' && e.keyCode === 191) {
+    if (inputValue.length > 2 && e.key === "/" && e.keyCode === 191) {
       e.preventDefault();
     }
 

@@ -3,17 +3,7 @@ const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const User = require(path.join(__dirname, "..", "models", "user"));
 const AuxApi = require(path.join(__dirname, "..", "utilities", "AuxApi"));
-const axios = require("axios");
-const https = require("https");
-const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
-
-const httpsAgent = new https.Agent({
-  rejectUnauthorized: false,
-});
-
-const iss = process.env.ISSUER;
-const aud = process.env.AUDIENCE;
 
 async function cart(req, res, next) {
   try {
@@ -67,67 +57,6 @@ async function cart(req, res, next) {
   }
 }
 
-function generateToken() {
-  const payload = {
-    iss,
-    aud,
-    iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + 60 * 60,
-  };
-  return jwt.sign(payload, process.env.JWT_SECRET);
-}
-
-async function payment(req, res, next) {
-  try {
-    const token = generateToken();
-    const response = await axios.post(
-      "https://127.0.0.1:8000/api/test",
-      { message: "Hello World" },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        httpsAgent,
-      }
-    );
-    res.json(response.data);
-  } catch (error) {
-    next(error);
-  }
-}
-
-async function getBalance(req, res, next) {
-  try {
-    console.log(req.user);
-    let wallet = null;
-    const resGetWallet = await AuxApi.getWallet(req.user.username);
-    if (
-      resGetWallet.status === "fail" &&
-      resGetWallet.message === "Wallet Not Found"
-    ) {
-      const resAddWallet = await AuxApi.addWallet(req.user.username);
-      if (resAddWallet.status === "success") {
-        wallet = resAddWallet.wallet;
-      }
-    } else if (resGetWallet.status === "success") {
-      wallet = resGetWallet.wallet;
-    }
-    console.log(wallet);
-    if (!wallet) {
-      return res.json({
-        status: "fail",
-        message: "get balance failed",
-        balance: -1,
-      });
-    }
-    res.json({
-      status: "success",
-      message: "get balance successfully",
-      balance: wallet.balance,
-    });
-  } catch (error) {
-    next(error);
-  }
-}
-
 async function removeItem(req, res, next) {
   try {
     const user = await User.findOne({ username: req.user.username });
@@ -147,7 +76,107 @@ async function removeItem(req, res, next) {
   }
 }
 
-exports.payment = payment;
+async function payment(req, res, next) {
+  try {
+    const data = await AuxApi.pay(req.body.amount, req.user.username);
+    if (data.status === "fail") {
+      return res.json(data);
+    }
+    const transaction = data.transaction;
+    const user = await User.findOne({ username: req.user.username });
+    const flags = [];
+    for (let i = 0; i < user.cart.length; i++) {
+      const flag = { quantity: user.cart[i].quantity };
+      const flagInfo = await Flag.findOne({ _id: user.cart[i].flagID }).select(
+        "-__v"
+      );
+      flag.name = flagInfo.name;
+      flag.price = flagInfo.price;
+      flag.totalPrice = flag.price * flag.quantity;
+      flags.push(flag);
+    }
+    const total = Number(transaction.amount);
+
+    //TODO: send oder to user email
+    const order = {
+      name: req.body.name,
+      address: req.body.address,
+      email: req.body.email,
+      phone: req.body.phone,
+      createDate: transaction.createDate,
+      transactionId: transaction._id,
+      total: total,
+      flags: flags,
+    };
+    user.orderList.push(order);
+
+    user.cart = [];
+    user.markModified("orderList");
+    user.markModified("cart");
+    console.log(user);
+    await user.save();
+    res.json({ status: "success" });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function deposit(req, res, next) {
+  try {
+    const bankCard = req.body.bankCard;
+    const amount = req.body.amount;
+    const username = req.user.username;
+    const data = await AuxApi.deposit(amount, bankCard, username);
+    if (data.status === "fail") {
+      return res.json(data);
+    }
+
+    res.json({
+      status: "success",
+      message: data.message,
+      balance: data.balance,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getBalance(req, res, next) {
+  try {
+    console.log(req.user);
+    let wallet = null;
+    const dataGetWallet = await AuxApi.getWallet(req.user.username);
+    if (
+      dataGetWallet.status === "fail" &&
+      dataGetWallet.message === "Wallet Not Found"
+    ) {
+      const dataAddWallet = await AuxApi.addWallet(req.user.username);
+      if (dataAddWallet.status === "success") {
+        wallet = dataAddWallet.wallet;
+      }
+    } else if (dataGetWallet.status === "success") {
+      wallet = dataGetWallet.wallet;
+    }
+    console.log(wallet);
+    if (!wallet) {
+      return res.json({
+        status: "fail",
+        message: "get balance failed",
+        balance: -1,
+      });
+    }
+    res.json({
+      status: "success",
+      message: "get balance successfully",
+      balance: wallet.balance,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.cart = cart;
 exports.removeItem = removeItem;
+exports.payment = payment;
+exports.deposit = deposit;
 exports.getBalance = getBalance;

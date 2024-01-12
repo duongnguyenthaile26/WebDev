@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const transactionchema = new mongoose.Schema({
-  orderId: { type: String },
   createDate: { type: Date, required: true },
   command: {
     type: String,
@@ -11,7 +10,7 @@ const transactionchema = new mongoose.Schema({
   },
   amount: { type: Number, require: true },
   content: { type: String },
-  username: { type: String, require: true },
+  username: { type: String, require: true, unique: true },
 });
 const Transaction = mongoose.model("transaction", transactionchema);
 

@@ -44,26 +44,25 @@ async function getWallet(username) {
   return respone.data;
 }
 
-async function deposit(amount, bankCard, wallet) {
+async function deposit(amount, bankCard, username) {
   const token = generateToken();
-  const respone = await axios.get(
+  const respone = await axios.post(
     `https://127.0.0.1:8000/api/deposit`,
-    // Lưu ý cấu trúc wallet: {userId}
-    { amount, bankCard, wallet },
+    { amount, bankCard, username },
     {
       headers: { Authorization: `Bearer ${token}` },
       httpsAgent,
     }
   );
+  console.log(3);
   return respone.data;
 }
 
-async function pay(userId) {
+async function pay(amount, username) {
   const token = generateToken();
   const respone = await axios.post(
     `https://127.0.0.1:8000/api/pay`,
-    // Lưu ý cấu trúc wallet: {userId}
-    { amount, wallet },
+    { amount, username },
     {
       headers: { Authorization: `Bearer ${token}` },
       httpsAgent,
