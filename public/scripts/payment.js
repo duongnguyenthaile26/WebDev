@@ -1,8 +1,13 @@
-$(document).ready(function () {
+$(document).ready(async function () {
   const odometerBalance = $("#odometer-balance");
   const odometerCheckout = $("#odometer-checkout");
   const checkoutTotal = Number($(".total-cart-price").text()); // số tiền phải trả
-  const currentBalance = Number($("#user-balance").text()) || 0; // số tiền hiện có trong ví
+  const currentBalance = await new Promise((resolve, reject) => {
+    $.get("/checkout/balance", function (data) {
+      // Nếu status === fail => data.balance = -1
+      resolve(data.balance);
+    });
+  }); // số tiền hiện có trong ví
   setInterval(function () {
     odometerBalance.text(currentBalance);
     odometerCheckout.text(checkoutTotal);
@@ -132,6 +137,77 @@ $(document).ready(function () {
       event.preventDefault();
       processAddFunds();
     }
+  });
+
+  $('#expiry').on('keydown', function (event) {
+    var inputValue = $(this).val().replace(/[^0-9/]/g, '');
+
+    if ((inputValue.includes('/') || inputValue.length < 1) && event.key === '/') {
+      event.preventDefault();
+    }
+
+    if (event.which === 8 && inputValue.charAt(inputValue.length - 1) === '/') {
+      inputValue = inputValue.slice(0, -2);
+      $(this).val(inputValue);
+      event.preventDefault();
+    }
+
+    if (event.which === 37 || event.which === 39) {
+      event.preventDefault();
+    }
+  });
+
+  $('#expiry').on('input', function(e) {
+    var inputValue = $(this).val().replace(/[^0-9/]/g, '');
+
+    // Add leading zero if only one number is pressed
+    if (inputValue.length === 2 && inputValue.charAt(1) === '/') {
+      if (inputValue.charAt(0) !== '0') {
+        inputValue = '0' + inputValue;
+      } else {
+        inputValue = '01';
+      }
+    }
+
+    // Format month when pressing two numbers
+    if (inputValue.length === 2) {
+      if (parseInt(inputValue) > 12) {
+        inputValue = '12';
+      }
+      if (parseInt(inputValue) < 1) {
+        inputValue = '01';
+      }
+    }
+
+    // Format month
+    if (inputValue.length >= 2) {
+      var month = inputValue.substring(0, 2);
+      if (parseInt(month) > 12) {
+        month = '12';
+      }
+      inputValue = month + inputValue.substring(2);
+    }
+
+    // Add "/" after the month
+    if (inputValue.length >= 2 && inputValue.charAt(2) !== '/') {
+      inputValue = inputValue.substring(0, 2) + '/' + inputValue.substring(2);
+    }
+
+    // Format year
+    if (inputValue.length >= 5) {
+      var year = inputValue.substring(3, 5);
+      if (parseInt(year) > 24) {
+        year = '24';
+      }
+      inputValue = inputValue.substring(0, 3) + year;
+    }
+
+    // Block the '/' key if input value is more than 2 characters
+    if (inputValue.length > 2 && e.key === '/' && e.keyCode === 191) {
+      e.preventDefault();
+    }
+
+    $(this).val(inputValue);
   });
 
   $(".cvv-input").keypress(function (event) {

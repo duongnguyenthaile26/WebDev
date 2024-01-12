@@ -1,6 +1,4 @@
-const mongoose = require("mongoose");
 const path = require("path");
-const { stringify } = require("querystring");
 const BankCard = require(path.join(__dirname, "..", "models", "bankCard"));
 const Transaction = require(path.join(
   __dirname,
@@ -21,18 +19,10 @@ function test(req, res, next) {
 
 async function getWallet(req, res, next) {
   try {
-    const id = req.params.userId;
-    if (typeof id !== "string" || id.length !== 24) {
-      return res.json({
-        status: "fail",
-        statusCode: 404,
-        message: "Invalid Id",
-      });
-    }
-    const wallet = await Wallet.find({ userId: id }).select(
-      "-_id -username -__v"
-    );
-    if (!wallet.length) {
+    const username = req.params.username;
+
+    const wallet = await Wallet.findOne({ username }).select("-_id -__v");
+    if (!wallet) {
       return res.json({
         status: "fail",
         statusCode: 404,
@@ -44,27 +34,34 @@ async function getWallet(req, res, next) {
       status: "success",
       statusCode: 200,
       message: "Get wallet cuccessfully",
-      wallet: wallet[0],
+      wallet,
     });
   } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
     next(error);
   }
 }
 async function addWallet(req, res, next) {
   try {
-    const userId = req.body.userId;
     const username = req.body.username;
-    const walletExist = await Wallet.findOne({ userId });
+    const walletExist = await Wallet.findOne({ username });
     if (walletExist) {
       return res.json({ status: "fail", message: "Wallet already exist" });
     }
-    const wallet = await Wallet.create({ userId, username, balance: 0 });
+    const wallet = await Wallet.create({ username, balance: 0 });
     res.json({
       status: "success",
       message: "Add new wallet successfully",
       wallet,
     });
   } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
     next(error);
   }
 }
@@ -81,7 +78,7 @@ async function deposit(req, res, next) {
       return res.json({ status: "fail", message: "Insufficient funds" });
     }
 
-    const wallet = await Wallet.findOne({ userId: req.body.wallet.userId });
+    const wallet = await Wallet.findOne({ username: req.body.username });
     if (!wallet) {
       return res.json({ status: "fail", message: "Wallet not found" });
     }
@@ -99,10 +96,7 @@ async function deposit(req, res, next) {
       command: "deposit",
       amount: depositAmount,
       content: "deposit money to wallet",
-      wallet: {
-        userId: wallet.userId,
-        username: wallet.username,
-      },
+      username: wallet.username,
     });
 
     await res.json({
@@ -112,14 +106,18 @@ async function deposit(req, res, next) {
       transaction,
     });
   } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
     next(error);
   }
 }
 async function pay(req, res, next) {
   try {
     const payAmount = req.body.amount;
-
-    const wallet = await Wallet.findOne({ userId: req.body.wallet.userId });
+    const orderId = req.body.orderId || "Not Found";
+    const wallet = await Wallet.findOne({ username: req.body.username });
     if (!wallet) {
       return res.json({ status: "fail", message: "Wallet not found" });
     }
@@ -132,15 +130,12 @@ async function pay(req, res, next) {
     await wallet.save();
 
     const transaction = await Transaction.create({
-      orderId: req.body.orderId,
+      orderId,
       createDate: Date.now(),
       command: "pay",
       amount: payAmount,
       content: "pay money on Flagbay",
-      wallet: {
-        userId: wallet.userId,
-        username: wallet.username,
-      },
+      username: wallet.username,
     });
 
     await res.json({
@@ -150,6 +145,10 @@ async function pay(req, res, next) {
       transaction,
     });
   } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
     next(error);
   }
 }
@@ -162,6 +161,10 @@ async function getAllTransaction(req, res, next) {
       transactions,
     });
   } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
     next(error);
   }
 }

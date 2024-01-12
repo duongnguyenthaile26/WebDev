@@ -14,7 +14,7 @@ router.route("/test").post(verifyToken, controller.test);
 
 router.route("/wallet").post(controller.addWallet);
 
-router.route("/wallet/:userId").get(controller.getWallet);
+router.route("/wallet/:username").get(controller.getWallet);
 
 router.route("/deposit").post(controller.deposit);
 
