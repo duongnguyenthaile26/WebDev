@@ -200,17 +200,22 @@
       });
 
       $("#confirmDeleteBtn").click(function() {
-        const productName = $(this).attr("productName");
-        // Thực hiện xóa sản phẩm ở đây
-        // ...
-        // Hiển thị thông báo xóa thành công
-        alert(`Product "${productName}" has been deleted successfully.`);
-        // Chuyển hướng đến trang quản lý sản phẩm sau khi xóa 
-        window.location.href = "/product/search";
+        const currentURLParts = window.location.href.split("/");
+        const flagId = currentURLParts[currentURLParts.length - 1];
+        $.ajax({
+          url: `/product/detail/${flagId}`,
+          type: "DELETE",
+          success: function(data) {
+            console.log(data);
+            if (data.status === "success") {
+              window.location.href = "/product/search"
+            }
+          }
+        });
       });
     });
     $(".btn.btn-warning").click(function() {
-      var flagId = $(".flag-id").text().trim();
+      const flagId = $(".flag-id").text().trim();
       window.location.href = "/product/editFlag/" + flagId;
     });
   </script>
