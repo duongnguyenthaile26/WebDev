@@ -8,15 +8,6 @@ const Transaction = require(path.join(
 ));
 const Wallet = require(path.join(__dirname, "..", "models", "wallet"));
 
-function test(req, res, next) {
-  res.json({
-    status: "success",
-    statusCode: 200,
-    message: "Test success",
-    data: req.decoded,
-  });
-}
-
 async function getWallet(req, res, next) {
   try {
     const username = req.params.username;
@@ -67,7 +58,7 @@ async function addWallet(req, res, next) {
 }
 async function deposit(req, res, next) {
   try {
-    const depositAmount = req.body.amount;
+    const depositAmount = Number(req.body.amount);
 
     const bankCard = await BankCard.findOne(req.body.bankCard);
     if (!bankCard) {
@@ -115,8 +106,8 @@ async function deposit(req, res, next) {
 }
 async function pay(req, res, next) {
   try {
-    const payAmount = req.body.amount;
-    const orderId = req.body.orderId || "Not Found";
+    console.log(req.body.amount);
+    const payAmount = Number(req.body.amount);
     const wallet = await Wallet.findOne({ username: req.body.username });
     if (!wallet) {
       return res.json({ status: "fail", message: "Wallet not found" });
@@ -130,17 +121,16 @@ async function pay(req, res, next) {
     await wallet.save();
 
     const transaction = await Transaction.create({
-      orderId,
       createDate: Date.now(),
       command: "pay",
       amount: payAmount,
-      content: "pay money on Flagbay",
+      content: "Pay money on Flagbay",
       username: wallet.username,
     });
 
     await res.json({
       status: "success",
-      message: "Deposit successfully",
+      message: "Pay successfully",
       balance: wallet.balance,
       transaction,
     });
@@ -169,7 +159,6 @@ async function getAllTransaction(req, res, next) {
   }
 }
 
-exports.test = test;
 exports.getWallet = getWallet;
 exports.addWallet = addWallet;
 exports.deposit = deposit;

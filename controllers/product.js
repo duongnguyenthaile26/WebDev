@@ -170,33 +170,17 @@ async function editFlagView(req, res, next) {
 
 async function unlinkFile(fileName) {
   try {
-    await fs.promises.unlink(
-      path.join(__dirname, "..", "public", "flags", fileName)
-    );
+    const filePath = path.join(__dirname, "..", "public", "flags", fileName);
+    await fs.promises.access(filePath, fs.constants.F_OK);
+    await fs.promises.unlink(filePath);
   } catch (error) {
-    throw error;
+    return;
   }
 }
 
 async function addFlag(req, res, next) {
   try {
     const { name, type, price } = req.body;
-    const checkName = await Flag.findOne({ name });
-    if (checkName) {
-      await unlinkFile(req.fileName);
-      return res.json({
-        status: "fail",
-        message: "Flag name already existed",
-      });
-    }
-    const checkCategory = await Category.findOne({ name: type });
-    if (!checkCategory) {
-      await unlinkFile(req.fileName);
-      return res.json({
-        status: "fail",
-        message: "Category does not exist",
-      });
-    }
     await Flag.create({ name, type, price, image: req.fileName });
     res.json({
       status: "success",
@@ -209,6 +193,42 @@ async function addFlag(req, res, next) {
 
 async function editFlag(req, res, next) {
   try {
+    const { flagId } = req.params;
+    const { name, price, type } = req.body;
+    const image = req.fileName;
+    const flag = await Flag.findById(flagId);
+
+    flag.name = name;
+    flag.markModified("name");
+
+    flag.price = price;
+    flag.markModified("price");
+
+    flag.type = type;
+    flag.markModified("type");
+
+    if (image) {
+      await unlinkFile(flag.image);
+      flag.image = image;
+      flag.markModified("image");
+    }
+    await flag.save();
+    res.json({
+      status: "success",
+      message: "Edit flag successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function deleteFlag(req, res, next) {
+  try {
+    const { flagId } = req.params;
+    const flag = await Flag.findById(flagId);
+    await unlinkFile(flag.image);
+    await Flag.deleteOne({ _id: flagId });
+    res.json({ status: "success", message: "Delete flag successfully" });
   } catch (error) {
     next(error);
   }
@@ -222,3 +242,4 @@ exports.addFlagView = addFlagView;
 exports.editFlagView = editFlagView;
 exports.addFlag = addFlag;
 exports.editFlag = editFlag;
+exports.deleteFlag = deleteFlag;

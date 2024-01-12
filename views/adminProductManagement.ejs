@@ -91,9 +91,6 @@
       </div>
     </div>
   </div>
-  <% if (mode === "edit") { %>
-  <div class="d-none" id="flagIDTag"><%= flag._id %></div>
-  <% } %>
 
   <!-- ===================FOOTER=================== -->
   <%- include('./partials/footer.ejs') %>
@@ -242,17 +239,15 @@
       formData.append("price", price);
       formData.append("name", name);
       formData.append("type", category);
-      if (mode === "edit flag") {
-        const flagID = $("#flagIDTag").html().trim();
-        formData.append("flagID", flagID);
-      }
+      const currentURLParts = window.location.href.split("/");
       $.ajax({
-        url: mode === "edit flag" ? "/product/editFlag" : "/product/addFlag",
+        url: mode === "edit flag" ? `/product/editFlag/${currentURLParts[currentURLParts.length - 1]}` : "/product/addFlag",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
         success: function(data) {
+          console.log(data);
           if (data.status === "success") {
             showToast(data.status, data.message);
             setTimeout(() => window.location.href = "/product/search", 2000);
