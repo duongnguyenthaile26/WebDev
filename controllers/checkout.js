@@ -177,11 +177,22 @@ async function getBalance(req, res, next) {
 async function purchaseHistory(req, res, next) {
   try {
     const user = await User.findOne({ username: req.user.username });
-    // Làm xong file ejs thì xóa cái này
-    res.json({
-      status: "success",
-      orderList: user.orderList,
-    });
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map((category) => category.name);
+    const data = await AuxApi.pay(req.body.amount, req.user.username); 
+    const transaction = data.transaction;
+    const flags = [];
+    for (let i = 0; i < user.cart.length; i++) {
+      const flag = { quantity: user.cart[i].quantity };
+      const flagInfo = await Flag.findOne({ _id: user.cart[i].flagID }).select(
+        "-__v"
+      );
+      flag.name = flagInfo.name;
+      flag.price = flagInfo.price;
+      flag.totalPrice = flag.price * flag.quantity;
+      flags.push(flag);
+    }
+    const total = Number(transaction.amount);
     /*
     trong hàm payment dòng 101
     orderList:{
@@ -198,7 +209,21 @@ async function purchaseHistory(req, res, next) {
       ]
     }
     */
-    // res.render("purchase", { orderList: orderList });
+    const orderList = {
+      name: req.body.name,
+      address: req.body.address,
+      email: req.body.email,
+      phone: req.body.phone,
+      createDate: transaction.createDate,
+      transactionId: transaction._id,
+      total: total,
+      flags: flags,
+    };
+    res.render("purchaseHistory", { 
+      user: req.user,
+      orderList: orderList,
+      options,
+    });
   } catch (error) {
     next(error);
   }

@@ -127,18 +127,24 @@ async function addCategory(req, res, next) {
 
 async function transaction(req, res, next) {
   try {
+    const categories = await Category.find({}).select("-__v");
+
     const data = await AuxApi.getAllTransaction();
     if (data.status == "fail") {
       return res.json(data);
     }
     // Thêm file transaction.ejs vào rồi thì comment cái này
-    res.json({
-      status: "success",
-      message: "Get all transaction successfully",
-      transactions: data.transactions,
-    });
+    // res.json({
+    //   status: "success",
+    //   message: "Get all transaction successfully",
+    //   transactions: data.transactions,
+    // });
     // Thêm file transaction.ejs vào rồi thì uncomment cái này
-    // res.render("transaction", { transactions: data.transactions });
+    res.render("adminTransaction", { 
+      transactions: data.transactions,
+      user: req.user,
+      categories,
+    });
   } catch (error) {
     next(error);
   }
