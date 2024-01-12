@@ -4,7 +4,7 @@ const Category = require(path.join(__dirname, "..", "models", "category"));
 const User = require(path.join(__dirname, "..", "models", "user"));
 const fs = require("fs");
 const exp = require("constants");
-
+const AuxApi = require(path.join(__dirname, "..", "utilities", "AuxApi"));
 async function userManagement(req, res, next) {
   try {
     const users = await User.find({ role: { $ne: "admin" } }).select(
@@ -125,9 +125,29 @@ async function addCategory(req, res, next) {
   }
 }
 
+async function transaction(req, res, next) {
+  try {
+    const data = await AuxApi.getAllTransaction();
+    if (data.status == "fail") {
+      return res.json(data);
+    }
+    // Thêm file transaction.ejs vào rồi thì comment cái này
+    res.json({
+      status: "success",
+      message: "Get all transaction successfully",
+      transactions: data.transactions,
+    });
+    // Thêm file transaction.ejg vào rồi thì uncomment cái này
+    // res.render("transaction", { transactions: data.transactions });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.userManagement = userManagement;
 exports.categoryManagement = categoryManagement;
 exports.removeUser = removeUser;
 exports.changeName = changeName;
 exports.removeCategory = removeCategory;
 exports.addCategory = addCategory;
+exports.transaction = transaction;
