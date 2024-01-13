@@ -22,7 +22,7 @@ $(document).ready(async function () {
       payName !== "" &&
       payAddress !== "" &&
       payEmail !== "" &&
-      payPhoneNum !== ""
+      (payPhoneNum !== "" && payPhoneNum.length >= 10)
     ) {
       // gửi một POST request về server (clear giỏ hàng)
       // hiện thông báo thanh toán thành công
@@ -48,11 +48,27 @@ $(document).ready(async function () {
       );
       // chuyển về trang /checkout/cart sau 3s
     } else {
-      let alert = "Please fill out the fields";
-      if (currentBalance < checkoutTotal) {
+      let alert;
+
+      if (
+        payName === "" ||
+        payAddress === "" ||
+        payEmail === "" ||
+        payPhoneNum === ""
+      ) {
+        alert = "Please fill out the fields";
+      }
+      
+      else if (currentBalance < checkoutTotal) {
         alert =
           "Your wallet does not have enough balance to place order. Please add more credit to the wallet";
       }
+      // Check phone number
+      else if (payPhoneNum.length < 10) {
+        alert =
+          "Invalid phone number";
+      }
+      else {}
 
       const alertHtml = `
       <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
@@ -66,7 +82,7 @@ $(document).ready(async function () {
   function processAddFunds() {
     const paymentAmount = $(".payment-amount-input").val();
     const cardName = $(".name-on-card-input").val();
-    const cardNumber = $(".card-number-input").val();
+    const cardNumber = $(".card-number-input").val().replace(/\s/g, '');
     const expiry = $(".expiry-input").val();
     const cvv = $(".cvv-input").val();
     const method = $(
@@ -75,9 +91,9 @@ $(document).ready(async function () {
     if (
       paymentAmount !== "" &&
       cardName !== "" &&
-      cardNumber !== "" &&
-      expiry !== "" &&
-      cvv != "" &&
+      (cardNumber !== "" && cardNumber.length === 16) &&
+      (expiry !== "" && expiry.length === 5) &&
+      (cvv !== "" && cvv.length >= 3) &&
       method
     ) {
       // Show loader
@@ -117,9 +133,49 @@ $(document).ready(async function () {
         );
       }, 3000);
     } else {
+      let alert;
+      let currentDate = new Date();
+
+      if (
+        paymentAmount === "" ||
+        cardName === "" ||
+        cardNumber === "" ||
+        expiry === "" ||
+        cvv === ""
+      ) {
+        alert = "Please fill out the fields";
+      }
+      // Check payment amount
+      else if (paymentAmount < 10) {
+        alert =
+          "You must pay at least $10";
+      }
+      // Check card number
+      else if (cardNumber.length < 16) {
+        alert =
+          "Invalid card number";
+      }
+      // Check expiry date
+      else if (parseInt(expiry.substring(0, 2)) < currentDate.getMonth() + 1) {
+        alert =
+          "Your card has expired";
+      }
+      else if (expiry.length < 5) {
+        alert =
+          "Invalid expiry date";
+      }
+      // Check cvv number
+      else if (cvv.length < 3) {
+        alert =
+          "Invalid cvv number";
+      }
+      else {
+        alert = "Please choose a payment method";
+      }
+
       const alertHtml = `
       <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
-        Please fill out the fields
+        ${alert}
       </div>`;
       $(".alert").remove();
       $(".modal-body").prepend(alertHtml);
@@ -154,6 +210,12 @@ $(document).ready(async function () {
     }
   });
 
+  $("#phone").on("input", function () {
+    var phoneNumber = $(this).val().replace(/\D/g, '');
+
+    $(this).val(phoneNumber);
+  });
+
   $("#confirmOrderBtn").on("click", function () {
     processCheckOutInput();
   });
@@ -178,6 +240,18 @@ $(document).ready(async function () {
       event.preventDefault();
       processAddFunds();
     }
+  });
+
+  $("#card-number").on("keydown", function (event) {
+    if (event.which === 37 || event.which === 39) {
+      event.preventDefault();
+    }
+  });
+
+  $("#card-number").on("input", function () {
+    var cardNumber = $(this).val().replace(/\D/g, '');
+
+    $(this).val(cardNumber.replace(/(\d{4})/g, '$1 ').trim());
   });
 
   $(".expiry-input").keypress(function (event) {
@@ -210,59 +284,50 @@ $(document).ready(async function () {
     }
   });
 
-  $("#expiry").on("input", function (e) {
-    var inputValue = $(this)
+  $("#expiry").on("input", function (event) {
+    var inputExpiry = $(this)
       .val()
       .replace(/[^0-9/]/g, "");
 
-    // Add leading zero if only one number is pressed
-    if (inputValue.length === 2 && inputValue.charAt(1) === "/") {
-      if (inputValue.charAt(0) !== "0") {
-        inputValue = "0" + inputValue;
+    // Tự động thêm 0 vào trước tháng
+    if (inputExpiry.length === 2 && inputExpiry.charAt(1) === "/") {
+      if (inputExpiry.charAt(0) !== "0") {
+        inputExpiry = "0" + inputExpiry;
       } else {
-        inputValue = "01";
+        inputExpiry = "01";
       }
     }
 
-    // Format month when pressing two numbers
-    if (inputValue.length === 2) {
-      if (parseInt(inputValue) > 12) {
-        inputValue = "12";
+    // Tự động chỉnh logic của tháng
+    if (inputExpiry.length === 2) {
+      if (parseInt(inputExpiry) > 12) {
+        inputExpiry = "12";
       }
-      if (parseInt(inputValue) < 1) {
-        inputValue = "01";
+      if (parseInt(inputExpiry) < 1) {
+        inputExpiry = "01";
       }
     }
 
-    // Format month
-    if (inputValue.length >= 2) {
-      var month = inputValue.substring(0, 2);
-      if (parseInt(month) > 12) {
-        month = "12";
-      }
-      inputValue = month + inputValue.substring(2);
+    // Thêm ký tự "/" sau tháng
+    if (inputExpiry.length >= 2 && inputExpiry.charAt(2) !== "/") {
+      inputExpiry = inputExpiry.substring(0, 2) + "/" + inputExpiry.substring(2);
     }
 
-    // Add "/" after the month
-    if (inputValue.length >= 2 && inputValue.charAt(2) !== "/") {
-      inputValue = inputValue.substring(0, 2) + "/" + inputValue.substring(2);
-    }
-
-    // Format year
-    if (inputValue.length >= 5) {
-      var year = inputValue.substring(3, 5);
-      if (parseInt(year) > 24) {
+    // Cài đặt năm tối thiểu là 2024
+    if (inputExpiry.length >= 5) {
+      var year = inputExpiry.substring(3, 5);
+      if (parseInt(year) < 24) {
         year = "24";
       }
-      inputValue = inputValue.substring(0, 3) + year;
+      inputExpiry = inputExpiry.substring(0, 3) + year;
     }
 
-    // Block the '/' key if input value is more than 2 characters
-    if (inputValue.length > 2 && e.key === "/" && e.keyCode === 191) {
-      e.preventDefault();
+    // Không cho phép nhập ký tự "/" nếu đã tồn tại
+    if (inputExpiry.length > 2 && event.key === "/" && event.keyCode === 191) {
+      event.preventDefault();
     }
 
-    $(this).val(inputValue);
+    $(this).val(inputExpiry);
   });
 
   $(".cvv-input").keypress(function (event) {
@@ -270,6 +335,14 @@ $(document).ready(async function () {
       event.preventDefault();
       processAddFunds();
     }
+  });
+
+  $("#cvv").on("input", function () {
+    var inputCvv = $(this)
+      .val()
+      .replace(/[^0-9]/g, "");
+
+    $(this).val(inputCvv);
   });
 
   $("#confirmFundBtn").on("click", function () {
