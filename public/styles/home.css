@@ -572,8 +572,8 @@ input:checked + .payment-method-item::before {
 }
 .loader {
   margin: 50px;
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   border: 12px solid #e3e3e3;
   border-radius: 50%;
   border-top-color: #4070f4;
@@ -600,10 +600,10 @@ input:checked + .payment-method-item::before {
   z-index: 99999;
 }
 .popup {
-  width: 400px;
+  width: 300px;
   background-color: #fff;
   border-radius: 6px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
