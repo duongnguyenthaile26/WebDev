@@ -91,13 +91,12 @@ async function payment(req, res, next) {
         "-__v"
       );
       flag.name = flagInfo.name;
-      flag.price = flagInfo.price;
-      flag.totalPrice = flag.price * flag.quantity;
+      flag.totalPrice = flagInfo.price * flag.quantity;
       flags.push(flag);
     }
     const total = Number(transaction.amount);
 
-    //TODO: send oder to user email
+    //TODO: send order to user email
     const order = {
       name: req.body.name,
       address: req.body.address,
@@ -174,9 +173,24 @@ async function getBalance(req, res, next) {
     next(error);
   }
 }
+async function purchaseHistory(req, res, next) {
+  try {
+    const user = await User.findOne({ username: req.user.username });
+    const orderList = user.orderList;
+    // res.render("purchaseHistory", {
+    //   user: req.user,
+    //   orderList: orderList,
+    //   options,
+    // });
+    res.json(orderList);
+  } catch (error) {
+    next(error);
+  }
+}
 
 exports.cart = cart;
 exports.removeItem = removeItem;
 exports.payment = payment;
 exports.deposit = deposit;
 exports.getBalance = getBalance;
+exports.purchaseHistory = purchaseHistory;

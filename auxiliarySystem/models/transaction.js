@@ -10,7 +10,7 @@ const transactionchema = new mongoose.Schema({
   },
   amount: { type: Number, require: true },
   content: { type: String },
-  username: { type: String, require: true, unique: true },
+  username: { type: String, require: true },
 });
 const Transaction = mongoose.model("transaction", transactionchema);
 
