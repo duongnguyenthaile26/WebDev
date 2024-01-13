@@ -32,48 +32,60 @@
             <div class="row" style="width: 70%;">
               <div class="col">
                 <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important; border: 0; background: #ddd;">
-                  <div class="card-body p-5">
-                    <div class="fs-2 fw-bold mb-2" style="color: #f37a27;">Purchase Reciept</div>
-                    <div class="fs-4">
-                      Thanks for your order <%= orderList.name %>
+                  <div class="card-body px-5 py-3">
+                    <div class="fs-2 fw-bold mb-2 d-flex justify-content-center" style="color: #f37a27;">Purchase Reciept</div>
+                    <div class="fs-5">
+                      Thanks for your order, <span style="color: #f37a27;"><%= orderList[0].name %></span>!!
                     </div>
-                    <div class="row">
+                    <div class="small text-muted">
+                      <div>Email: <%= orderList[0].email %></div>
+                      <div>Phone: <%= orderList[0].phone %></div>
+                      <div>Address: <%= orderList[0].address %></div>
+                    </div>
+                    <hr/>
+                    <% orderList.forEach((order) => { %>
+                    <div class="row pt-3">
                       <div class="col mb-3">
-                        <p class="small text-muted mb-1">Date</p>
-                        <p>12/1/2024</p>
+                        <p class="text-muted mb-1">Date</p>
+                        <p><%= new Date(order.createDate).toLocaleString() %></p>
                       </div>
                       <div class="col mb-3">
-                        <p class="small text-muted mb-1">Transaction ID</p>
-                        <p>123123</p>
+                        <p class="text-muted mb-1">Transaction ID</p>
+                        <p><%= order.transactionId %></p>
                       </div>
                     </div>
-        
-                    <div class="mx-n5 px-5 py-4" style="background-color: #f2f2f2;">
-                      <div class="row">
-                        <div class="col-md-8 col-lg-9">
-                          <p></p>
+                      <div class="card" style="width: 100%">
+                        <div class="card-body p-0">
+                          <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 35vh; border-radius: 0">
+                            <table class="table table-striped table-hover">
+                              <thead class="table-success">
+                                <tr>
+                                  <th scope="col">Items</th>
+                                  <th scope="col" class="d-flex justify-content-center">Quantity</th>
+                                  <th scope="col">Price</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <% order.flags.forEach((index) => { %>
+                                <tr>
+                                  <td class="col-5 fw-bold text-dark"><%= index.name %></td>
+                                  <td class="col fw-bold text-dark  text-center"><%= index.quantity %></td>
+                                  <td class="col text-danger fw-bold"><%= index.totalPrice %></td>
+                                </tr>
+                                <% }); %>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
-                        <div class="col-md-4 col-lg-3">
-                          <p>£299.99</p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-8 col-lg-9">
-                          <p class="mb-0">Shipping</p>
-                        </div>
-                        <div class="col-md-4 col-lg-3">
-                          <p class="mb-0">£33.00</p>
-                        </div>
-                      </div>
-                    </div>
-        
+                      </div>        
                     <div class="row my-4">
                       <div class="col-md-4 offset-md-8 col-lg-3 offset-lg-9">
-                        <p class="lead fw-bold mb-0" style="color: #f37a27;">£262.99</p>
+                        <p class="lead fw-bold mb-0 text-danger fw-bold">Total Price: <%= order.total %></p>
                       </div>
                     </div>
-        
-                    <p class="mt-4 pt-2 mb-0">Want any help? <a href="#!" style="color: #f37a27;">Please contact us</a></p>
+                    <hr/>
+                    <% }) %>
+                    <p class="my-4 pt-2 d-flex justify-content-center">Any help? <a href="/about" class="mx-2" style="color: #f37a27;">Please contact us</a></p>
                   </div>
                 </div>
               </div>
