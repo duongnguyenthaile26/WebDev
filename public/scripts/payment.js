@@ -22,30 +22,45 @@ $(document).ready(async function () {
       payName !== "" &&
       payAddress !== "" &&
       payEmail !== "" &&
-      (payPhoneNum !== "" && payPhoneNum.length >= 10)
+      (payPhoneNum !== "" && payPhoneNum.length >= 10)// &&
+      // currentBalance >= checkoutTotal
     ) {
       // gửi một POST request về server (clear giỏ hàng)
       // hiện thông báo thanh toán thành công
-      console.log(checkoutTotal);
-      $.post(
-        "/checkout/payment",
-        {
-          amount: checkoutTotal,
-          name: payName,
-          address: payAddress,
-          email: payEmail,
-          phone: payPhoneNum,
-        },
-        function (data) {
-          if (data.status === "success")
-            setTimeout(function () {
-              window.location.href = "/checkout/cart";
-            }, 3000);
-          else {
-            // xử lí fail
+      $(".alert").remove();
+      $("#loader-container, #overlay").fadeIn();
+      $("body > *:not(#loader-container, #overlay)").addClass("blurred");
+      
+      setTimeout(function () {
+        $("#loader-container, #overlay").fadeOut();
+        $("body > *:not(#loader-container, #overlay)").removeClass("blurred");
+        console.log(checkoutTotal);
+        $.post(
+          "/checkout/payment",
+          {
+            amount: checkoutTotal,
+            name: payName,
+            address: payAddress,
+            email: payEmail,
+            phone: payPhoneNum,
+          },
+          function (data) {
+            if (data.status === "success") {
+              $(".popup").fadeIn();
+              $("#overlay").fadeIn();
+              $("body > *:not(.popup, #overlay)").addClass("blurred");
+              $("#okButton").on("click", function () {
+                $(".popup").fadeOut();
+                $("#overlay").fadeOut();
+                $("body > *:not(.popup, #overlay)").removeClass("blurred");
+                window.location.href = "/checkout/cart";
+              });
+            } else {
+              // xử lí fail
+            }
           }
-        }
-      );
+        );
+      }, 3000);
       // chuyển về trang /checkout/cart sau 3s
     } else {
       let alert;
@@ -58,17 +73,19 @@ $(document).ready(async function () {
       ) {
         alert = "Please fill out the fields";
       }
-      
+      // Check phone number
+      else if (payPhoneNum.length < 10) {
+        alert =
+        "Invalid phone number";
+      }
+      // Check balance
       else if (currentBalance < checkoutTotal) {
         alert =
           "Your wallet does not have enough balance to place order. Please add more credit to the wallet";
       }
-      // Check phone number
-      else if (payPhoneNum.length < 10) {
-        alert =
-          "Invalid phone number";
+      else {
+        alert("Error");
       }
-      else {}
 
       const alertHtml = `
       <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
@@ -89,7 +106,7 @@ $(document).ready(async function () {
       '.payment-method input[name="payment-method"]:checked'
     ).val();
     if (
-      paymentAmount !== "" &&
+      (paymentAmount !== "" && parseFloat(paymentAmount) >= 10) &&
       cardName !== "" &&
       (cardNumber !== "" && cardNumber.length === 16) &&
       (expiry !== "" && expiry.length === 5) &&
@@ -97,6 +114,7 @@ $(document).ready(async function () {
       method
     ) {
       // Hiển thị loading và chặn tương tác
+      $(".alert").remove();
       $("#loader-container, #overlay").fadeIn();
       $("body > *:not(#loader-container, #overlay)").addClass("blurred");
 
@@ -121,10 +139,17 @@ $(document).ready(async function () {
             console.log(data);
             if (data.status === "success") {
               currentBalance = data.balance;
-              alert("Add fund successfully!");
-              $("#AddMoneyModal").modal("hide"); // Đóng modal cũ
-              $("#AddMoneyModal input").val(""); // clear bank information
-              $("#PayModal").modal("show"); // Mở modal mới
+              $(".popup").fadeIn();
+              $("#overlay").fadeIn();
+              $("body > *:not(.popup, #overlay)").addClass("blurred");
+              $("#okButton").on("click", function () {
+                $(".popup").fadeOut();
+                $("#overlay").fadeOut();
+                $("body > *:not(.popup, #overlay)").removeClass("blurred");
+                $("#AddMoneyModal").modal("hide"); // Đóng modal cũ
+                $("#AddMoneyModal input").val(""); // clear bank information
+                $("#PayModal").modal("show"); // Mở modal mới
+              });
             } else {
               // data.staus === "fail"
               alert("Error: " + data.message);
