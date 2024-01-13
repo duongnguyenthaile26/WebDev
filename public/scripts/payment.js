@@ -96,15 +96,15 @@ $(document).ready(async function () {
       (cvv !== "" && cvv.length >= 3) &&
       method
     ) {
-      // Show loader
-      $("#loader-container").fadeIn();
-      $("body > *:not(#loader-container)").addClass("blurred");
+      // Hiển thị loading và chặn tương tác
+      $("#loader-container, #overlay").fadeIn();
+      $("body > *:not(#loader-container, #overlay)").addClass("blurred");
 
       setTimeout(function () {
-        $("#loader-container").fadeOut();
-        $("body > *:not(#loader-container)").removeClass("blurred");
+        $("#loader-container, #overlay").fadeOut();
+        $("body > *:not(#loader-container, #overlay)").removeClass("blurred");
 
-        // Display success message or perform other actions
+        // Xử lý khi thành công
         $.post(
           "/checkout/deposit",
           {
