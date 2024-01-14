@@ -85,7 +85,7 @@
           </div>
         </div>
       </div>
-     <!-- ===================MODAL DELETE=================== -->
+      <!-- ===================MODAL DELETE=================== -->
       <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="max-width: 40%">
           <div class="modal-content" style="background-color: white">
@@ -114,7 +114,7 @@
         <div class="modal-dialog" style="max-width: 40%">
           <div class="modal-content" style="background-color: white">
             <div class="modal-header">
-              <h5 class="modal-title fs-4 text-warning" id="EditNameModalLabel">CHANGE USER INFOR</h5>
+              <h5 class="modal-title fs-4 text-warning" id="EditNameModalLabel">CHANGE USER'S INFORMATION</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body fs-5">
@@ -140,7 +140,7 @@
       </div>
     </div>
   </div>
-
+  <div style="display: none" id="currentUsername"></div>
   <!-- ===================FOOTER=================== -->
   <%- include('./partials/footer.ejs') %>
   <!-- ===================FOOTER=================== -->
@@ -221,44 +221,70 @@
     }
     $(document).ready(function() {
       $(".btn-outline-warning").click(function() {
+        const username = $(this).closest("tr").find("td:eq(0)").text().trim();
+        const name = $(this).closest("tr").find("td:eq(1)").text().trim();
+        $("#newUsernameInput").val(username);
+        $("#newNameInput").val(name);
+        $("#currentUsername").text(username);
         $("#EditNameModal").modal("show");
       });
-      function processEditInput() {
-        const newUsername = $("#newUsernameInput").val();
-        const newName = $("#newNameInput").val();
-        if (newUsername === "" || newName === "") {
-          const alertHtml = `
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Please enter both the new username and name
-          </div>`;
-          $(".alert").remove();
-          $(".modal-body").prepend(alertHtml);
-        } else {
-          // Xử lý khi cả hai nhập đúng
-          // ...
 
-          const alertHtml = `
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            User "${newUsername}" has been updated successfully with name "${newName}"
+      function showAlert(status, message) {
+        const alertHtml = `
+          <div class="alert alert-${status} alert-dismissible fade show" role="alert">
+            ${message}
           </div>`;
-          $(".alert").remove();
-          $(".modal-body").prepend(alertHtml);
-          setTimeout(() => {
-            window.location.href = "/admin/userManagement";
-          }, 2000); 
+        $(".alert").remove();
+        $(".modal-body").prepend(alertHtml);
+      }
+
+      function processEditInput() {
+        const usernameRegex = /^[a-zA-Z0-9._]{4,}$/;
+        const newUsername = $("#newUsernameInput").val();
+        const newName = $("#newNameInput").val().trim();
+        const currentUsername = $("#currentUsername").text();
+        if (!usernameRegex.test(newUsername)) {
+          showAlert(
+            `danger`,
+            `Username must have at least 4 characters, and only containing alphanumericals, dots ('.'), and underscores ('_')`
+          );
+          return;
+        }
+        if (newUsername === "" || newName === "") {
+          showAlert("danger", "Please fill out all the fields");
+        } else {
+          $.ajax({
+            url: '/admin/userManagement',
+            type: 'PATCH',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              currentUsername,
+              newUsername,
+              newName,
+            }),
+            success: function(data) {
+              console.log(data);
+              data.status === "success" ? showAlert("success", data.message) : showAlert("danger", data.message);
+              if (data.status === "success") {
+                setTimeout(() => {
+                  window.location.href = "/admin/userManagement";
+                }, 2000);
+              }
+            },
+          });
         }
       }
-    
-      $("#confirmChangeNameBtn").on("click", function () {
+
+      $("#confirmChangeNameBtn").on("click", function() {
         processEditInput();
       });
-    
-      $("#EditNameModal").on("hidden.bs.modal", function () {
+
+      $("#EditNameModal").on("hidden.bs.modal", function() {
         // Xóa các thông báo lỗi khi modal được ẩn đi
         $(".alert").remove();
       });
-    
-      $("#EditNameModal").on("show.bs.modal", function () {
+
+      $("#EditNameModal").on("show.bs.modal", function() {
         // Xóa các thông báo lỗi khi modal được hiển thị
         $(".alert").remove();
       });

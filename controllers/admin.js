@@ -43,6 +43,32 @@ async function removeUser(req, res, next) {
   }
 }
 
+async function editUser(req, res, next) {
+  try {
+    const { currentUsername, newUsername, newName } = req.body;
+
+    const checkUser = await User.findOne({ username: newUsername });
+    if (checkUser && newUsername != currentUsername) {
+      return res.json({
+        status: "fail",
+        message: "Username has been taken by another account",
+      });
+    }
+    const user = await User.findOne({ username: currentUsername });
+    user.username = newUsername;
+    user.name = newName;
+    user.markModified("username");
+    user.markModified("name");
+    await user.save();
+    res.json({
+      status: "success",
+      message: "Change user's information successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 async function changeName(req, res, next) {
   try {
     const categoryName = req.body.categoryName.trim().toLowerCase();
@@ -140,7 +166,7 @@ async function transaction(req, res, next) {
     //   transactions: data.transactions,
     // });
     // Thêm file transaction.ejs vào rồi thì uncomment cái này
-    res.render("adminTransaction", { 
+    res.render("adminTransaction", {
       transactions: data.transactions,
       user: req.user,
       categories,
@@ -157,3 +183,4 @@ exports.changeName = changeName;
 exports.removeCategory = removeCategory;
 exports.addCategory = addCategory;
 exports.transaction = transaction;
+exports.editUser = editUser;

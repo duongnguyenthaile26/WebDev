@@ -7,7 +7,8 @@ const controller = require(path.join(__dirname, "..", "controllers", "admin"));
 router
   .route("/userManagement")
   .get(controller.userManagement)
-  .delete(controller.removeUser);
+  .delete(controller.removeUser)
+  .patch(controller.editUser);
 router
   .route("/categoryManagement")
   .get(controller.categoryManagement)
