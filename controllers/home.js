@@ -4,11 +4,9 @@ const Category = require(path.join(__dirname, "..", "models", "category"));
 
 async function render(req, res, next) {
   try {
-    // cho sidebar
     const categories = await Category.find({}).select("-__v");
     const options = categories.map((category) => category.name);
 
-    // nếu người dùng là admin
     if (req.user && req.user.role === "admin") {
       return res.render("home", {
         user: req.user,
@@ -33,7 +31,6 @@ async function render(req, res, next) {
       flagsByCategory.push(category);
     }
 
-    // nếu người dùng không phải admin (guest hoặc user)
     res.render("home", {
       user: req.user,
       cheapestFlags,
@@ -45,4 +42,18 @@ async function render(req, res, next) {
   }
 }
 
+async function about(req, res, next) {
+  try {
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map((category) => category.name);
+    res.render("about", {
+      user: req.user,
+      options,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.render = render;
+exports.about = about;

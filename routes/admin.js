@@ -7,10 +7,15 @@ const controller = require(path.join(__dirname, "..", "controllers", "admin"));
 router
   .route("/userManagement")
   .get(controller.userManagement)
-  .delete(controller.removeUser);
+  .delete(controller.removeUser)
+  .patch(controller.editUser);
 router
   .route("/categoryManagement")
   .get(controller.categoryManagement)
-  .patch(controller.changeName);
+  .patch(controller.changeName)
+  .delete(controller.removeCategory)
+  .post(controller.addCategory);
+
+router.route("/transaction").get(controller.transaction);
 
 module.exports = router;

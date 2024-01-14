@@ -1,14 +1,17 @@
-// -------------------------Handle Name-------------------------
+function showAlert(status, message) {
+  const alertHtml = `
+  <div class="alert alert-${status} alert-dismissible fade show" role="alert">
+    ${message}
+  </div>`;
+  $(".alert").remove();
+  $(".modal-body").prepend(alertHtml);
+}
+
 $(document).ready(function () {
   function processNameInput() {
-    const name = $(".name-input").val();
+    const name = $(".name-input").val().trim();
     if (name === "") {
-      const alertHtml = `
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        Please enter your new name
-      </div>`;
-      $(".alert").remove();
-      $(".modal-body").prepend(alertHtml);
+      showAlert("danger", "Please enter your new name");
     } else {
       $.ajax({
         url: "/account/modify",
@@ -19,15 +22,12 @@ $(document).ready(function () {
           name,
         }),
         success: function (data) {
-          const alertHtml = `
-          <div class="alert alert-${
-            data.status === "fail" ? "danger" : "success"
-          } alert-dismissible fade show" role="alert">
-            ${data.message}
-          </div>`;
-          $(".alert").remove();
-          $(".modal-body").prepend(alertHtml);
-          setTimeout(() => (window.location.href = "/account/profile"), 2000);
+          data.status === "success"
+            ? showAlert("success", data.message)
+            : showAlert("danger", data.message);
+          if (data.status === "success") {
+            setTimeout(() => (window.location.href = "/account/profile"), 2000);
+          }
         },
       });
     }
@@ -60,9 +60,11 @@ $("#NameModal").on("show.bs.modal", function () {
   $(".alert").remove();
 });
 
-// -------------------------Handle Password-------------------------
 $(document).ready(function () {
   function processPassInput() {
+    // Minimum eight characters, at least one uppercase letter, one lowercase letter and one number
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/;
+
     const currentPassword = $(".current-pass-input").val();
     const newPassword = $(".new-pass-input").val();
     const confirmNewPassword = $(".confirm-new-pass-input").val();
@@ -72,12 +74,17 @@ $(document).ready(function () {
       confirmNewPassword !== ""
     ) {
       if (newPassword !== confirmNewPassword) {
-        const alertHtml = `
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          New password and confirm new password do not match
-        </div>`;
-        $(".alert").remove();
-        $(".modal-body").prepend(alertHtml);
+        showAlert(
+          "danger",
+          "New password and confirm new password do not match"
+        );
+        return;
+      }
+      if (!passwordRegex.test(newPassword)) {
+        showAlert(
+          "danger",
+          "Password must have at least eight characters, at least one uppercase letter, one lowercase letter and one number"
+        );
         return;
       }
       $.ajax({
@@ -90,26 +97,16 @@ $(document).ready(function () {
           newPassword,
         }),
         success: function (data) {
-          const alertHtml = `
-          <div class="alert alert-${
-            data.status === "fail" ? "danger" : "success"
-          } alert-dismissible fade show" role="alert">
-            ${data.message}
-          </div>`;
-          $(".alert").remove();
-          $(".modal-body").prepend(alertHtml);
+          data.status === "success"
+            ? showAlert("success", data.message)
+            : showAlert("danger", data.message);
           if (data.status === "success") {
             setTimeout(() => (window.location.href = "/account/profile"), 2000);
           }
         },
       });
     } else {
-      const alertHtml = `
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        Please fill out the fields
-      </div>`;
-      $(".alert").remove();
-      $(".modal-body").prepend(alertHtml);
+      showAlert("danger", "Please fill out the fields");
     }
   }
 

@@ -1,6 +1,7 @@
 const path = require("path");
-const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const url = require("url");
+const fs = require("fs");
+const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const User = require(path.join(__dirname, "..", "models", "user"));
 
@@ -135,7 +136,110 @@ async function addToCart(req, res, next) {
   }
 }
 
+async function addFlagView(req, res, next) {
+  try {
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map((category) => category.name);
+    res.render("adminProductManagement", {
+      mode: "add",
+      flag: null,
+      user: req.user,
+      options,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function editFlagView(req, res, next) {
+  try {
+    const categories = await Category.find({}).select("-__v");
+    const options = categories.map((category) => category.name);
+    const { flagId } = req.params;
+    const flag = await Flag.findOne({ _id: flagId });
+    res.render("adminProductManagement", {
+      mode: "edit",
+      flag,
+      user: req.user,
+      options,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function unlinkFile(fileName) {
+  try {
+    const filePath = path.join(__dirname, "..", "public", "flags", fileName);
+    await fs.promises.access(filePath, fs.constants.F_OK);
+    await fs.promises.unlink(filePath);
+  } catch (error) {
+    return;
+  }
+}
+
+async function addFlag(req, res, next) {
+  try {
+    const { name, type, price } = req.body;
+    await Flag.create({ name, type, price, image: req.fileName });
+    res.json({
+      status: "success",
+      message: "Add new flag successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function editFlag(req, res, next) {
+  try {
+    const { flagId } = req.params;
+    const { name, price, type } = req.body;
+    const image = req.fileName;
+    const flag = await Flag.findById(flagId);
+
+    flag.name = name;
+    flag.markModified("name");
+
+    flag.price = price;
+    flag.markModified("price");
+
+    flag.type = type;
+    flag.markModified("type");
+
+    if (image) {
+      await unlinkFile(flag.image);
+      flag.image = image;
+      flag.markModified("image");
+    }
+    await flag.save();
+    res.json({
+      status: "success",
+      message: "Edit flag successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function deleteFlag(req, res, next) {
+  try {
+    const { flagId } = req.params;
+    const flag = await Flag.findById(flagId);
+    await unlinkFile(flag.image);
+    await Flag.deleteOne({ _id: flagId });
+    res.json({ status: "success", message: "Delete flag successfully" });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.detail = detail;
 exports.search = search;
 exports.type = type;
 exports.addToCart = addToCart;
+exports.addFlagView = addFlagView;
+exports.editFlagView = editFlagView;
+exports.addFlag = addFlag;
+exports.editFlag = editFlag;
+exports.deleteFlag = deleteFlag;

@@ -4,6 +4,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const path = require("path");
 const User = require(path.join(__dirname, "..", "models", "user"));
+
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
 passport.use(
@@ -20,6 +21,7 @@ passport.use(
       if (!match) {
         return done(null, false);
       }
+
       done(null, {
         username: user.username,
         role: user.role,
@@ -69,6 +71,7 @@ passport.deserializeUser(async function (user, done) {
         return done(null, false);
       }
     }
+
     done(null, {
       username: dbUser.username,
       role: dbUser.role,

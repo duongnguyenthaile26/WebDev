@@ -75,7 +75,7 @@
               <% } %> <% if (user !== null && user !== undefined && user.role
                 === "admin") { %>
               <button type="button" class="btn btn-warning mx-2">EDIT</button>
-              <button type="button" class="btn btn-danger ms-2">
+              <button type="button" class="btn btn-danger ms-2 delete-product">
                 DELETE
               </button>
               <% } %>
@@ -92,7 +92,30 @@
   </div>
   <div class="flag-id" style="display: none"><%= flag._id %></div>
   <!-- ===================CONTENT=================== -->
-
+  <!-- ===================MODAL DELETE=================== -->
+  <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 40%">
+      <div class="modal-content" style="background-color: white">
+        <div class="modal-header">
+          <h5 class="modal-title fs-4 text-warning" id="deleteProductModalLabel">
+            WARNING
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body fs-5">
+          <p id="deleteProductMessage"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+            YES
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- ===================FOOTER=================== -->
   <%- include('./partials/footer.ejs') %>
   <!-- ===================FOOTER=================== -->
@@ -164,7 +187,39 @@
         quantityInput.value = quantity;
       });
     }
+    $(document).ready(function() {
+      $(".delete-product").click(function() {
+        const productName = $(".name").text().trim();
+
+        $("#deleteProductMessage").html(`
+          <span>Are you sure you want to delete product '<strong>${productName}</strong>'<span>?`);
+        $("#confirmDeleteBtn").removeAttr("productName");
+        $("#confirmDeleteBtn").attr("productName", productName);
+
+        $("#deleteProductModal").modal("show");
+      });
+
+      $("#confirmDeleteBtn").click(function() {
+        const currentURLParts = window.location.href.split("/");
+        const flagId = currentURLParts[currentURLParts.length - 1];
+        $.ajax({
+          url: `/product/detail/${flagId}`,
+          type: "DELETE",
+          success: function(data) {
+            console.log(data);
+            if (data.status === "success") {
+              window.location.href = "/product/search"
+            }
+          }
+        });
+      });
+    });
+    $(".btn.btn-warning").click(function() {
+      const flagId = $(".flag-id").text().trim();
+      window.location.href = "/product/editFlag/" + flagId;
+    });
   </script>
+
 </body>
 
 </html>
