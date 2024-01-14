@@ -353,6 +353,12 @@ footer {
   background-repeat: no-repeat;
   background-size: 100% 60%;
 }
+
+.receipt-form {
+  background-image: url("https://static.vecteezy.com/system/resources/previews/030/470/815/non_2x/background-of-many-flags-of-the-world-the-concept-of-international-relations-ai-generated-photo.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 30rem;
+}
 .image-top>.text {
   background-color: rgba(0, 0, 0, 0.4);
   /* Black w/opacity/see-through */

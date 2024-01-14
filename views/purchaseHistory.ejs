@@ -27,23 +27,23 @@
   <!-- ===================CONTENT=================== -->
   <div class="content-body">
     <div class="pb-5">
-      <div class="verify-form d-flex flex-column justify-content-center align-items-center">
+      <div class="receipt-form d-flex flex-column justify-content-center align-items-center">
           <div class="container py-5 d-flex justify-content-center align-items-center">
             <div class="row" style="width: 70%;">
               <div class="col">
                 <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important; border: 0; background: #ddd;">
                   <div class="card-body px-5 py-3">
-                    <div class="fs-2 fw-bold mb-2 d-flex justify-content-center" style="color: #f37a27;">Purchase Reciept</div>
+                    <div class="fs-2 fw-bold mb-2 d-flex justify-content-center" style="color: #f37a27;">Purchase Receipt</div>
                     <div class="fs-5">
                       Thanks for your order, <span style="color: #f37a27;"><%= orderList[0].name %></span>!!
                     </div>
-                    <div class="small text-muted">
-                      <div>Email: <%= orderList[0].email %></div>
-                      <div>Phone: <%= orderList[0].phone %></div>
-                      <div>Address: <%= orderList[0].address %></div>
-                    </div>
                     <hr/>
                     <% orderList.forEach((order) => { %>
+                    <div class="small text-muted">
+                      <div>Email: <%= order.email %></div>
+                      <div>Phone: <%= order.phone %></div>
+                      <div>Address: <%= order.address %></div>
+                    </div>
                     <div class="row pt-3">
                       <div class="col mb-3">
                         <p class="text-muted mb-1">Date</p>
