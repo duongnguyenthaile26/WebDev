@@ -91,7 +91,7 @@
                 <ul class="pagination">
                   <!-- Previous page button -->
                   <li class="page-item <%= totalPages === 0 || currentPage === 1 ? 'disabled' : '' %>">
-                    <a class="page-link" href="#" aria-label="Previous" onclick="changePage(`<%= currentPage - 1 %>`)">
+                    <a class="page-link" href="javascript:;" aria-label="Previous" onclick="changePage(`<%= currentPage - 1 %>`)">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
@@ -109,22 +109,22 @@
                     showEllipsisEnd=endPage < totalPages; %> <% if
                     (showEllipsisStart) { %>
                   <li class="page-item">
-                    <a class="page-link" href="#">...</a>
+                    <a class="page-link" href="javascript:;">...</a>
                   </li>
                   <% } %> <% for (let i=startPage; i <=endPage; i++) { %>
                   <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-                    <a class="page-link" href="#" onclick="changePage(`<%= i %>`)">
+                    <a class="page-link" href="javascript:;" onclick="changePage(`<%= i %>`)">
                       <%= i %>
                     </a>
                   </li>
                   <% } %> <% if (showEllipsisEnd) { %>
                   <li class="page-item">
-                    <a class="page-link" href="#">...</a>
+                    <a class="page-link" href="javascript:;">...</a>
                   </li>
                   <% } %>
                   <!-- Next page button -->
                   <li class="page-item <%= totalPages === 0 || currentPage === totalPages ? 'disabled' : '' %>">
-                    <a class="page-link" href="#" aria-label="Next" onclick="changePage(`<%= currentPage + 1 %>`)">
+                    <a class="page-link" href="javascript:;" aria-label="Next" onclick="changePage(`<%= currentPage + 1 %>`)">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>

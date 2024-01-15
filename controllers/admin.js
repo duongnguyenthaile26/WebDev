@@ -3,16 +3,28 @@ const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const User = require(path.join(__dirname, "..", "models", "user"));
 const fs = require("fs");
-const exp = require("constants");
+const url = require("url");
 const AuxApi = require(path.join(__dirname, "..", "utilities", "AuxApi"));
+
 async function userManagement(req, res, next) {
   try {
+    const query = url.parse(req.url, true).query;
+    const page = parseInt(query.page) || 1;
+    const itemsPerPage = 6;
     const users = await User.find({ role: { $ne: "admin" } }).select(
       "-password -__v"
     );
+    const totalPages = Math.ceil(users.length / itemsPerPage);
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = page * itemsPerPage;
+    const usersOnPage = users.slice(startIndex, endIndex);
     res.render("adminUserManagement", {
       user: req.user,
-      users,
+      users: usersOnPage,
+      currentPage: page,
+      itemsPerPage: itemsPerPage,
+      totalPages: totalPages,
+      currentPageUrl: req.originalUrl.split("?")[0],
     });
   } catch (error) {
     next(error);
@@ -21,10 +33,21 @@ async function userManagement(req, res, next) {
 
 async function categoryManagement(req, res, next) {
   try {
+    const query = url.parse(req.url, true).query;
+    const page = parseInt(query.page) || 1;
+    const itemsPerPage = 6;
     const categories = await Category.find({}).select("-__v");
+    const totalPages = Math.ceil(categories.length / itemsPerPage);
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = page * itemsPerPage;
+    const categoriesOnPage = categories.slice(startIndex, endIndex);
     res.render("adminCategoriesManagement", {
       user: req.user,
-      categories,
+      categories: categoriesOnPage,
+      currentPage: page,
+      itemsPerPage: itemsPerPage,
+      totalPages: totalPages,
+      currentPageUrl: req.originalUrl.split("?")[0],
     });
   } catch (error) {
     next(error);
@@ -153,23 +176,24 @@ async function addCategory(req, res, next) {
 
 async function transaction(req, res, next) {
   try {
-    const categories = await Category.find({}).select("-__v");
-
     const data = await AuxApi.getAllTransaction();
     if (data.status == "fail") {
       return res.json(data);
     }
-    // Thêm file transaction.ejs vào rồi thì comment cái này
-    // res.json({
-    //   status: "success",
-    //   message: "Get all transaction successfully",
-    //   transactions: data.transactions,
-    // });
-    // Thêm file transaction.ejs vào rồi thì uncomment cái này
+    const query = url.parse(req.url, true).query;
+    const page = parseInt(query.page) || 1;
+    const itemsPerPage = 8;
+    const totalPages = Math.ceil(data.transactions.length / itemsPerPage);
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = page * itemsPerPage;
+    const transactionsOnPage = data.transactions.slice(startIndex, endIndex);
     res.render("adminTransaction", {
-      transactions: data.transactions,
+      transactions: transactionsOnPage,
       user: req.user,
-      categories,
+      currentPage: page,
+      itemsPerPage: itemsPerPage,
+      totalPages: totalPages,
+      currentPageUrl: req.originalUrl.split("?")[0],
     });
   } catch (error) {
     next(error);

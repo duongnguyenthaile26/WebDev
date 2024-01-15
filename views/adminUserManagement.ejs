@@ -44,7 +44,7 @@
     <div class="container p-5 d-flex flex-column justify-content-center align-items-center">
       <div class="card" style="width: 100%">
         <div class="card-body p-0">
-          <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 50vh">
+          <div style="position: relative; height: 49vh">
             <table class="table table-hover table-striped">
               <thead class="table-dark">
                 <tr>
@@ -85,6 +85,7 @@
           </div>
         </div>
       </div>
+
       <!-- ===================MODAL DELETE=================== -->
       <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="max-width: 40%">
@@ -138,6 +139,51 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <!-- Previous page button -->
+          <li class="page-item <%= totalPages === 0 || currentPage === 1 ? 'disabled' : '' %>">
+            <a class="page-link" href="javascript:;" aria-label="Previous" onclick="changePage(`<%= currentPage - 1 %>`)">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <!-- Render page items -->
+          <% const maxVisiblePages=7; %>
+          <!-- So luong trang toi da hien thi -->
+          <% const halfVisiblePages=Math.floor(maxVisiblePages / 2);
+            %> <% const startPage=Math.max(1, currentPage -
+            halfVisiblePages); %>
+          <!-- Trang dau hien thi-->
+          <% const endPage=Math.min(totalPages, startPage +
+            maxVisiblePages - 1); %>
+          <!-- Trang cuoi cung hien thi -->
+          <% const showEllipsisStart=startPage> 1; %> <% const
+            showEllipsisEnd=endPage < totalPages; %> <% if
+            (showEllipsisStart) { %>
+          <li class="page-item">
+            <a class="page-link" href="javascript:;">...</a>
+          </li>
+          <% } %> <% for (let i=startPage; i <=endPage; i++) { %>
+          <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+            <a class="page-link" href="javascript:;" onclick="changePage(`<%= i %>`)">
+              <%= i %>
+            </a>
+          </li>
+          <% } %> <% if (showEllipsisEnd) { %>
+          <li class="page-item">
+            <a class="page-link" href="javascript:;">...</a>
+          </li>
+          <% } %>
+          <!-- Next page button -->
+          <li class="page-item <%= totalPages === 0 || currentPage === totalPages ? 'disabled' : '' %>">
+            <a class="page-link" href="javascript:;" aria-label="Next" onclick="changePage(`<%= currentPage + 1 %>`)">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
   <div style="display: none" id="currentUsername"></div>
@@ -204,6 +250,12 @@
         $("#deleteUserModal").modal("show");
       });
     });
+
+    function changePage(page) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const newUrl = `<%= currentPageUrl %>?page=${page}`;
+      window.location.href = newUrl;
+    }
 
     function removeUser() {
       const username = $("#confirmDeleteBtn").attr("username");
