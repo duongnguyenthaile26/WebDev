@@ -39,7 +39,7 @@
         <div class="col-8 col-lg-6 d-flex justify-content-center align-items-center">
           <div style="width: 25rem">
             <div class="input-group">
-              <input type="search" class="form-control name-input" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="name" value="<%= searchName %>" />
+              <input type="search" class="form-control name-input" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="name" value="<%= searchName %>" onkeyup="handleKeyPress(event)" />
               <button class="btn btn-primary search-box" onclick="search()">
                 <i class="fas fa-search"></i>
               </button>
@@ -214,6 +214,11 @@
     $(".category-checkbox").change(function() {
       search();
     });
+    function handleKeyPress(event) {
+      if (event.keyCode === 13) {
+        search();
+      }
+    }
   </script>
 </body>
 
