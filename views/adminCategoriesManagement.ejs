@@ -332,6 +332,30 @@
     function changeName() {
       const categoryName = $("#confirmChangeNameBtn").attr("categoryName");
       const newCategoryName = $("#newNameInput").val().trim().toLowerCase();
+      if (newCategoryName === "") {
+        const alertHtml = `
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Please enter the new category name
+          </div>`;
+        $(".alert").remove();
+        $(".modal-body").prepend(alertHtml);
+        return;
+      }
+      if (newCategoryName.length > 16) {
+        const alertHtml = `
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Category name must be less than 17 characters
+          </div>`;
+        $(".alert").remove();
+        $(".modal-body").prepend(alertHtml);
+        return;
+      }
+      const alertHtml = `
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Please wait, changing category names for all flags in database...
+          </div>`;
+      $(".alert").remove();
+      $(".modal-body").prepend(alertHtml);
       $.ajax({
         url: '/admin/categoryManagement',
         type: 'PATCH',
@@ -383,29 +407,38 @@
           $(".alert").remove();
           $(".modal-body").prepend(alertHtml);
           return;
-        } else {
-          $.ajax({
-            url: '/admin/categoryManagement',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-              categoryName,
-            }),
-            success: function(data) {
-              const alertHtml = `
+        }
+        if (categoryName.length > 16) {
+          const alertHtml = `
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Category name must be less than 17 characters
+          </div>`;
+          $(".alert").remove();
+          $(".modal-body").prepend(alertHtml);
+          return;
+        }
+
+        $.ajax({
+          url: '/admin/categoryManagement',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            categoryName,
+          }),
+          success: function(data) {
+            const alertHtml = `
               <div class="alert alert-${data.status === 'success' ? 'success' : 'danger'} alert-dismissible fade show" role="alert">
                 ${data.message}
               </div>`;
-              $(".alert").remove();
-              $(".modal-body").prepend(alertHtml);
-              if (data.status === "success") {
-                setTimeout(() => {
-                  window.location.href = "/admin/categoryManagement";
-                }, 2000);
-              }
-            },
-          });
-        }
+            $(".alert").remove();
+            $(".modal-body").prepend(alertHtml);
+            if (data.status === "success") {
+              setTimeout(() => {
+                window.location.href = "/admin/categoryManagement";
+              }, 2000);
+            }
+          },
+        });
       }
 
       $("#confirmNewCategoryBtn").on("click", function() {

@@ -291,19 +291,21 @@
       }
 
       function processEditInput() {
-        const usernameRegex = /^[a-zA-Z0-9._]{4,}$/;
+        const usernameRegex = /^[a-zA-Z0-9._]{4,16}$/;
         const newUsername = $("#newUsernameInput").val();
         const newName = $("#newNameInput").val().trim();
         const currentUsername = $("#currentUsername").text();
         if (!usernameRegex.test(newUsername)) {
           showAlert(
             `danger`,
-            `Username must have at least 4 characters, and only containing alphanumericals, dots ('.'), and underscores ('_')`
+            `Username must have at least 4 characters, at most 16 characters, and only containing alphanumericals, dots ('.'), and underscores ('_')`
           );
           return;
         }
         if (newUsername === "" || newName === "") {
           showAlert("danger", "Please fill out all the fields");
+        } else if (newName.length > 16) {
+          showAlert("danger", "Name must be less than 17 characters");
         } else {
           $.ajax({
             url: '/admin/userManagement',

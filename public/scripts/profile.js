@@ -12,6 +12,8 @@ $(document).ready(function () {
     const name = $(".name-input").val().trim();
     if (name === "") {
       showAlert("danger", "Please enter your new name");
+    } else if (name.length > 16) {
+      showAlert("danger", "Name must be less than 17 characters");
     } else {
       $.ajax({
         url: "/account/modify",
@@ -63,7 +65,7 @@ $("#NameModal").on("show.bs.modal", function () {
 $(document).ready(function () {
   function processPassInput() {
     // Minimum eight characters, at least one uppercase letter, one lowercase letter and one number
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,32}$/;
 
     const currentPassword = $(".current-pass-input").val();
     const newPassword = $(".new-pass-input").val();
@@ -83,7 +85,7 @@ $(document).ready(function () {
       if (!passwordRegex.test(newPassword)) {
         showAlert(
           "danger",
-          "Password must have at least eight characters, at least one uppercase letter, one lowercase letter and one number"
+          "Password must have at least eight characters, at most 32 characters, at least one uppercase letter, one lowercase letter and one number"
         );
         return;
       }

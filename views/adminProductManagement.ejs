@@ -214,11 +214,27 @@
     function submitForm() {
       const mode = $("#pageMode").html().trim().toLowerCase();
       const category = $("#category").find(":selected").val();
-      const name = $("#flag-name").val();
+      const name = $("#flag-name").val().trim();
       const price = $("#flag-price").val();
       const image = $("#formFile").prop("files")[0];
       if (category === "" || name === "" || price === "") {
         showToast("fail", "Please fill out all the fields");
+        return;
+      }
+      if (name.length > 30) {
+        showToast("fail", "Name must be less than 31 characters");
+        return;
+      }
+      if (Number.isNaN(price) || !Number(price)) {
+        showToast("fail", "Invalid price");
+        return;
+      }
+      if (price > 10000) {
+        showToast("fail", "Price must be less than or equals to 10000");
+        return;
+      }
+      if (price <= 0) {
+        showToast("fail", "Price must be a positive number");
         return;
       }
       if (mode === "edit flag") {

@@ -9,14 +9,14 @@ function showAlert(status, message) {
 
 function register() {
   // Minimum eight characters, at least one uppercase letter, one lowercase letter and one number
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,32}$/;
 
   // RFC 5322
   const mailRegex =
     /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
-  // At least 4 characters, only alphanumericals, dots, and underscores
-  const usernameRegex = /^[a-zA-Z0-9._]{4,}$/;
+  // At least 4 characters, at most 16 characters, only alphanumericals, dots, and underscores
+  const usernameRegex = /^[a-zA-Z0-9._]{4,16}$/;
 
   const username = $(".username-input-reg").val();
   const name = $(".name-input-reg").val().trim();
@@ -40,19 +40,23 @@ function register() {
   if (!usernameRegex.test(username)) {
     showAlert(
       "danger",
-      "Username must have at least 4 characters, and only containing alphanumericals, dots ('.'), and underscores ('_')"
+      "Username must have at least 4 characters, at most 16 characters, and only containing alphanumericals, dots ('.'), and underscores ('_')"
     );
     return;
   }
   if (!passwordRegex.test(password)) {
     showAlert(
       "danger",
-      "Password must have at least eight characters, at least one uppercase letter, one lowercase letter and one number"
+      "Password must have at least eight characters, at most 32 characters, at least one uppercase letter, one lowercase letter and one number"
     );
     return;
   }
   if (!mailRegex.test(mail)) {
     showAlert("danger", "Invalid mail format");
+    return;
+  }
+  if (name.length > 16) {
+    showAlert("danger", "Name must be less than 17 characters");
     return;
   }
   showAlert("success", "Please wait...");
