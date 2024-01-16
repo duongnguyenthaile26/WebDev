@@ -54,7 +54,6 @@ async function deposit(amount, bankCard, username) {
       httpsAgent,
     }
   );
-  console.log(3);
   return respone.data;
 }
 

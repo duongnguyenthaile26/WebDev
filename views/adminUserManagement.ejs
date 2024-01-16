@@ -315,7 +315,6 @@
               newName,
             }),
             success: function(data) {
-              console.log(data);
               data.status === "success" ? showAlert("success", data.message) : showAlert("danger", data.message);
               if (data.status === "success") {
                 setTimeout(() => {

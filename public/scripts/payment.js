@@ -166,7 +166,6 @@ $(document).ready(async function () {
             },
           },
           function (data) {
-            console.log(data);
             if (data.status === "success") {
               currentBalance = data.balance;
               handlePopup(`

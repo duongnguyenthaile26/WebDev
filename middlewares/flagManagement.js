@@ -16,7 +16,6 @@ async function unlinkFile(fileName) {
 async function verifyFlagInfo(req, res, next) {
   try {
     req.body.name = req.body.name.trim();
-    console.log(req.fileName);
     const { name, price, type } = req.body;
     if (name.length < 4) {
       await unlinkFile(req.fileName);

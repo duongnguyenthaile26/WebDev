@@ -126,7 +126,7 @@ async function payment(req, res, next) {
     user.cart = [];
     user.markModified("orderList");
     user.markModified("cart");
-    console.log(user);
+
     await user.save();
     res.json({ status: "success" });
   } catch (error) {
@@ -156,7 +156,6 @@ async function deposit(req, res, next) {
 
 async function getBalance(req, res, next) {
   try {
-    console.log(req.user);
     let wallet = null;
     const dataGetWallet = await AuxApi.getWallet(req.user.username);
     if (
@@ -170,7 +169,6 @@ async function getBalance(req, res, next) {
     } else if (dataGetWallet.status === "success") {
       wallet = dataGetWallet.wallet;
     }
-    console.log(wallet);
     if (!wallet) {
       return res.json({
         status: "fail",

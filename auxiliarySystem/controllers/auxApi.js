@@ -106,7 +106,6 @@ async function deposit(req, res, next) {
 }
 async function pay(req, res, next) {
   try {
-    console.log(req.body.amount);
     const payAmount = Number(req.body.amount);
     const wallet = await Wallet.findOne({ username: req.body.username });
     if (!wallet) {
