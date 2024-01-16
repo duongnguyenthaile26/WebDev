@@ -13,6 +13,22 @@ $(document).ready(async function () {
     odometerCheckout.text(checkoutTotal);
   }, 1500);
 
+  function handlePopup(component, buttonFunction) {
+    $(".popup").prepend(component);
+    $(".popup").fadeIn(500);
+    $("#overlay").fadeIn(500);
+    $("body > *:not(.popup, #overlay)").addClass("blurred");
+    $("#okButton").on("click", function () {
+      $(".popup").fadeOut();
+      $("#overlay").fadeOut();
+      $(".popup").empty();
+      $("body > *:not(.popup, #overlay)").removeClass("blurred");
+      if (typeof buttonFunction === "function") {
+        buttonFunction();
+      }
+    });
+  }
+
   function processCheckOutInput() {
     const payName = $(".pay-name-input").val().trim();
     const payAddress = $(".pay-address-input").val().trim();
@@ -56,6 +72,14 @@ $(document).ready(async function () {
                 $("body > *:not(.popup, #overlay)").removeClass("blurred");
                 window.location.href = "/checkout/cart";
               });
+            } else {
+              // xử lí fail
+              handlePopup(`
+                <img src="/images/404-cross.png" alt="tick">
+                <h2>FAIL</h2>
+                <p>${data.message}</p>
+                <button type="button" class="btn btn-outline-danger mt-4 w-100" id="okButton">OK</button>
+              `);
             }
           }
         );
@@ -146,21 +170,23 @@ $(document).ready(async function () {
             console.log(data);
             if (data.status === "success") {
               currentBalance = data.balance;
-              $(".popup").fadeIn();
-              $("#overlay").fadeIn();
-              $("body > *:not(.popup, #overlay)").addClass("blurred");
-              $("#okButton").on("click", function () {
-                $(".popup").fadeOut();
-                $("#overlay").fadeOut();
-                $("body > *:not(.popup, #overlay)").removeClass("blurred");
-                $("#AddMoneyModal").modal("hide"); // Đóng modal cũ
-                $("#AddMoneyModal input").val(""); // clear bank information
-                $("#PayModal").modal("show"); // Mở modal mới
-                $("input[name='payment-method']").prop("checked", false);
-              });
+              handlePopup(`
+                <img src="/images/404-tick.png" alt="tick">
+                <h2>SUCCESSFUL</h2>
+                <button type="button" class="btn btn-outline-success mt-4 w-100" id="okButton">OK</button>
+              `);
+              $("#AddMoneyModal").modal("hide"); // Đóng modal cũ
+              $("#AddMoneyModal input").val(""); // clear bank information
+              $("#PayModal").modal("show"); // Mở modal mới
+              $("input[name='payment-method']").prop("checked", false);
             } else {
               // data.staus === "fail"
-              alert("Error: " + data.message);
+              handlePopup(`
+                <img src="/images/404-cross.png" alt="tick">
+                <h2>FAIL</h2>
+                <p>${data.message}</p>
+                <button type="button" class="btn btn-outline-danger mt-4 w-100" id="okButton">OK</button>
+              `);
             }
           }
         );
