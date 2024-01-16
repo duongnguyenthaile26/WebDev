@@ -164,6 +164,14 @@ async function addCategory(req, res, next) {
         message: "Category name already existed",
       });
     }
+    const categoryCount = await Category.find();
+    if (categoryCount.length >= 12) {
+      return res.json({
+        status: "fail",
+        message:
+          "Maximum number of categories reached. Please remove at least one existing category before adding a new one",
+      });
+    }
     await Category.create({ name: categoryName });
     return res.json({
       status: "success",
