@@ -10,10 +10,14 @@ async function userManagement(req, res, next) {
   try {
     const query = url.parse(req.url, true).query;
     const page = parseInt(query.page) || 1;
+    const username = query.username;
     const itemsPerPage = 6;
-    const users = await User.find({ role: { $ne: "admin" } }).select(
+    let users = await User.find({ role: { $ne: "admin" } }).select(
       "-password -__v"
     );
+    if (username && username !== "") {
+      users = users.filter((user) => user.username.indexOf(username) !== -1);
+    }
     const totalPages = Math.ceil(users.length / itemsPerPage);
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = page * itemsPerPage;
@@ -25,6 +29,7 @@ async function userManagement(req, res, next) {
       itemsPerPage: itemsPerPage,
       totalPages: totalPages,
       currentPageUrl: req.originalUrl.split("?")[0],
+      searchName: username,
     });
   } catch (error) {
     next(error);
@@ -193,7 +198,7 @@ async function transaction(req, res, next) {
     const username = query.username;
     if (username && username !== "") {
       data.transactions = data.transactions.filter(
-        (entry) => entry.username === username
+        (entry) => entry.username.indexOf(username) !== -1
       );
     }
     const itemsPerPage = 8;
