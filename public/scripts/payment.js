@@ -22,7 +22,8 @@ $(document).ready(async function () {
       payName !== "" &&
       payAddress !== "" &&
       payEmail !== "" &&
-      (payPhoneNum !== "" && payPhoneNum.length >= 10)// &&
+      payPhoneNum !== "" &&
+      payPhoneNum.length >= 10 // &&
       // currentBalance >= checkoutTotal
     ) {
       // gửi một POST request về server (clear giỏ hàng)
@@ -30,7 +31,7 @@ $(document).ready(async function () {
       $(".alert").remove();
       $("#loader-container, #overlay").fadeIn();
       $("body > *:not(#loader-container, #overlay)").addClass("blurred");
-      
+
       setTimeout(function () {
         $("#loader-container, #overlay").fadeOut();
         $("body > *:not(#loader-container, #overlay)").removeClass("blurred");
@@ -75,15 +76,13 @@ $(document).ready(async function () {
       }
       // Check phone number
       else if (payPhoneNum.length < 10) {
-        alert =
-        "Invalid phone number";
+        alert = "Invalid phone number";
       }
       // Check balance
       else if (currentBalance < checkoutTotal) {
         alert =
           "Your wallet does not have enough balance to place order. Please add more credit to the wallet";
-      }
-      else {
+      } else {
         alert("Error");
       }
 
@@ -99,19 +98,27 @@ $(document).ready(async function () {
   function processAddFunds() {
     const paymentAmount = $(".payment-amount-input").val();
     const cardName = $(".name-on-card-input").val();
-    const cardNumber = $(".card-number-input").val().replace(/\s/g, '');
+    const cardNumber = $(".card-number-input").val().replace(/\s/g, "");
     const expiry = $(".expiry-input").val();
     const cvv = $(".cvv-input").val();
     const method = $(
       '.payment-method input[name="payment-method"]:checked'
     ).val();
+    const visa = $("#method-1").prop("checked");
+    const master = $("#method-2").prop("checked");
+    console.log(visa);
+    console.log(master);
     if (
-      (paymentAmount !== "" && parseFloat(paymentAmount) >= 10) &&
+      paymentAmount !== "" &&
+      parseFloat(paymentAmount) >= 10 &&
       cardName !== "" &&
-      (cardNumber !== "" && cardNumber.length === 16) &&
-      (expiry !== "" && expiry.length === 5) &&
-      (cvv !== "" && cvv.length >= 3) &&
-      method
+      cardNumber !== "" &&
+      cardNumber.length === 16 &&
+      expiry !== "" &&
+      expiry.length === 5 &&
+      cvv !== "" &&
+      cvv.length >= 3 &&
+      (visa || master)
     ) {
       // Hiển thị loading và chặn tương tác
       $(".alert").remove();
@@ -128,7 +135,7 @@ $(document).ready(async function () {
           {
             amount: paymentAmount,
             bankCard: {
-              method: method,
+              method: visa ? "visa" : "mastercard",
               id: cardNumber,
               holder: cardName,
               issueDate: expiry,
@@ -149,6 +156,7 @@ $(document).ready(async function () {
                 $("#AddMoneyModal").modal("hide"); // Đóng modal cũ
                 $("#AddMoneyModal input").val(""); // clear bank information
                 $("#PayModal").modal("show"); // Mở modal mới
+                $("input[name='payment-method']").prop("checked", false);
               });
             } else {
               // data.staus === "fail"
@@ -172,29 +180,22 @@ $(document).ready(async function () {
       }
       // Check payment amount
       else if (paymentAmount < 10) {
-        alert =
-          "You must pay at least $10";
+        alert = "You must pay at least $10";
       }
       // Check card number
       else if (cardNumber.length < 16) {
-        alert =
-          "Invalid card number";
+        alert = "Invalid card number";
       }
       // Check expiry date
       else if (parseInt(expiry.substring(0, 2)) < currentDate.getMonth() + 1) {
-        alert =
-          "Your card has expired";
-      }
-      else if (expiry.length < 5) {
-        alert =
-          "Invalid expiry date";
+        alert = "Your card has expired";
+      } else if (expiry.length < 5) {
+        alert = "Invalid expiry date";
       }
       // Check cvv number
       else if (cvv.length < 3) {
-        alert =
-          "Invalid cvv number";
-      }
-      else {
+        alert = "Invalid cvv number";
+      } else if (!method) {
         alert = "Please choose a payment method";
       }
 
@@ -236,7 +237,7 @@ $(document).ready(async function () {
   });
 
   $("#phone").on("input", function () {
-    var phoneNumber = $(this).val().replace(/\D/g, '');
+    var phoneNumber = $(this).val().replace(/\D/g, "");
 
     $(this).val(phoneNumber);
   });
@@ -274,9 +275,9 @@ $(document).ready(async function () {
   });
 
   $("#card-number").on("input", function () {
-    var cardNumber = $(this).val().replace(/\D/g, '');
+    var cardNumber = $(this).val().replace(/\D/g, "");
 
-    $(this).val(cardNumber.replace(/(\d{4})/g, '$1 ').trim());
+    $(this).val(cardNumber.replace(/(\d{4})/g, "$1 ").trim());
   });
 
   $(".expiry-input").keypress(function (event) {
@@ -335,7 +336,8 @@ $(document).ready(async function () {
 
     // Thêm ký tự "/" sau tháng
     if (inputExpiry.length >= 2 && inputExpiry.charAt(2) !== "/") {
-      inputExpiry = inputExpiry.substring(0, 2) + "/" + inputExpiry.substring(2);
+      inputExpiry =
+        inputExpiry.substring(0, 2) + "/" + inputExpiry.substring(2);
     }
 
     // Cài đặt năm tối thiểu là 2024
