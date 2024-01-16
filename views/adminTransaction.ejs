@@ -40,7 +40,18 @@
           Transactions
         </div>
       </div>
+      <div class="col-8 col-lg-6 d-flex justify-content-center align-items-center">
+        <div style="width: 25rem">
+          <div class="input-group">
+            <input type="search" class="form-control name-input" placeholder="Search by username" aria-label="Search" aria-describedby="search-addon" name="name" value="<%= searchName %>" onkeyup="handleKeyPress(event)" />
+            <button class="btn btn-primary search-box" onclick="search()">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="container p-5 d-flex flex-column justify-content-center align-items-center">
       <div class="card" style="width: 100%">
         <div class="card-body p-0">
@@ -175,8 +186,14 @@
     });
 
     function changePage(page) {
-      const urlParams = new URLSearchParams(window.location.search);
-      const newUrl = `<%= currentPageUrl %>?page=${page}`;
+      const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+      });
+      const username = params.username;
+      let newUrl = `<%= currentPageUrl %>?page=${page}`;
+      if (username) {
+        newUrl += `&username=${username}`
+      }
       window.location.href = newUrl;
     }
     $(document).ready(function() {
@@ -185,6 +202,18 @@
         window.location.href = $(this).attr("href");
       });
     });
+
+    function search() {
+      const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+      });
+      const searchInput = $(".name-input").val();
+      const queryParams = new URLSearchParams({
+        username: searchInput,
+        page: 1,
+      });
+      window.location.href = `/admin/transaction?${queryParams.toString()}`;
+    }
   </script>
 </body>
 

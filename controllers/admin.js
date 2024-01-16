@@ -182,6 +182,12 @@ async function transaction(req, res, next) {
     }
     const query = url.parse(req.url, true).query;
     const page = parseInt(query.page) || 1;
+    const username = query.username;
+    if (username && username !== "") {
+      data.transactions = data.transactions.filter(
+        (entry) => entry.username === username
+      );
+    }
     const itemsPerPage = 8;
     const totalPages = Math.ceil(data.transactions.length / itemsPerPage);
     const startIndex = (page - 1) * itemsPerPage;
@@ -194,6 +200,7 @@ async function transaction(req, res, next) {
       itemsPerPage: itemsPerPage,
       totalPages: totalPages,
       currentPageUrl: req.originalUrl.split("?")[0],
+      searchName: username,
     });
   } catch (error) {
     next(error);
