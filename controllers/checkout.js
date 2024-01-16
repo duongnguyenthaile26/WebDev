@@ -16,19 +16,29 @@ async function cart(req, res, next) {
     const user = await User.findOne({ username: req.user.username });
     const flags = [];
     let total = 0;
+    let cartModified = false;
     for (let i = 0; i < user.cart.length; i++) {
       const flag = { quantity: user.cart[i].quantity };
       const flagInfo = await Flag.findOne({ _id: user.cart[i].flagID }).select(
         "-__v"
       );
-      flag.name = flagInfo.name;
-      flag.price = flagInfo.price;
-      flag.image = flagInfo.image;
-      flag.type = flagInfo.type;
-      flag.totalPrice = flag.price * flag.quantity;
-      flag._id = flagInfo._id;
-      total += flag.totalPrice;
-      flags.push(flag);
+      if (!flagInfo) {
+        user.cart = user.cart.filter(
+          (flag) => flag.flagID !== user.cart[i].flagID
+        );
+        user.markModified("cart");
+        cartModified = true;
+        i--;
+      } else {
+        flag.name = flagInfo.name;
+        flag.price = flagInfo.price;
+        flag.image = flagInfo.image;
+        flag.type = flagInfo.type;
+        flag.totalPrice = flag.price * flag.quantity;
+        flag._id = flagInfo._id;
+        total += flag.totalPrice;
+        flags.push(flag);
+      }
     }
 
     total = total.toFixed(2);
@@ -44,7 +54,9 @@ async function cart(req, res, next) {
     const flagsOnPage = flags.slice(startIndex, endIndex);
 
     /* Nhớ làm thêm nút để xóa item ra khỏi giỏ hàng nha */
-
+    if (cartModified) {
+      await user.save();
+    }
     res.render("cart", {
       user: req.user, // cái này để đi đến trang người dùng (khi nào có thì cài đặt sau)
       options, // cho sidebar
