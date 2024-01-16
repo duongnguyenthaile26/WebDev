@@ -63,13 +63,11 @@ $(document).ready(async function () {
           },
           function (data) {
             if (data.status === "success") {
-              $(".popup").fadeIn();
-              $("#overlay").fadeIn();
-              $("body > *:not(.popup, #overlay)").addClass("blurred");
-              $("#okButton").on("click", function () {
-                $(".popup").fadeOut();
-                $("#overlay").fadeOut();
-                $("body > *:not(.popup, #overlay)").removeClass("blurred");
+              handlePopup(`
+                <img src="/images/404-tick.png" alt="tick">
+                <h2>SUCCESSFUL</h2>
+                <button type="button" class="btn btn-outline-success mt-4 w-100" id="okButton">OK</button>
+              `, function() {
                 window.location.href = "/checkout/cart";
               });
             } else {
