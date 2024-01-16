@@ -34,27 +34,27 @@
                 <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important; border: 0; background: #ddd;">
                   <div class="card-body px-5 py-3">
                     <div class="fs-2 fw-bold mb-2 d-flex justify-content-center" style="color: #f37a27;">Purchase Receipt</div>
-                    <% if (orderList.length > 0) { %>
-                    <div class="fs-5">
-                      Thanks for your order, <span style="color: #f37a27;"><%= orderList[0].name %></span>!!
-                    </div>
-                    <hr/>
-                    <% orderList.forEach((order) => { %>
-                    <div class="small text-muted">
-                      <div>Email: <%= order.email %></div>
-                      <div>Phone: <%= order.phone %></div>
-                      <div>Address: <%= order.address %></div>
-                    </div>
-                    <div class="row pt-3">
-                      <div class="col mb-3">
-                        <p class="text-muted mb-1">Date</p>
-                        <p><%= new Date(order.createDate).toLocaleString() %></p>
+                    <% if (orderListOnPage.length > 0) { %>
+                      <div class="fs-5">
+                        Thanks for your order, <span style="color: #f37a27;"><%= orderListOnPage[currentPage - 1].name %></span>!!
                       </div>
-                      <div class="col mb-3">
-                        <p class="text-muted mb-1">Transaction ID</p>
-                        <p><%= order.transactionId %></p>
+                      <hr />
+                      <!-- Order  -->
+                      <div class="small text-muted">
+                        <div>Email: <%= orderListOnPage[currentPage - 1].email %></div>
+                        <div>Phone: <%= orderListOnPage[currentPage - 1].phone %></div>
+                        <div>Address: <%= orderListOnPage[currentPage - 1].address %></div>
                       </div>
-                    </div>
+                      <div class="row pt-3">
+                        <div class="col mb-3">
+                          <p class="text-muted mb-1">Date</p>
+                          <p><%= new Date(orderListOnPage[currentPage - 1].createDate).toLocaleString() %></p>
+                        </div>
+                        <div class="col mb-3">
+                          <p class="text-muted mb-1">Transaction ID</p>
+                          <p><%= orderListOnPage[currentPage - 1].transactionId %></p>
+                        </div>
+                      </div>
                       <div class="card" style="width: 100%">
                         <div class="card-body p-0">
                           <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 35vh; border-radius: 0">
@@ -67,7 +67,7 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <% order.flags.forEach((index) => { %>
+                                <% orderListOnPage[currentPage - 1].flags.forEach((index) => { %>
                                 <tr>
                                   <td class="col-5 fw-bold text-dark"><%= index.name %></td>
                                   <td class="col fw-bold text-dark  text-center"><%= index.quantity %></td>
@@ -78,20 +78,48 @@
                             </table>
                           </div>
                         </div>
-                      </div>        
-                    <div class="row my-4">
-                      <div class="col-md-4 offset-md-8 col-lg-3 offset-lg-9">
-                        <p class="lead fw-bold mb-0 text-danger fw-bold">Total Price: <%= order.total %></p>
                       </div>
-                    </div>
-                    <hr/>
-                    <% }) %>
-                    <% } else { %>
+                      <div class="row my-4">
+                        <div class="col-md-4 offset-md-8 col-lg-3 offset-lg-9">
+                          <p class="lead fw-bold mb-0 text-danger fw-bold">Total Price: <%= orderListOnPage[currentPage - 1].total %></p>
+                        </div>
+                      </div>
+
+                      <div class="d-flex justify-content-center align-items-center">
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination">
+                            <!-- Previous page button -->
+                            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                              <a class="page-link" href="javascript:;" aria-label="Previous" onclick="changePage('<%= currentPage - 1 %>')">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+                            <!-- Render page items -->
+                            <% for (let i = 0; i < orderListOnPage.length; i++) { %>
+                            <li class="page-item <%= currentPage === i + 1 ? 'active' : '' %>">
+                              <a class="page-link" href="javascript:;" onclick="changePage('<%= i + 1 %>')">
+                                <%= i + 1 %>
+                              </a>
+                            </li>
+                            <% } %>
+                            <!-- Next page button -->
+                            <li class="page-item <%= currentPage === orderListOnPage.length ? 'disabled' : '' %>">
+                              <a class="page-link" href="javascript:;" aria-label="Next" onclick="changePage('<%= currentPage + 1 %>')">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </div>
+                      <hr />
+                      <% } else { %>
                       <div class="fs-5">
                         You don't have any orders yet.
                       </div>
-                      <hr/>
-                    <% } %>
+                      <hr />
+                      <% } %>
+                      <!-- Order  -->
+
                     <p class="my-4 pt-2 d-flex justify-content-center">Any help? <a href="/about" class="mx-2" style="color: #f37a27;">Please contact us</a></p>
                   </div>
                 </div>
@@ -159,6 +187,12 @@
           $(".toast").toast("show");
         }
       });
+    }
+    function changePage(page) {
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.set('page', page);
+      const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+      window.location.href = newUrl;
     }
   </script>
 </body>

@@ -3,6 +3,8 @@ const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const User = require(path.join(__dirname, "..", "models", "user"));
 const AuxApi = require(path.join(__dirname, "..", "utilities", "AuxApi"));
+const url = require("url");
+
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
 async function cart(req, res, next) {
@@ -178,12 +180,24 @@ async function purchaseHistory(req, res, next) {
     const user = await User.findOne({ username: req.user.username });
     const categories = await Category.find({}).select("-__v");
     const options = categories.map((category) => category.name);
+    const query = url.parse(req.url, true).query;
+    const page = parseInt(query.page) || 1;
+    const itemsPerPage = 3;
+    const totalPages = Math.ceil(categories.length / itemsPerPage);
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = page * itemsPerPage;
+    const orderList = user.orderList.slice().reverse();
+    const orderListOnPage = orderList.slice(startIndex, endIndex);
 
-    const orderList = user.orderList;
     res.render("purchaseHistory", {
       user: req.user,
       orderList: orderList,
       options,
+      orderListOnPage,
+      currentPage: page,
+      itemsPerPage: itemsPerPage,
+      totalPages: totalPages,
+      currentPageUrl: req.originalUrl.split("?")[0],
     });
     //res.json(orderList);
   } catch (error) {
