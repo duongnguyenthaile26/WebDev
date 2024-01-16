@@ -14,10 +14,10 @@ $(document).ready(async function () {
   }, 1500);
 
   function processCheckOutInput() {
-    const payName = $(".pay-name-input").val();
-    const payAddress = $(".pay-address-input").val();
-    const payEmail = $(".pay-email-input").val();
-    const payPhoneNum = $(".pay-phonenum-input").val();
+    const payName = $(".pay-name-input").val().trim();
+    const payAddress = $(".pay-address-input").val().trim();
+    const payEmail = $(".pay-email-input").val().trim();
+    const payPhoneNum = $(".pay-phonenum-input").val().trim();
     if (
       payName !== "" &&
       payAddress !== "" &&
@@ -56,16 +56,14 @@ $(document).ready(async function () {
                 $("body > *:not(.popup, #overlay)").removeClass("blurred");
                 window.location.href = "/checkout/cart";
               });
-            } else {
-              // xử lí fail
             }
           }
         );
       }, 3000);
-      // chuyển về trang /checkout/cart sau 3s
     } else {
       let alert;
-
+      const mailRegex =
+        /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
       if (
         payName === "" ||
         payAddress === "" ||
@@ -82,6 +80,8 @@ $(document).ready(async function () {
       else if (currentBalance < checkoutTotal) {
         alert =
           "Your wallet does not have enough balance to place order. Please add more credit to the wallet";
+      } else if (!mailRegex.test(payEmail)) {
+        alert = "Invalid mail format";
       } else {
         alert("Error");
       }
