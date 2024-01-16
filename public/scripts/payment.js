@@ -29,92 +29,97 @@ $(document).ready(async function () {
     });
   }
 
+  function showToast(status, message) {
+    $("#toastMainTag").removeClass("text-bg-danger");
+    $("#toastMainTag").removeClass("text-bg-success");
+    $("#toastIcon").removeClass("fa-exclamation-circle");
+    $("#toastIcon").removeClass("fa-circle-check");
+
+    if (status === "fail") {
+      $("#toastMainTag").addClass("text-bg-danger");
+      $("#toastIcon").addClass("fa-exclamation-circle");
+    } else {
+      $("#toastMainTag").addClass("text-bg-success");
+      $("#toastIcon").addClass("fa-circle-check");
+    }
+
+    $(".toast-body").text(message);
+    $(".toast-container").removeClass("d-none");
+    $(".toast").toast("show");
+  }
+
   function processCheckOutInput() {
     const payName = $(".pay-name-input").val().trim();
     const payAddress = $(".pay-address-input").val().trim();
     const payEmail = $(".pay-email-input").val().trim();
     const payPhoneNum = $(".pay-phonenum-input").val().trim();
     if (
-      payName !== "" &&
-      payAddress !== "" &&
-      payEmail !== "" &&
-      payPhoneNum !== "" &&
-      payPhoneNum.length >= 10 // &&
-      // currentBalance >= checkoutTotal
+      payName === "" ||
+      payAddress === "" ||
+      payEmail === "" ||
+      payPhoneNum === ""
     ) {
-      // gửi một POST request về server (clear giỏ hàng)
-      // hiện thông báo thanh toán thành công
-      $(".alert").remove();
-      $("#loader-container, #overlay").fadeIn();
-      $("body > *:not(#loader-container, #overlay)").addClass("blurred");
+      showToast("fail", "Please fill out the fields");
+      return;
+    }
+    if (payPhoneNum.length < 10) {
+      showToast("fail", "Invalid phone number format");
+      return;
+    }
+    const mailRegex =
+      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+    if (!mailRegex.test(payEmail)) {
+      showToast("fail", "Invalid mail format");
+      return;
+    }
+    if (currentBalance < checkoutTotal) {
+      showToast(
+        "fail",
+        "Your wallet does not have enough balance to place order. Please add more credit to the wallet"
+      );
+      return;
+    }
 
-      setTimeout(function () {
-        $("#loader-container, #overlay").fadeOut();
-        $("body > *:not(#loader-container, #overlay)").removeClass("blurred");
-        console.log(checkoutTotal);
-        $.post(
-          "/checkout/payment",
-          {
-            amount: checkoutTotal,
-            name: payName,
-            address: payAddress,
-            email: payEmail,
-            phone: payPhoneNum,
-          },
-          function (data) {
-            if (data.status === "success") {
-              handlePopup(`
+    $(".alert").remove();
+    $("#loader-container, #overlay").fadeIn();
+    $("body > *:not(#loader-container, #overlay)").addClass("blurred");
+
+    setTimeout(function () {
+      $("#loader-container, #overlay").fadeOut();
+      $("body > *:not(#loader-container, #overlay)").removeClass("blurred");
+      $.post(
+        "/checkout/payment",
+        {
+          amount: checkoutTotal,
+          name: payName,
+          address: payAddress,
+          email: payEmail,
+          phone: payPhoneNum,
+        },
+        function (data) {
+          if (data.status === "success") {
+            handlePopup(
+              `
                 <img src="/images/404-tick.png" alt="tick">
                 <h2>SUCCESSFUL</h2>
                 <button type="button" class="btn btn-outline-success mt-4 w-100" id="okButton">OK</button>
-              `, function() {
+              `,
+              function () {
                 window.location.href = "/checkout/cart";
-              });
-            } else {
-              // xử lí fail
-              handlePopup(`
+              }
+            );
+          } else {
+            // xử lí fail
+            handlePopup(`
                 <img src="/images/404-cross.png" alt="tick">
                 <h2>FAIL</h2>
                 <p>${data.message}</p>
                 <button type="button" class="btn btn-outline-danger mt-4 w-100" id="okButton">OK</button>
               `);
-            }
           }
-        );
-      }, 3000);
-    } else {
-      let alert;
-      const mailRegex =
-        /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-      if (
-        payName === "" ||
-        payAddress === "" ||
-        payEmail === "" ||
-        payPhoneNum === ""
-      ) {
-        alert = "Please fill out the fields";
-      }
-      // Check phone number
-      else if (payPhoneNum.length < 10) {
-        alert = "Invalid phone number";
-      }
-      // Check balance
-      else if (currentBalance < checkoutTotal) {
-        alert =
-          "Your wallet does not have enough balance to place order. Please add more credit to the wallet";
-      } else if (!mailRegex.test(payEmail)) {
-        alert = "Invalid mail format";
-      } else {
-        alert("Error");
-      }
-
-      const alertHtml = `
-      <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginAlertTag">
-        ${alert}
-      </div>`;
-      $(".alert").remove();
-      $(".modal-body").prepend(alertHtml);
-    }
+        }
+      );
+    }, 3000);
   }
 
   function processAddFunds() {
@@ -123,13 +128,9 @@ $(document).ready(async function () {
     const cardNumber = $(".card-number-input").val().replace(/\s/g, "");
     const expiry = $(".expiry-input").val();
     const cvv = $(".cvv-input").val();
-    const method = $(
-      '.payment-method input[name="payment-method"]:checked'
-    ).val();
     const visa = $("#method-1").prop("checked");
     const master = $("#method-2").prop("checked");
-    console.log(visa);
-    console.log(master);
+
     if (
       paymentAmount !== "" &&
       parseFloat(paymentAmount) >= 10 &&

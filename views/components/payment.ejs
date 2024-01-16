@@ -1,11 +1,5 @@
 <form id="payment-form" novalidate>
-  <div
-    class="modal fade >"
-    id="PayModal"
-    tabindex="-1"
-    aria-labelledby="PayModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade >" id="PayModal" tabindex="-1" aria-labelledby="PayModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
@@ -13,12 +7,7 @@
             <div class="row px-3 px-sm-0">
               <div class="content-right col-12 d-flex flex-column gap-3 py-3">
                 <div class="d-flex justify-content-end">
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="container mt-5">
                   <h1 class="text-center mb-4" style="color: #1877f2">
@@ -27,37 +16,18 @@
 
                   <!-- Số tiền hiện có -->
                   <div class="text-center fs-4 d-flex flex-column">
-                    <div
-                      class="money d-flex flex-row justify-content-center align-items-center"
-                    >
-                      Current balance:&nbsp;<i
-                        class="fa-solid fa-dollar-sign"
-                        style="color: green"
-                      ></i>
+                    <div class="money d-flex flex-row justify-content-center align-items-center">
+                      Current balance:&nbsp;<i class="fa-solid fa-dollar-sign" style="color: green"></i>
 
-                      <div
-                        class="odometer text-center px-1"
-                        id="odometer-balance"
-                      ></div>
+                      <div class="odometer text-center px-1" id="odometer-balance"></div>
                     </div>
-                    <div
-                      class="money d-flex flex-row justify-content-center align-items-center"
-                    >
-                      Total costs:&nbsp;<i
-                        class="fa-solid fa-dollar-sign"
-                        style="color: green"
-                      ></i>
+                    <div class="money d-flex flex-row justify-content-center align-items-center">
+                      Total costs:&nbsp;<i class="fa-solid fa-dollar-sign" style="color: green"></i>
 
-                      <div
-                        class="odometer text-center px-1"
-                        id="odometer-checkout"
-                      ></div>
+                      <div class="odometer text-center px-1" id="odometer-checkout"></div>
                     </div>
                     <div class="container text-center p-3">
-                      <button
-                        type="button"
-                        class="btn btn-outline-success add-money-container"
-                      >
+                      <button type="button" class="btn btn-outline-success add-money-container">
                         Add funds to wallet
                       </button>
                     </div>
@@ -66,59 +36,24 @@
                   <!-- Form thông tin để vận chuyển -->
                   <div class="mb-3">
                     <label for="name" class="form-label">Name:</label>
-                    <input
-                      type="text"
-                      id="name"
-                      class="form-control pay-name-input"
-                      name="name"
-                      placeholder="Name"
-                      value="<%= user.name %>"
-                      required
-                    />
+                    <input type="text" id="name" class="form-control pay-name-input" name="name" placeholder="Name" value="<%= user.name %>" required />
                   </div>
                   <div class="mb-3">
                     <label for="address" class="form-label">Address:</label>
-                    <input
-                      type="text"
-                      id="address"
-                      class="form-control pay-address-input"
-                      name="address"
-                      placeholder="Address"
-                      required
-                    />
+                    <input type="text" id="address" class="form-control pay-address-input" name="address" placeholder="Address" required />
                   </div>
                   <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
-                    <input
-                      type="email"
-                      id="email"
-                      class="form-control pay-email-input"
-                      name="email"
-                      placeholder="Email"
-                      value="<%= user.mail %>"
-                      required
-                    />
+                    <input type="email" id="email" class="form-control pay-email-input" name="email" placeholder="Email" value="<%= user.mail %>" required />
                   </div>
                   <div class="mb-3">
                     <label for="phone" class="form-label">Phone number:</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      class="form-control pay-phonenum-input"
-                      name="phone"
-                      placeholder="Phone number"
-                      maxlength="11"
-                      required
-                    />
+                    <input type="tel" id="phone" class="form-control pay-phonenum-input" name="phone" placeholder="Phone number" maxlength="11" required />
                   </div>
                 </div>
 
                 <div class="text-center">
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary"
-                    id="confirmOrderBtn"
-                  >
+                  <button type="button" class="btn btn-outline-primary" id="confirmOrderBtn">
                     Place Order
                   </button>
                 </div>
@@ -127,6 +62,15 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+      <div class="toast-container d-none p-3" data-bs-container="body">
+        <div class="toast align-items-center d-flex" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="8000" id="toastMainTag">
+          <i class="m-2 fa-solid fs-4" id="toastIcon"></i>
+          <div class="toast-body" id="toast-body"></div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
       </div>
     </div>
