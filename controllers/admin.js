@@ -78,7 +78,7 @@ async function removeUser(req, res, next) {
 
 async function editUser(req, res, next) {
   try {
-    if (req.mode === "name") {
+    if (req.body.mode === "name") {
       const { currentUsername, newUsername, newName } = req.body;
 
       const checkUser = await User.findOne({ username: newUsername });
@@ -97,7 +97,7 @@ async function editUser(req, res, next) {
       if (currentUsername !== newUsername) {
         await AuxApi.changeWalletName(currentUsername, newUsername);
       }
-      res.json({
+      return res.json({
         status: "success",
         message: "Change user's information successfully",
       });
@@ -111,7 +111,7 @@ async function editUser(req, res, next) {
         user.markModified("cart");
       }
       await user.save();
-      res.json({
+      return res.json({
         status: "success",
         message: "Change user's role successfully",
       });
