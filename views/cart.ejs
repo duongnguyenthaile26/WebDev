@@ -89,7 +89,7 @@
                           <%= flag.type %>
                         </div>
                         <div class="price text-danger fw-bold fs-5">
-                          Price: <%= flag.price %>
+                          Price: $<%= flag.price %>
                         </div>
                         <div class="Quantity text-danger fw-bold fs-5">
                           Quantity: <%= flag.quantity %>
@@ -97,7 +97,7 @@
                       </div>
                     </div>
                     <div class="col-xl-2 pt-3 p-xl-0 total-price text-danger fw-bold fs-5">
-                      Total: <%= flag.totalPrice %>
+                      Total: $<%= flag.totalPrice %>
                     </div>
                     <div class="remove-item pt-3 p-xl-0">
                       <button class="btn btn-danger" id="<%= flag._id %>" onclick="removeItem(event)">
@@ -117,7 +117,7 @@
               <div class="titleNav fs-1 text-center py-3">BILL</div>
               <div class="card-body fw-bold fs-2">
                 Total:
-                <div class="text-danger total-cart-price"><%= total %></div>
+                <div class="text-danger total-cart-price">$<%= total %></div>
               </div>
             </div>
             <% if (totalInCart !== 0) { %>

@@ -71,7 +71,7 @@
                             <tr>
                               <td class="col-5 fw-bold text-dark"><%= index.name %></td>
                               <td class="col fw-bold text-dark  text-center"><%= index.quantity %></td>
-                              <td class="col text-danger fw-bold"><%= index.totalPrice %></td>
+                              <td class="col text-danger fw-bold">$<%= index.totalPrice %></td>
                             </tr>
                             <% }); %>
                           </tbody>
@@ -81,7 +81,7 @@
                   </div>
                   <div class="row my-4">
                     <div class="col-md-4 offset-md-8 col-lg-3 offset-lg-9">
-                      <p class="lead fw-bold mb-0 text-danger fw-bold">Total Price: <%= orderListOnPage.total %></p>
+                      <p class="lead fw-bold mb-0 text-danger fw-bold">Total Price: $</i><%= orderListOnPage.total %></p>
                     </div>
                   </div>
 
