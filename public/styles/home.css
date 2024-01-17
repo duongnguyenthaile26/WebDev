@@ -707,9 +707,30 @@ input:checked + .payment-method-item::before {
 }
 
 
+.btn-set-role:hover{
+  box-shadow: 0 2px 0 #1e90b9;
+}
 
+.btn-set-role:hover, .btn-set-role:focus{
+  outline: none;
+  top:2px;
+}
+.btn-set-role{
+  text-transform: capitalize;
+  padding: 0.75rem 1rem;
+  border-radius: 25px;
+  box-shadow: 0 5px 0 #1e90b9;
+  transition:all 0.2s ease-in-out 0s;
+  position: relative;
+  top:0;
+}
+@media only screen and (max-width: 767px) {
+  .btn-set-role{
+      margin-bottom: 25px;
+  }
+}
 .btn-add-cate:hover{
-  box-shadow: 0 2px 0 #1eb971;
+  box-shadow: 0 2px 0 #1e90b9;
 }
 
 .btn-add-cate:hover, .btn-add-cate:focus{

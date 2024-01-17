@@ -50,9 +50,21 @@
           </div>
         </div>
       </div>
+      <div class="container pt-5 d-flex flex-column justify-content-center align-items-center">
+        <div class="btn-cate">
+          <button type="button" class="btn btn-set-role light-brown d-flex btn-info mb-3">
+            <div>
+              <i class="fa-solid fa-wrench">&nbsp;</i>
+            </div>
+            <div>
+              Set Admin
+            </div>
+          </button>
+        </div>
+      </div>
     </div>
 
-    <div class="container p-5 d-flex flex-column justify-content-center align-items-center">
+    <div class="container p-5 pt-1 d-flex flex-column justify-content-center align-items-center">
       <div class="card" style="width: 100%">
         <div class="card-body p-0">
           <div style="position: relative; height: 49vh">
@@ -63,6 +75,7 @@
                   <th scope="col">Name</th>
                   <th scope="col">Mail</th>
                   <th scope="col">Verified</th>
+                  <th scope="col">Role</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -77,7 +90,21 @@
                   <% } else { %>
                   <td><span style="color: red">No</span></td>
                   <% } %>
+                  <!-- Set màu cho Admin -->
+                  <!-- <td>
+                    <% if (user.role === 'admin') { %>
+                      <span class="text-primary">user.role</span>
+                    <% } else { %>
+                      <span>user.role</span>
+                    <% } %>
+                  </td> -->
+                  <td><span class="text-primary">Example role</span></td>
                   <td>
+                    <form action="" method="get" style="display: inline">
+                      <button type="button" class="btn btn-outline-info">
+                        <i class="fa-solid fa-user-tie pe-2"></i> Set Role
+                      </button>
+                    </form>
                     <form action="" method="get" style="display: inline">
                       <button type="button" class="btn btn-outline-warning">
                         <i class="fa-solid fa-pen-to-square pe-2"></i> Edit
@@ -97,6 +124,76 @@
         </div>
       </div>
 
+      <!-- ===================MODAL SET ADMIN=================== -->
+      <div class="modal fade" id="SetAdminModal" tabindex="-1" aria-labelledby="SetAdminModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 40%">
+          <div class="modal-content" style="background-color: white">
+            <div class="modal-header">
+              <h5 class="modal-title fs-4 text-info" id="SetAdminModalLabel">ADMIN'S INFORMATION</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body fs-5">
+              <div class="py-2">
+                <label>Username:</label>
+                <input type="username" class="form-control username-input-set-admin" placeholder="Username" />
+              </div>
+              <div class="py-2">
+                <label>Password: </label>
+                <input type="password" class="form-control password-input-set-admin" placeholder="Password" />
+              </div>
+              <div class="py-2 mb-4">
+                <label>Confirm password: </label>
+                <input type="password" class="form-control passwordConfirm-input-set-admin" placeholder="Confirm password" onkeyup="handleKeyPress(event)" />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancel
+              </button>
+              <button type="button" class="btn btn-primary" id="confirmSetAdminBtn">
+                COMFIRM
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ===================MODAL SET ROLE=================== -->
+      <div class="modal fade" id="SetRoleModal" tabindex="-1" aria-labelledby="SetRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 40%">
+          <div class="modal-content" style="background-color: white">
+            <div class="modal-header">
+              <h5 class="modal-title fs-4 text-info" id="SetRoleModalLabel">CHANGE ROLE</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body fs-5">
+              <form>
+                <div class="form-check">
+                  <!-- Kiểm tra user.role để check đúng ô lần đầu tiên (<%= user.role === 'admin' ? 'checked' : '' %>) -->
+                  <input class="form-check-input" type="radio" name="role" id="admin" value="admin" checked>
+                  <label class="form-check-label" for="admin">
+                    Admin
+                  </label>
+                </div>
+                <div class="form-check">
+                  <!-- Dưới này cũng kiểm tra tương tự <%= user.role === 'admin' ? '' : 'checked' %> -->
+                  <input class="form-check-input" type="radio" name="role" id="user" value="user">
+                  <label class="form-check-label" for="user">
+                    User
+                  </label>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancel
+              </button>
+              <button type="button" class="btn btn-primary" id="confirmSetRoleBtn" onclick="setRole()">
+                COMFIRM
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- ===================MODAL DELETE=================== -->
       <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="max-width: 40%">
@@ -250,6 +347,11 @@
       });
     });
     $(document).ready(function() {
+      $(".btn-set-role").click(function() {
+        $("#SetAdminModal").modal("show");
+      });
+    });
+    $(document).ready(function() {
       $(".btn-outline-danger").click(function() {
         const username = $(this).closest("tr").find("td:eq(0)").text().trim();
 
@@ -259,6 +361,17 @@
         $("#confirmDeleteBtn").attr("username", username);
 
         $("#deleteUserModal").modal("show");
+      });
+    });
+
+    $(document).ready(function() {
+      $(".btn-outline-info").click(function() {
+        const username = $(this).closest("tr").find("td:eq(0)").text().trim();
+
+        // $("#newUsernameInput").val(username);
+        $("#confirmSetRoleBtn").removeAttr("username");
+        $("#confirmSetRoleBtn").attr("username", username);
+        $("#SetRoleModal").modal("show");
       });
     });
 
@@ -282,6 +395,22 @@
         contentType: 'application/json',
         data: JSON.stringify({
           username,
+        }),
+        success: function(data) {
+          window.location.href = '/admin/userManagement';
+        },
+      });
+    }
+    function setRole() {
+      const username = $("#confirmSetRoleBtn").attr("username");
+      const role = $("input[name='role']:checked").val();
+      $.ajax({
+        url: '/admin/userManagement',
+        type: 'PATCH',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          username,
+          role
         }),
         success: function(data) {
           window.location.href = '/admin/userManagement';
@@ -355,6 +484,97 @@
       });
 
       $("#EditNameModal").on("show.bs.modal", function() {
+        // Xóa các thông báo lỗi khi modal được hiển thị
+        $(".alert").remove();
+      });
+    });
+
+    $(document).ready(function () {
+      function processSetAdminInput() {
+        const usernameRegex = /^[a-zA-Z0-9._]{4,16}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,32}$/;
+        const adminUsername = $(".username-input-set-admin").val();
+        const adminPassword = $(".password-input-set-admin").val();
+        const confirmAdminPassword = $(".passwordConfirm-input-set-admin").val();
+        if (
+          adminUsername !== "" &&
+          adminPassword !== "" &&
+          confirmAdminPassword !== ""
+        ) {
+          if (!usernameRegex.test(adminUsername)) {
+            showAlert(
+              `danger`,
+              `Username must have at least 4 characters, at most 16 characters, and only containing alphanumericals, dots ('.'), and underscores ('_')`
+            );
+            return;
+          }
+          if (adminPassword !== confirmAdminPassword) {
+            showAlert(
+              "danger",
+              "New password and confirm new password do not match"
+            );
+            return;
+          }
+          if (!passwordRegex.test(adminPassword)) {
+            showAlert(
+              "danger",
+              "Password must have at least eight characters, at most 32 characters, at least one uppercase letter, one lowercase letter and one number"
+            );
+            return;
+          }
+          $.ajax({
+            url: "/admin/userManagement",
+            type: "PATCH",
+            contentType: "application/json",
+            data: JSON.stringify({
+              adminUsername,
+              adminPassword
+            }),
+            success: function (data) {
+              data.status === "success"
+                ? showAlert("success", data.message)
+                : showAlert("danger", data.message);
+              if (data.status === "success") {
+                setTimeout(() => (window.location.href = "/admin/userManagement"), 2000);
+              }
+            },
+          });
+        } else {
+          showAlert("danger", "Please fill out the fields");
+        }
+      }
+
+      $(".username-input-set-admin").keypress(function (event) {
+        if (event.which === 13) {
+          event.preventDefault();
+          processSetAdminInput();
+        }
+      });
+
+      $(".password-input-set-admin").keypress(function (event) {
+        if (event.which === 13) {
+          event.preventDefault();
+          processSetAdminInput();
+        }
+      });
+
+      $(".passwordConfirm-input-set-admin").keypress(function (event) {
+        if (event.which === 13) {
+          event.preventDefault();
+          processSetAdminInput();
+        }
+      });
+
+      $("#confirmSetAdminBtn").on("click", function () {
+        processSetAdminInput();
+      });
+
+      $("#SetAdminModal").on("hidden.bs.modal", function() {
+        // Xóa các thông báo lỗi khi modal được ẩn đi
+        $(".alert").remove();
+      });
+
+      $("#SetAdminModal").on("show.bs.modal", function() {
         // Xóa các thông báo lỗi khi modal được hiển thị
         $(".alert").remove();
       });
