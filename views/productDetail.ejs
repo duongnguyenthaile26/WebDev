@@ -89,6 +89,15 @@
           }) %>
       </div>
     </div>
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+      <div class="toast-container d-none p-3" data-bs-container="body">
+        <div class="toast align-items-center d-flex" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="8000" id="toastMainTag">
+          <i class="m-2 fa-solid fs-4" id="toastIcon"></i>
+          <div class="toast-body" id="toast-body"></div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="flag-id" style="display: none"><%= flag._id %></div>
   <!-- ===================CONTENT=================== -->
@@ -176,13 +185,32 @@
       quantityInput.value = quantity;
     }
 
+    function showToast(status, message) {
+      $("#toastMainTag").removeClass("text-bg-danger");
+      $("#toastMainTag").removeClass("text-bg-success");
+      $("#toastIcon").removeClass("fa-exclamation-circle");
+      $("#toastIcon").removeClass("fa-circle-check");
+
+      if (status === "fail") {
+        $("#toastMainTag").addClass("text-bg-danger");
+        $("#toastIcon").addClass("fa-exclamation-circle");
+      } else {
+        $("#toastMainTag").addClass("text-bg-success");
+        $("#toastIcon").addClass("fa-circle-check");
+      }
+
+      $(".toast-body").text(message);
+      $(".toast-container").removeClass("d-none");
+      $(".toast").toast("show");
+    }
+
     function addToCart() {
       const flagID = $(".flag-id").html();
       $.post("/product/addToCart", {
         flagID,
         quantity
       }, function(data) {
-        alert("Add to cart successful!");
+        showToast("success", "Add flag to cart successfully!")
         quantity = 1;
         quantityInput.value = quantity;
       });
