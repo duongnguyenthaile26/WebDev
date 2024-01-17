@@ -13,7 +13,10 @@ async function detail(req, res, next) {
     const flagId = req.params.flagId; // Lấy id của flag từ URL
     const flag = await Flag.findById(flagId).lean();
     const type = flag.type;
-    const flagsToShow = await Flag.find({ type }).lean();
+    const flagsToShow = await Flag.aggregate([
+      { $match: { type: type } },
+      { $sample: { size: 12 } },
+    ]).exec();
     res.render("productDetail", {
       user: req.user,
       flag,

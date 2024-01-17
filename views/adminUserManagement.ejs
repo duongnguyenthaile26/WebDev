@@ -169,14 +169,14 @@
               <form>
                 <div class="form-check">
                   <!-- Kiểm tra user.role để check đúng ô lần đầu tiên (<%= user.role === 'admin' ? 'checked' : '' %>) -->
-                  <input class="form-check-input" type="radio" name="role" id="admin" value="admin" checked>
+                  <input class="form-check-input" type="radio" name="role" id="adminRadio" value="admin" checked>
                   <label class="form-check-label" for="admin">
                     Admin
                   </label>
                 </div>
                 <div class="form-check">
                   <!-- Dưới này cũng kiểm tra tương tự <%= user.role === 'admin' ? '' : 'checked' %> -->
-                  <input class="form-check-input" type="radio" name="role" id="user" value="user">
+                  <input class="form-check-input" type="radio" name="role" id="userRadio" value="user">
                   <label class="form-check-label" for="user">
                     User
                   </label>
@@ -404,14 +404,16 @@
 
     function setRole() {
       const username = $("#confirmSetRoleBtn").attr("username");
-      const role = $("input[name='role']:checked").val();
+      const adminRadio = $("#adminRadio").prop('checked');
+      const userRadio = $("#userRadio").prop('checked');
       $.ajax({
         url: '/admin/userManagement',
         type: 'PATCH',
         contentType: 'application/json',
         data: JSON.stringify({
+          mode: "role",
           username,
-          role
+          role: adminRadio ? "admin" : "user",
         }),
         success: function(data) {
           window.location.href = '/admin/userManagement';
@@ -459,6 +461,7 @@
             type: 'PATCH',
             contentType: 'application/json',
             data: JSON.stringify({
+              mode: "name",
               currentUsername,
               newUsername,
               newName,

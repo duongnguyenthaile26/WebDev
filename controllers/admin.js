@@ -78,28 +78,44 @@ async function removeUser(req, res, next) {
 
 async function editUser(req, res, next) {
   try {
-    const { currentUsername, newUsername, newName } = req.body;
+    if (req.mode === "name") {
+      const { currentUsername, newUsername, newName } = req.body;
 
-    const checkUser = await User.findOne({ username: newUsername });
-    if (checkUser && newUsername != currentUsername) {
-      return res.json({
-        status: "fail",
-        message: "Username has been taken by another account",
+      const checkUser = await User.findOne({ username: newUsername });
+      if (checkUser && newUsername != currentUsername) {
+        return res.json({
+          status: "fail",
+          message: "Username has been taken by another account",
+        });
+      }
+      const user = await User.findOne({ username: currentUsername });
+      user.username = newUsername;
+      user.name = newName;
+      user.markModified("username");
+      user.markModified("name");
+      await user.save();
+      if (currentUsername !== newUsername) {
+        await AuxApi.changeWalletName(currentUsername, newUsername);
+      }
+      res.json({
+        status: "success",
+        message: "Change user's information successfully",
+      });
+    } else {
+      const { username, role } = req.body;
+      const user = await User.findOne({ username });
+      user.role = role;
+      user.markModified("role");
+      if (role === "admin") {
+        user.cart = [];
+        user.markModified("cart");
+      }
+      await user.save();
+      res.json({
+        status: "success",
+        message: "Change user's role successfully",
       });
     }
-    const user = await User.findOne({ username: currentUsername });
-    user.username = newUsername;
-    user.name = newName;
-    user.markModified("username");
-    user.markModified("name");
-    await user.save();
-    if (currentUsername !== newUsername) {
-      await AuxApi.changeWalletName(currentUsername, newUsername);
-    }
-    res.json({
-      status: "success",
-      message: "Change user's information successfully",
-    });
   } catch (error) {
     next(error);
   }
