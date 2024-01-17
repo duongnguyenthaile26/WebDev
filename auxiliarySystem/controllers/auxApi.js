@@ -56,6 +56,44 @@ async function addWallet(req, res, next) {
     next(error);
   }
 }
+
+async function changeWalletName(req, res, next) {
+  try {
+    const { username, newUsername } = req.body;
+    const wallet = await Wallet.findOne({ username });
+    wallet.username = newUsername;
+    wallet.markModified("username");
+    await wallet.save();
+    return res.json({
+      status: "success",
+      message: "Change wallet username successfully",
+    });
+  } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
+    next(error);
+  }
+}
+
+async function deleteWallet(req, res, next) {
+  try {
+    const { username } = req.body;
+    await Wallet.findOneAndDelete({ username });
+    return res.json({
+      status: "success",
+      message: "Delete wallet successfully",
+    });
+  } catch (error) {
+    res.json({
+      status: "fail",
+      message: error,
+    });
+    next(error);
+  }
+}
+
 async function deposit(req, res, next) {
   try {
     const depositAmount = Number(req.body.amount);
@@ -141,6 +179,7 @@ async function pay(req, res, next) {
     next(error);
   }
 }
+
 async function getAllTransaction(req, res, next) {
   try {
     const transactions = await Transaction.find({}).select("-__v");
@@ -163,3 +202,5 @@ exports.addWallet = addWallet;
 exports.deposit = deposit;
 exports.pay = pay;
 exports.getAllTransaction = getAllTransaction;
+exports.deleteWallet = deleteWallet;
+exports.changeWalletName = changeWalletName;

@@ -61,7 +61,9 @@ async function categoryManagement(req, res, next) {
 
 async function removeUser(req, res, next) {
   try {
-    await User.findOneAndDelete({ username: req.body.username });
+    const { username } = req.body;
+    await AuxApi.deleteWallet(username);
+    await User.findOneAndDelete({ username });
     res.json({
       status: "success",
       message: "Delete user successfully",
@@ -88,6 +90,9 @@ async function editUser(req, res, next) {
     user.markModified("username");
     user.markModified("name");
     await user.save();
+    if (currentUsername !== newUsername) {
+      await AuxApi.changeWalletName(currentUsername, newUsername);
+    }
     res.json({
       status: "success",
       message: "Change user's information successfully",

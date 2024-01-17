@@ -4,7 +4,11 @@ const router = express.Router();
 
 const controller = require(path.join(__dirname, "..", "controllers", "auxApi"));
 
-router.route("/wallet").post(controller.addWallet);
+router
+  .route("/wallet")
+  .post(controller.addWallet)
+  .delete(controller.deleteWallet)
+  .patch(controller.changeWalletName);
 
 router.route("/wallet/:username").get(controller.getWallet);
 
