@@ -47,11 +47,11 @@ async function getWallet(username) {
   return response.data;
 }
 
-async function deposit(amount, bankCard, username) {
+async function deposit(amount, bankCard, username, transactionID) {
   const token = generateToken();
   const response = await axios.post(
     `https://127.0.0.1:${PORT}/api/deposit`,
-    { amount, bankCard, username },
+    { amount, bankCard, username, transactionID },
     {
       headers: { Authorization: `Bearer ${token}` },
       httpsAgent,
@@ -60,11 +60,24 @@ async function deposit(amount, bankCard, username) {
   return response.data;
 }
 
-async function pay(amount, username) {
+async function pay(amount, username, transactionID) {
   const token = generateToken();
   const response = await axios.post(
     `https://127.0.0.1:${PORT}/api/pay`,
-    { amount, username },
+    { amount, username, transactionID },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+      httpsAgent,
+    }
+  );
+  return response.data;
+}
+
+async function undo(transactionID) {
+  const token = generateToken();
+  const response = await axios.post(
+    `https://127.0.0.1:${PORT}/api/undo`,
+    { transactionID },
     {
       headers: { Authorization: `Bearer ${token}` },
       httpsAgent,
@@ -115,3 +128,4 @@ exports.deposit = deposit;
 exports.pay = pay;
 exports.getAllTransaction = getAllTransaction;
 exports.changeWalletName = changeWalletName;
+exports.undo = undo;

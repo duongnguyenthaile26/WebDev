@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const transactionchema = new mongoose.Schema({
+const transactionSchema = new mongoose.Schema({
+  transactionID: { type: String, required: true },
   createDate: { type: Date, required: true },
   command: {
     type: String,
@@ -12,6 +13,6 @@ const transactionchema = new mongoose.Schema({
   content: { type: String },
   username: { type: String, require: true },
 });
-const Transaction = mongoose.model("transaction", transactionchema);
+const Transaction = mongoose.model("transaction", transactionSchema);
 
 module.exports = Transaction;

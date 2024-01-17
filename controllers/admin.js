@@ -2,9 +2,12 @@ const path = require("path");
 const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const User = require(path.join(__dirname, "..", "models", "user"));
+const bcrypt = require("bcrypt");
 const fs = require("fs");
 const url = require("url");
 const AuxApi = require(path.join(__dirname, "..", "utilities", "AuxApi"));
+
+const saltRounds = Number(process.env.SALT_ROUNDS);
 
 async function userManagement(req, res, next) {
   try {
@@ -12,9 +15,9 @@ async function userManagement(req, res, next) {
     const page = parseInt(query.page) || 1;
     const username = query.username;
     const itemsPerPage = 6;
-    let users = await User.find({ role: { $ne: "admin" } }).select(
-      "-password -__v"
-    );
+    let users = await User.find({
+      username: { $ne: req.user.username },
+    }).select("-password -__v");
     if (username && username !== "") {
       users = users.filter((user) => user.username.indexOf(username) !== -1);
     }
@@ -225,6 +228,35 @@ async function transaction(req, res, next) {
   }
 }
 
+async function addAdmin(req, res, next) {
+  try {
+    const { username, password } = req.body;
+    const userByUsername = await User.findOne({ username });
+    if (userByUsername) {
+      return res.json({
+        status: "fail",
+        message: "Username has been taken",
+      });
+    }
+    const encryptedPassword = await bcrypt.hash(password, saltRounds);
+    await User.create({
+      username,
+      name: "Admin",
+      mail: "None",
+      verified: true,
+      verifyToken: "0",
+      password: encryptedPassword,
+      role: "admin",
+    });
+    res.json({
+      status: "success",
+      message: "Create new admin account successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.userManagement = userManagement;
 exports.categoryManagement = categoryManagement;
 exports.removeUser = removeUser;
@@ -233,3 +265,4 @@ exports.removeCategory = removeCategory;
 exports.addCategory = addCategory;
 exports.transaction = transaction;
 exports.editUser = editUser;
+exports.addAdmin = addAdmin;

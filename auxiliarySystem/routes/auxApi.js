@@ -18,4 +18,6 @@ router.route("/pay").post(controller.pay);
 
 router.route("/transaction").get(controller.getAllTransaction);
 
+router.route("/undo").post(controller.undo);
+
 module.exports = router;

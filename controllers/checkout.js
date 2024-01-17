@@ -3,7 +3,9 @@ const Flag = require(path.join(__dirname, "..", "models", "flag"));
 const Category = require(path.join(__dirname, "..", "models", "category"));
 const User = require(path.join(__dirname, "..", "models", "user"));
 const AuxApi = require(path.join(__dirname, "..", "utilities", "AuxApi"));
+const AppError = require(path.join(__dirname, "..", "utilities", "AppError"));
 const url = require("url");
+const crypto = require("crypto");
 
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
@@ -90,9 +92,16 @@ async function removeItem(req, res, next) {
   }
 }
 
-async function payment(req, res, next) {
+async function payment(req, res) {
+  const transactionID = crypto.randomUUID();
   try {
-    const data = await AuxApi.pay(req.body.amount, req.user.username);
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new AppError("Request timed out", 408)), 10000)
+    );
+    const data = await Promise.race([
+      AuxApi.pay(req.body.amount, req.user.username, transactionID),
+      timeoutPromise,
+    ]);
     if (data.status === "fail") {
       return res.json(data);
     }
@@ -117,7 +126,7 @@ async function payment(req, res, next) {
       email: req.body.email,
       phone: req.body.phone,
       createDate: transaction.createDate,
-      transactionId: transaction._id,
+      transactionId: transaction.transactionID,
       total: total,
       flags: flags,
     };
@@ -130,16 +139,35 @@ async function payment(req, res, next) {
     await user.save();
     res.json({ status: "success" });
   } catch (error) {
-    next(error);
+    const response = await AuxApi.undo(transactionID);
+    if (response.status === "success") {
+      res.json({
+        status: "fail",
+        message: "Transaction failed, undo successfully",
+      });
+    } else {
+      res.json({
+        status: "fail",
+        message: "Transaction failed, undo failed",
+      });
+    }
   }
 }
 
-async function deposit(req, res, next) {
+async function deposit(req, res) {
+  const transactionID = crypto.randomUUID();
   try {
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new AppError("Request timed out", 408)), 10000)
+    );
     const bankCard = req.body.bankCard;
     const amount = req.body.amount;
     const username = req.user.username;
-    const data = await AuxApi.deposit(amount, bankCard, username);
+    const data = await Promise.race([
+      AuxApi.deposit(amount, bankCard, username, transactionID),
+      timeoutPromise,
+    ]);
+
     if (data.status === "fail") {
       return res.json(data);
     }
@@ -150,7 +178,18 @@ async function deposit(req, res, next) {
       balance: data.balance,
     });
   } catch (error) {
-    next(error);
+    const response = await AuxApi.undo(transactionID);
+    if (response.status === "success") {
+      res.json({
+        status: "fail",
+        message: "Transaction failed, undo successfully",
+      });
+    } else {
+      res.json({
+        status: "fail",
+        message: "Transaction failed, undo failed",
+      });
+    }
   }
 }
 
@@ -185,6 +224,7 @@ async function getBalance(req, res, next) {
     next(error);
   }
 }
+
 async function purchaseHistory(req, res, next) {
   try {
     const user = await User.findOne({ username: req.user.username });
@@ -196,8 +236,6 @@ async function purchaseHistory(req, res, next) {
     const page = parseInt(query.page) || 1;
 
     const totalPages = Math.ceil(user.orderList.length);
-    const startIndex = page - 1;
-    const endIndex = page;
 
     const orderList = user.orderList.slice().reverse();
     const orderListOnPage = orderList[page - 1];

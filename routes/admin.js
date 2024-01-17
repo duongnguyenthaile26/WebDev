@@ -6,6 +6,7 @@ const controller = require(path.join(__dirname, "..", "controllers", "admin"));
 
 router
   .route("/userManagement")
+  .post(controller.addAdmin)
   .get(controller.userManagement)
   .delete(controller.removeUser)
   .patch(controller.editUser);

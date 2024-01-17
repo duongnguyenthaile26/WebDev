@@ -121,6 +121,7 @@ async function deposit(req, res, next) {
     await bankCard.save();
 
     const transaction = await Transaction.create({
+      transactionID: req.body.transactionID,
       createDate: Date.now(),
       command: "deposit",
       amount: depositAmount,
@@ -158,6 +159,7 @@ async function pay(req, res, next) {
     await wallet.save();
 
     const transaction = await Transaction.create({
+      transactionID: req.body.transactionID,
       createDate: Date.now(),
       command: "pay",
       amount: payAmount,
@@ -197,6 +199,33 @@ async function getAllTransaction(req, res, next) {
   }
 }
 
+async function undo(req, res, next) {
+  try {
+    const { transactionID } = req.body;
+    const transaction = await Transaction.findOne({ transactionID });
+    if (!transaction) {
+      return res.json({ status: "success", message: "Nothing to undo" });
+    }
+    let amount = transaction.amount;
+    const username = transaction.username;
+    if (transaction.command === "deposit") {
+      amount *= -1;
+    }
+    const wallet = await Wallet.findOne({ username });
+    wallet.balance += amount;
+    wallet.markModified("balance");
+    await wallet.save();
+    await Transaction.findOneAndDelete({ transactionID });
+    res.json({ status: "success", message: "Undo transaction success" });
+  } catch (error) {
+    res.json({
+      status: "fail",
+      message: "Cannot undo transaction",
+    });
+    next(error);
+  }
+}
+
 exports.getWallet = getWallet;
 exports.addWallet = addWallet;
 exports.deposit = deposit;
@@ -204,3 +233,4 @@ exports.pay = pay;
 exports.getAllTransaction = getAllTransaction;
 exports.deleteWallet = deleteWallet;
 exports.changeWalletName = changeWalletName;
+exports.undo = undo;

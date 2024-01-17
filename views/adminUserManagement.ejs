@@ -57,7 +57,7 @@
               <i class="fa-solid fa-wrench">&nbsp;</i>
             </div>
             <div>
-              Set Admin
+              Create admin account
             </div>
           </button>
         </div>
@@ -98,7 +98,7 @@
                       <span>user.role</span>
                     <% } %>
                   </td> -->
-                  <td><span class="text-primary">Example role</span></td>
+                  <td><span class="text-primary"><%= user.role %></span></td>
                   <td>
                     <form action="" method="get" style="display: inline">
                       <button type="button" class="btn btn-outline-info">
@@ -401,6 +401,7 @@
         },
       });
     }
+
     function setRole() {
       const username = $("#confirmSetRoleBtn").attr("username");
       const role = $("input[name='role']:checked").val();
@@ -489,7 +490,7 @@
       });
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
       function processSetAdminInput() {
         const usernameRegex = /^[a-zA-Z0-9._]{4,16}$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,32}$/;
@@ -524,16 +525,16 @@
           }
           $.ajax({
             url: "/admin/userManagement",
-            type: "PATCH",
+            type: "POST",
             contentType: "application/json",
             data: JSON.stringify({
-              adminUsername,
-              adminPassword
+              username: adminUsername,
+              password: adminPassword,
             }),
-            success: function (data) {
-              data.status === "success"
-                ? showAlert("success", data.message)
-                : showAlert("danger", data.message);
+            success: function(data) {
+              data.status === "success" ?
+                showAlert("success", data.message) :
+                showAlert("danger", data.message);
               if (data.status === "success") {
                 setTimeout(() => (window.location.href = "/admin/userManagement"), 2000);
               }
@@ -544,28 +545,28 @@
         }
       }
 
-      $(".username-input-set-admin").keypress(function (event) {
+      $(".username-input-set-admin").keypress(function(event) {
         if (event.which === 13) {
           event.preventDefault();
           processSetAdminInput();
         }
       });
 
-      $(".password-input-set-admin").keypress(function (event) {
+      $(".password-input-set-admin").keypress(function(event) {
         if (event.which === 13) {
           event.preventDefault();
           processSetAdminInput();
         }
       });
 
-      $(".passwordConfirm-input-set-admin").keypress(function (event) {
+      $(".passwordConfirm-input-set-admin").keypress(function(event) {
         if (event.which === 13) {
           event.preventDefault();
           processSetAdminInput();
         }
       });
 
-      $("#confirmSetAdminBtn").on("click", function () {
+      $("#confirmSetAdminBtn").on("click", function() {
         processSetAdminInput();
       });
 
