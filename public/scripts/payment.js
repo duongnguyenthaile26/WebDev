@@ -1,7 +1,7 @@
 $(document).ready(async function () {
   const odometerBalance = $("#odometer-balance");
   const odometerCheckout = $("#odometer-checkout");
-  const checkoutTotal = Number($(".total-cart-price").text()); // số tiền phải trả
+  const checkoutTotal = Number($(".total-cart-price").text().slice(1)); // số tiền phải trả
   let currentBalance = await new Promise((resolve, reject) => {
     $.get("/checkout/balance", function (data) {
       // Nếu status === fail => data.balance = -1
