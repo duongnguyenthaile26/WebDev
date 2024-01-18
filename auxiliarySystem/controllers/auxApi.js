@@ -61,6 +61,12 @@ async function changeWalletName(req, res, next) {
   try {
     const { username, newUsername } = req.body;
     const wallet = await Wallet.findOne({ username });
+    if (!wallet) {
+      return res.json({
+        status: "success",
+        message: "Change wallet username successfully",
+      });
+    }
     wallet.username = newUsername;
     wallet.markModified("username");
     await wallet.save();
